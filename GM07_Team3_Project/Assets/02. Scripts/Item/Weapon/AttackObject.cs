@@ -6,11 +6,26 @@ public class AttackObject : MonoBehaviour
     protected Vector3 direction;
     protected float lifeTime;
 
+    private Rigidbody rb;
+    private Collider col;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+    }
+
     public virtual void Init(float  damage, Vector3 direction, float lifeTime)
     {
         this.damage = damage;
-        this.direction = direction;
+        this.direction = direction.normalized;
         this.lifeTime = lifeTime;
+
+        //이전 Invoke 삭제
+        CancelInvoke();
+        //생명 주기 끝나면 삭제
+        Invoke(nameof(Return), lifeTime);
+
     }
 
     ////적에게 주는 데미지
