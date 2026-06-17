@@ -19,12 +19,17 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private RectTransform rectTransform;
     private Vector3 originalScale;
+    private Color originalTextColor;
     private bool isClickable;
 
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         originalScale = rectTransform.transform.localScale;
+        if (buttonText != null)
+        {
+            originalTextColor = buttonText.color;
+        }
         isClickable = true;
     }
 
@@ -32,16 +37,22 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!isClickable) return;
-        
+        if (!buttonText) return;
+
         // 현재 진행중인 애니메이션이 있다면 중지 
         transform.DOKill();
         transform.DOScale(originalScale * hoverScale, 0.2f).SetEase(Ease.OutBack);
+        // 텍스트 색상을 변경
+        buttonText.DOColor(Color.green, 0.2f).SetEase(Ease.OutBack);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!isClickable) return;
+        if (!buttonText) return;
+
         transform.DOKill();
         transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
+        buttonText.DOColor(originalTextColor, 0.2f).SetEase(Ease.OutBack);
     }
 }
