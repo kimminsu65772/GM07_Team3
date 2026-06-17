@@ -14,30 +14,34 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     [SerializeField] private TextMeshProUGUI buttonText; 
 
     // 버튼에 마우스가 올라갔을 때의 스케일을 정의하는 변수
-    [Header("Hover Settings")]
+    [Header("Animation Scale Setting")]
     [SerializeField] private float hoverScale = 1.2f;
     [SerializeField] private float pressScale = 0.9f;
 
+    [Header("Start YOffset Seting")]
+    [SerializeField] private float startYOffset = -80f;
+
     private RectTransform rectTransform;
+    private Vector2 originalPosition;
     private Vector3 originalScale;
     private Color originalTextColor;
-    private bool isClickable;
+    [SerializeField] private bool IsClickable;
 
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         originalScale = rectTransform.transform.localScale;
+        originalPosition = rectTransform.anchoredPosition;
         if (buttonText != null)
         {
             originalTextColor = buttonText.color;
         }
-        isClickable = true;
     }
 
     // 버튼 위에 마우스가 올라갔을 때 호출되는 메서드
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isClickable) return;
+        if (!IsClickable) return;
         if (!buttonText) return;
 
         // 현재 진행중인 애니메이션이 있다면 중지 
@@ -49,7 +53,7 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isClickable) return;
+        if (!IsClickable) return;
         if (!buttonText) return;
 
         transform.DOKill();
@@ -60,7 +64,7 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     // 마우스 버튼을 누르는 동안 호출되는 메서드
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!isClickable) return;
+        if (!IsClickable) return;
         if (!buttonText) return;
         transform.DOKill();
         transform.DOScale(originalScale * pressScale, 0.1f).SetEase(Ease.OutBack);
@@ -70,10 +74,33 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     // 마우스 버튼에서 손을 뗄 때 호출되는 메서드
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!isClickable) return;
+        if (!IsClickable) return;
         if (!buttonText) return;
         transform.DOKill();
         transform.DOScale(originalScale, 0.1f).SetEase(Ease.OutBack);
         buttonText.DOFade(1f, 0.1f).SetEase(Ease.OutBack);
+    }
+
+    public void ActiveMenuButton()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Join(buttonText.DOFade(1f, 0.25f));
+        sequence.Join(rectTransform.DOAnchorPosY(originalPosition.y, 0.25f).SetEase(Ease.OutCubic));
+        sequence.Join(transform.DOScale(originalScale, 0.25f).SetEase(Ease.OutBack));
+    }
+
+    public void DeactiveMenuButton()
+    {
+        IsClickable = false;
+        transform.DOKill();
+        rectTransform.DOKill();
+        rectTransform.anchoredPosition = new Vector2(originalPosition.x, originalPosition.y + startYOffset);
+        transform.localScale = Vector3.zero;
+    }
+
+    // 시작 애니메이션 재생 후 버튼이 클릭 가능한 상태로 전환하기 위해 따로 Setter 구현
+    public void SetIsClickable(bool value)
+    {
+        IsClickable = value;
     }
 }
