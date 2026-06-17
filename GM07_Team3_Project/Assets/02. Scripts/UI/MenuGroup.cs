@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class MenuGroup : MonoBehaviour
     // 메뉴 UI 요소들을 배열로 관리
     [SerializeField] private MenuUI[] menuButtons;
     [SerializeField] private CanvasGroup canvasGroup;
+    private MainMenuType selectedMenu;
+    public event Action<MainMenuType> OnMenuSelected;
 
     private void Start()
     {
@@ -37,6 +40,7 @@ public class MenuGroup : MonoBehaviour
             int index = i; // 클로저 문제 해결을 위해 인덱스를 별도의 변수에 저장
             sequence.AppendCallback(() => menuButtons[index].ActiveMenuButton());
             sequence.AppendInterval(0.1f); // 각 메뉴 버튼이 등장하는 간격
+            menuButtons[i].OnMenuClicked += HandleMenuSelected;
         }
         yield return sequence.WaitForCompletion();
 
@@ -54,5 +58,19 @@ public class MenuGroup : MonoBehaviour
         // 메뉴가 선택되면 더이상 다른 메뉴를 선택할 수 없도록 설정
         canvasGroup.interactable = false;
         menu.PlaySelectTween();
+
+        for (int i = 0; i < menuButtons.Length; i++)
+        {
+            if (menuButtons[i] != menu)
+            {
+                menuButtons[i].SetIsClickable(false);
+            }
+        }
+    }
+
+    private void HandleMenuSelected(MainMenuType menuType)
+    {
+        selectedMenu = menuType;
+        OnMenuSelected?.Invoke(menuType);
     }
 }

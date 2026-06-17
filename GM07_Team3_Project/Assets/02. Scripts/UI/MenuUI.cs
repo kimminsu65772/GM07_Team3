@@ -35,7 +35,7 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private Color originalTextColor;
     private bool IsClickable;
 
-    public event Action<MainMenuType> OnMenuSelected;
+    public event Action<MainMenuType> OnMenuClicked;
 
     public void Awake()
     {
@@ -122,7 +122,7 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         transform.DOScale(originalScale, 0.3f).SetEase(Ease.InBack);
         buttonText.DOColor(Color.yellow, 0.7f).SetEase(Ease.InBack).OnComplete(() =>
         {
-            OnMenuSelected?.Invoke(buttonType);
+            OnMenuClicked?.Invoke(buttonType);
             Debug.Log($"Menu Selected: {buttonType}");
         });
     }
