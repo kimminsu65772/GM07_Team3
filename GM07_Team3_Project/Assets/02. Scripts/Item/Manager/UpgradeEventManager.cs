@@ -10,5 +10,4 @@ public class UpgradeEventManager : MonoBehaviour
     {
         OnUpgradeSelected?.Invoke(upgradeData);
     }
-   
 }
