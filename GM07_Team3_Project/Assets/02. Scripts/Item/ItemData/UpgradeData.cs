@@ -22,8 +22,8 @@ public class UpgradeData : ScriptableObject
     [Header("무기 프리펩")]
     [SerializeField] private GameObject weaponPrefab;
 
-    [Header("투사체 프리펩")]
-    [SerializeField] private GameObject bulletPrefab;
+    [Header("무기 투사체 프리펩")]
+    [SerializeField] private GameObject weaponAttackPrefab;
 
     [Header("수치 값")]
     [SerializeField] private float value;
@@ -36,7 +36,7 @@ public class UpgradeData : ScriptableObject
     public string Description { get {return description;} } 
     public Sprite Icon { get {return icon;} }
     public GameObject WeaponPrefab { get {return weaponPrefab;} }
-    public GameObject BulletPrefab { get { return bulletPrefab;} }
+    public GameObject BulletPrefab { get { return weaponAttackPrefab; } }
     public float Value { get {return value;} }  
 
 }
