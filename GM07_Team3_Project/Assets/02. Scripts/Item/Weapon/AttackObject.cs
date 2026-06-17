@@ -13,10 +13,10 @@ public class AttackObject : MonoBehaviour
         this.lifeTime = lifeTime;
     }
 
-    //적에게 주는 데미지
+    ////적에게 주는 데미지
     //public virtual void Onhit(Enemy enemy)
     //{
-    //   //적에게 데미지
+    //    //적에게 데미지
     //}
 
     //일단 리턴으로 사용 이후 오브젝트풀링으로 관리
