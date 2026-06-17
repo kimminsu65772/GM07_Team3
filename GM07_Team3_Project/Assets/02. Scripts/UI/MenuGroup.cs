@@ -61,10 +61,7 @@ public class MenuGroup : MonoBehaviour
 
         for (int i = 0; i < menuButtons.Length; i++)
         {
-            if (menuButtons[i] != menu)
-            {
-                menuButtons[i].SetIsClickable(false);
-            }
+            menuButtons[i].SetIsClickable(false);
         }
     }
 
@@ -72,5 +69,13 @@ public class MenuGroup : MonoBehaviour
     {
         selectedMenu = menuType;
         OnMenuSelected?.Invoke(menuType);
+    }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < menuButtons.Length; i++)
+        {
+            menuButtons[i].OnMenuClicked -= HandleMenuSelected;
+        }
     }
 }

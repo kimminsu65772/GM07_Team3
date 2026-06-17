@@ -30,4 +30,10 @@ public class MainMenuController : MonoBehaviour
                 break;
         }
     }
+
+    private void OnDestroy()
+    {
+        if (menuGroup == null) return;
+        menuGroup.OnMenuSelected -= RequestAction;
+    }
 }
