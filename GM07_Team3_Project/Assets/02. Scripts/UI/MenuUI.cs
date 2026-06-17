@@ -2,16 +2,24 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 /*
  * MenuUI
  * MenuUI는 메뉴 버튼 UI에 애니메이션 효과를 적용하는 스크립트입니다.
  * 마우스와의 상호작용과 버튼 클릭 시 애니메이션 효과를 어떤 방식으로 적용할 것인지 정의합니다.
  */
-public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // 애니메이션 타겟이 되는 버튼의 텍스트
-    [SerializeField] private TextMeshProUGUI buttonText; 
+    [Header("Button Text")]
+    [SerializeField] private TextMeshProUGUI buttonText;
+
+    [Header("Button Type")] 
+    [SerializeField] private MainMenuType buttonType;
+
+    [Header("Button Group")]
+    [SerializeField] private MenuGroup menuGroup;
 
     // 버튼에 마우스가 올라갔을 때의 스케일을 정의하는 변수
     [Header("Animation Scale Setting")]
@@ -25,7 +33,9 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private Vector2 originalPosition;
     private Vector3 originalScale;
     private Color originalTextColor;
-    [SerializeField] private bool IsClickable;
+    private bool IsClickable;
+
+    public event Action<MainMenuType> OnMenuSelected;
 
     public void Awake()
     {
@@ -61,25 +71,25 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         buttonText.DOColor(originalTextColor, 0.2f).SetEase(Ease.OutBack);
     }
 
-    // 마우스 버튼을 누르는 동안 호출되는 메서드
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (!IsClickable) return;
-        if (!buttonText) return;
-        transform.DOKill();
-        transform.DOScale(originalScale * pressScale, 0.1f).SetEase(Ease.OutBack);
-        buttonText.DOFade(0.5f, 0.1f).SetEase(Ease.OutBack);
-    }
+    //// 마우스 버튼을 누르는 동안 호출되는 메서드
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    if (!IsClickable) return;
+    //    if (!buttonText) return;
+    //    transform.DOKill();
+    //    transform.DOScale(originalScale * pressScale, 0.1f).SetEase(Ease.OutBack);
+    //    buttonText.DOFade(0.5f, 0.1f).SetEase(Ease.OutBack);
+    //}
 
-    // 마우스 버튼에서 손을 뗄 때 호출되는 메서드
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (!IsClickable) return;
-        if (!buttonText) return;
-        transform.DOKill();
-        transform.DOScale(originalScale, 0.1f).SetEase(Ease.OutBack);
-        buttonText.DOFade(1f, 0.1f).SetEase(Ease.OutBack);
-    }
+    //// 마우스 버튼에서 손을 뗄 때 호출되는 메서드
+    //public void OnPointerUp(PointerEventData eventData)
+    //{
+    //    if (!IsClickable) return;
+    //    if (!buttonText) return;
+    //    transform.DOKill();
+    //    transform.DOScale(originalScale, 0.1f).SetEase(Ease.OutBack);
+    //    buttonText.DOFade(1f, 0.1f).SetEase(Ease.OutBack);
+    //}
 
     public void ActiveMenuButton()
     {
@@ -102,5 +112,29 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     public void SetIsClickable(bool value)
     {
         IsClickable = value;
+    }
+
+    public void PlaySelectTween()
+    {
+        transform.DOKill();
+        rectTransform.DOKill();
+        buttonText.DOKill();
+        transform.DOScale(originalScale, 0.3f).SetEase(Ease.InBack);
+        buttonText.DOColor(Color.yellow, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            OnMenuSelected?.Invoke(buttonType);
+        });
+    }
+
+    // 버튼이 클릭 되었다면 해당 타입의 버튼을 MenuGroup에 전달한다.
+    public void OnClickButton()
+    {
+        if (!IsClickable) return;
+        menuGroup.SelectMenu(this);
+    }
+
+    public MainMenuType GetButtonType()
+    {
+        return buttonType;
     }
 }

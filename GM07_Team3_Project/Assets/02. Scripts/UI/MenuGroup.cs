@@ -13,8 +13,6 @@ public class MenuGroup : MonoBehaviour
     [SerializeField] private MenuUI[] menuButtons;
     [SerializeField] private CanvasGroup canvasGroup;
 
-    private MainMenuType selectedMenu = MainMenuType.None;
-
     private void Start()
     {
         // 게임이 시작될 때 메뉴 UI 요소들을 서서히 등장시키는 코루틴을 시작
@@ -48,5 +46,13 @@ public class MenuGroup : MonoBehaviour
             menuButtons[i].SetIsClickable(true);
         }
         canvasGroup.interactable = true;
+    }
+
+    // 선택된 메뉴에 애니메이션 효과를 적용하고 컨트롤러(미구현)에 선택된 버튼의 타입을 전달하는 메서드
+    public void SelectMenu(MenuUI menu)
+    {
+        // 메뉴가 선택되면 더이상 다른 메뉴를 선택할 수 없도록 설정
+        canvasGroup.interactable = false;
+        menu.PlaySelectTween();
     }
 }
