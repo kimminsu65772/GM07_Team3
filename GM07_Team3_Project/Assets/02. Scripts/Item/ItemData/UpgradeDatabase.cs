@@ -25,12 +25,12 @@ public class UpgradeDatabase : ScriptableObject
                 break;
             }
             //랜덤한 능력 or 무기 뽑기
-            int randomindex = Random.Range(0, copyList.Count);
+            int randomIndex = Random.Range(0, copyList.Count);
 
             //결과 넣고
-            result.Add(copyList[randomindex]);
+            result.Add(copyList[randomIndex]);
             //중복방지
-            copyList.RemoveAt(randomindex);
+            copyList.RemoveAt(randomIndex);
         }
         //결과 반환
         return result;
