@@ -45,18 +45,34 @@ public class MeleeEnemy : Enemy
         transform.position += direction * enemyData.MoveSpeed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    // 공격 쿨타임 계산용 변수
+    private float attackTimer;
+
+    // 공격 범위 안에 플레이어가 있는 동안 공격 수행용 메서드
+    private void OnTriggerStay(Collider other)
     {
-        // 충돌 대상이 IDamageable(데미지를 받을 수 있는지) 확인
+        // 충돌 물체 태그가 플레이어인지 확인하는 용도
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+        
+        attackTimer += Time.deltaTime;
+
+        if (attackTimer < enemyData.AttackSpeed)
+        {
+            return;
+        }
+
         IDamageable damageable =
             other.GetComponent<IDamageable>();
 
-        // IDeamageable을 가지고 있으면
         if (damageable != null)
         {
-            //적 공격력만큼 데미지 전달
             damageable.TakeDamage(enemyData.AttackPower);
         }
+
+        attackTimer = 0f;
     }
 
 }
