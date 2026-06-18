@@ -4,7 +4,7 @@ public class AttackObject : MonoBehaviour
 {
     protected float damage;
     protected Vector3 direction;
-    protected float lifeTime;
+    [SerializeField] private float lifeTime;
 
     private Rigidbody rb;
     private Collider col;
@@ -15,11 +15,10 @@ public class AttackObject : MonoBehaviour
         col = GetComponent<Collider>();
     }
 
-    public virtual void Init(float  damage, Vector3 direction, float lifeTime)
+    public virtual void Init(float  damage, Vector3 direction)
     {
         this.damage = damage;
         this.direction = direction.normalized;
-        this.lifeTime = lifeTime;
 
         //이전 Invoke 삭제
         CancelInvoke();
