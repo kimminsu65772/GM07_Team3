@@ -8,7 +8,17 @@ using UnityEngine.SceneManagement;
  */
 public class GameSceneManager : Singleton<GameSceneManager>
 {
-    // 
+    private void OnEnable()
+    {
+        // 이벤트 구독은 이곳에서 이루어짐
+        // SceneLoadRequestChannel.OnSceneLoadRequested += LoadScene;
+    }
+
+    private void OnDisable()
+    {
+        // 이벤트 구독 해제는 이곳에서 이루어짐
+        // SceneLoadRequestChannel.OnSceneLoadRequested -= LoadScene;
+    }
 
     // enum으로 씬 타입을 파라미터로 받아 타입 기반의 씬 로드를 작동
     public void LoadScene(SceneType type)
