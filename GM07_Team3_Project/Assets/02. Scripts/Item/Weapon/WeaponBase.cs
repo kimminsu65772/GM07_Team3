@@ -5,8 +5,10 @@ public class WeaponBase : MonoBehaviour
     private UpgradeData upgradeData;
     private Transform owner;
     private Transform target;
-
+    
+    
     [SerializeField] private float attackInterval = 1.0f;
+
     private float timer = 0.0f;
 
 
