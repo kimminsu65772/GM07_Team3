@@ -27,11 +27,17 @@ public class AttackObject : MonoBehaviour
 
     }
 
-    ////적에게 주는 데미지
-    //public virtual void Onhit(Enemy enemy)
+    //IDamageable 인터페이스 형식 데미지
+
+    //private void OnTriggerEnter(Collider other)
     //{
-    //    //적에게 데미지
+    //    if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
+    //    {
+    //        damageable.TakeDamage(damage);
+    //        Return();
+    //    }
     //}
+
 
     //일단 리턴으로 사용 이후 오브젝트풀링으로 관리
     protected virtual void Return()
