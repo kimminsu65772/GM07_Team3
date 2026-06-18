@@ -34,8 +34,6 @@ public class UpgradeDatabase : ScriptableObject
         }
         //결과 반환
         return result;
-
-
     }
         
     
