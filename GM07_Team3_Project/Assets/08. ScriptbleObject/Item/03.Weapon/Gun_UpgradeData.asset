@@ -19,4 +19,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 0
+  value: 5
