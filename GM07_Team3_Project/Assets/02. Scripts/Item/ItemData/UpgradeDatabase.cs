@@ -21,10 +21,10 @@ public class UpgradeDatabase : ScriptableObject
                 break;
             }
 
-            int randomindex = Random.Range(0, copyList.Count);
+            int randomIndex = Random.Range(0, copyList.Count);
 
-            result.Add(copyList[randomindex]);
-            copyList.RemoveAt(randomindex);
+            result.Add(copyList[randomIndex]);
+            copyList.RemoveAt(randomIndex);
         }
         return result;
     }
