@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangedAttakcObject : AttackObject
+public class RangedAttackObject : AttackObject
 {
     void Start()
     {
