@@ -12,7 +12,7 @@ public class UpgradeDatabase : ScriptableObject
     public List<UpgradeData>  GetRandomUpgardes(int count)
     {
         List<UpgradeData> copyList = new List<UpgradeData>(upgrades);
-        List<UpgradeData> resault = new List<UpgradeData>();
+        List<UpgradeData> result = new List<UpgradeData>();
 
         for (int i = 0; i < count; i++)
         {
@@ -23,9 +23,9 @@ public class UpgradeDatabase : ScriptableObject
 
             int randomindex = Random.Range(0, copyList.Count);
 
-            resault.Add(copyList[randomindex]);
+            result.Add(copyList[randomindex]);
             copyList.RemoveAt(randomindex);
         }
-        return resault;
+        return result;
     }
 }
