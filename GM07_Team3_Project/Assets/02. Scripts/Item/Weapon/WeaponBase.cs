@@ -16,44 +16,50 @@ public class WeaponBase : MonoBehaviour
     {
         this.upgradeData = upgradeData;
         this.owner = owner;
+        timer = 0.0f;
     }
 
     private void Update()
     {
-        if (upgradeData || owner == null)
+        if (upgradeData == null || owner == null)
         {
             return;
         }
 
         timer += Time.deltaTime;
-        if(timer > attackInterval)
+        if(timer >= attackInterval)
         {
             timer = 0.0f;
             Attack();
         }
-
-     
     }
     
     protected virtual void Attack()
     {
+        //공격 방향
         Vector3 direction = GetAttackDirection();
+        //투사체 생성위치
         Vector3 attackPosition = GetSpawnPosition(direction);
 
+        //일단 생성이후 풀링으로 관리
         GameObject attackObj = Instantiate(upgradeData.BulletPrefab,
             attackPosition,
             Quaternion.LookRotation(direction));
 
+        if (upgradeData.BulletPrefab == null)
+        {
+            return;
+        }
+
         AttackObject attackObject = attackObj.GetComponent<AttackObject>();
 
-        if(attackObject != null ) 
-            {
-            attackObject.Init(upgradeData.Value, direction, 5.0f);
-            }
-
-
+        if (attackObject != null)
+        {
+            attackObject.Init(upgradeData.Value, direction);
+        }
     }
 
+    //투사체 발사 방향
     protected virtual Vector3 GetAttackDirection()
     {
         //타겟이 없으면 전방에 발사
@@ -64,6 +70,7 @@ public class WeaponBase : MonoBehaviour
         return direction.normalized;
     }
 
+    //투사체 생성위치
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
         return owner.position + direction;
