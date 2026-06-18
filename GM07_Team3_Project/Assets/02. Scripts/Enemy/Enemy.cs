@@ -19,10 +19,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         OnHpChanged?.Invoke(currentHp, enemyData.MaxHp);
     }
 
+    //피격 판정
     public virtual void TakeDamage(float damage)
     {
         float finalDamage =
-            Mathf.Max( 1f, damage - enemyData.DefensePower);
+            Mathf.Max(1f, damage - enemyData.DefensePower);
 
         currentHp -= finalDamage;
 
@@ -45,4 +46,19 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         return currentHp;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 충돌 대상이 IDamageable(데미지를 받을 수 있는지) 확인
+        IDamageable damageable =
+            other.GetComponent<IDamageable>();
+
+        // IDeamageable을 가지고 있으면
+        if (damageable != null)
+        {
+            //적 공격력만큼 데미지 전달
+            damageable.TakeDamage(enemyData.AttackPower);
+        }
+    }
+
 }
