@@ -1,14 +1,104 @@
 using UnityEngine;
+using DG.Tweening;
 
+/*
+ * PausePanel
+ * PausePanel 클래스는 인풋 매니저에서 이벤트를 받아 게임을 일시정지시키고 패널을 활성화/비활성화하는 기능을 담당합니다.
+ */
 public class PausePanel : MonoBehaviour
 {
-    void Start()
+    [Header("패널 슬라이드 동작 시간")]
+    [SerializeField] private float slideTime = 0.1f;
+    [Header("패널 슬라이드 거리")]
+    [SerializeField] private float slideDistance = 750f;
+
+    [Header("캔버스 그룹")]
+    [SerializeField] private CanvasGroup canvasGroup;
+
+
+    private bool isPaused = false;
+    private RectTransform rectTransform;
+    private float originalXPosition;
+
+    InputManagerTest inputManager;
+
+    private void Awake()
     {
-        
+        rectTransform = GetComponent<RectTransform>();
+        originalXPosition = rectTransform.anchoredPosition.x;
+        if (canvasGroup == null)
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+        canvasGroup.alpha = 0f;
+    }
+    private void OnEnable()
+    {
+        inputManager = InputManagerTest.Instance;
+        // 이중 구독 방지를 위해 먼저 이벤트 제거 시도 후 구독
+        inputManager.OnPauseStateChanged -= TogglePauseState;
+        inputManager.OnPauseStateChanged += TogglePauseState;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        
+        inputManager.OnPauseStateChanged -= TogglePauseState;
+    }
+
+    private void TogglePauseState(bool state)
+    {
+        Debug.Log($"Pause state changed: {state}");
+        isPaused = state;
+        if (isPaused)
+        {
+            // 게임 일시정지
+            Time.timeScale = 0f;
+            // 패널을 활성화하는 동시에 DOTween 애니메이션이 재생하는 메서드 실행
+            PlaySlideOpen();
+        }
+        else
+        {
+            PlaySlideClose();
+        }
+    }
+
+    // DOTween 애니메이션을 재생하여 오른쪽에서 왼쪽으로 슬라이드 하는 메서드
+    private void PlaySlideOpen()
+    {
+        if (!isPaused) return;
+        rectTransform.DOKill();
+
+        canvasGroup.alpha = 1f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
+        rectTransform
+            .DOAnchorPosX(originalXPosition - slideDistance, slideTime)
+            .SetEase(Ease.OutCubic)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+            });
+    }
+
+    private void PlaySlideClose()
+    {
+        if (isPaused) return;
+        rectTransform.DOKill();
+
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
+        rectTransform
+            .DOAnchorPosX(rectTransform.anchoredPosition.x + slideDistance, slideTime)
+            .SetEase(Ease.InCubic)
+            .SetUpdate(true) // DOTween 애니메이션이 Time.timeScale의 영향을 받지 않도록 설정
+            .OnComplete(() =>
+            {
+                canvasGroup.alpha = 0f;
+                Time.timeScale = 1f;
+            });
     }
 }

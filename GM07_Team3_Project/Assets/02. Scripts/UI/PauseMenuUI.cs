@@ -42,4 +42,10 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.DOKill();
         transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
     }
+
+    public void OnClickButton()
+    {
+        if (!isClickable) return;
+        OnPauseMenuClicked?.Invoke(buttonType);
+    }
 }
