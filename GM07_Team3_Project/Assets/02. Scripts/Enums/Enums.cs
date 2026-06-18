@@ -1,4 +1,4 @@
-public enum MainMenuType
+﻿public enum MainMenuType
 {
     None = -1,
     GameStart,
