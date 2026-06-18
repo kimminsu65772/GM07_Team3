@@ -3,6 +3,6 @@ public enum SceneType
 {
     None = -1,
     MainMenu,
-    Game,
+    GameScene,
     GameOver
 }

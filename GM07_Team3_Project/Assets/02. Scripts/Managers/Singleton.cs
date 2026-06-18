@@ -33,7 +33,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
-
     protected virtual void Awake()
     {
         // 매니저 인스턴스가 없는 경우에는 현재 객체를 싱글톤 인스턴스로 설정

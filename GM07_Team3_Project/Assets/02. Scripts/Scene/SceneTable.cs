@@ -11,8 +11,8 @@ public static class SceneTable
     // 씬 이름 - 폴더 내에 존재하는 씬의 이름과 일치해야함
     private static readonly Dictionary<SceneType, string> sceneTable = new Dictionary<SceneType, string>()
     {
-        {SceneType.MainMenu, "MainMenuTest" },
-        {SceneType.Game, "GameSceneTest" },
+        {SceneType.MainMenu, "MainManuScene" },
+        {SceneType.GameScene, "GameScene" },
         {SceneType.GameOver, "GameOverSceneTest"}
     };
 
