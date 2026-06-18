@@ -37,7 +37,7 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public event Action<MainMenuType> OnMenuClicked;
 
-    public void Awake()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         originalScale = rectTransform.transform.localScale;
