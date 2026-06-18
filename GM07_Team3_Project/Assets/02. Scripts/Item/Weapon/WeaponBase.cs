@@ -1,63 +1,81 @@
 using UnityEngine;
 
-
 public class WeaponBase : MonoBehaviour
 {
     private UpgradeData upgradeData;
     private Transform owner;
     private Transform target;
 
-    private float attackInterval = 1.0f;
-
+    [SerializeField] private float attackInterval = 1.0f;
     private float timer = 0.0f;
+
+
+    //데이터 가져오기
+    public virtual void Init(UpgradeData upgradeData, Transform owner)
+    {
+        this.upgradeData = upgradeData;
+        this.owner = owner;
+        timer = 0.0f;
+    }
 
     private void Update()
     {
-        if(upgradeData == null || owner == null)
+        if (upgradeData == null || owner == null)
         {
             return;
         }
 
         timer += Time.deltaTime;
 
-        if(timer >= attackInterval )
+        //공격속도
+        if (timer >= attackInterval)
         {
             timer = 0.0f;
-           
+            Attack();
         }
-
-        Attack();
-
     }
 
-    //총알이 날라가는 방향
+    //공격
+    protected virtual void Attack()
+    {
+        //만들어둔 방향 위치 사용
+        Vector3 direction = GetAttackDirection();
+        Vector3 attackPosition = GetSpawnPosition(direction);
+
+        if (upgradeData.BulletPrefab == null)
+        {
+            return;
+        }
+
+        GameObject attackObj = Instantiate(
+            upgradeData.BulletPrefab,
+            attackPosition,
+            Quaternion.LookRotation(direction)
+        );
+
+        AttackObject attackObject = attackObj.GetComponent<AttackObject>();
+
+        if (attackObject != null)
+        {
+            attackObject.Init(upgradeData.Value, direction);
+        }
+    }
+
+    //투사체 방향
     protected virtual Vector3 GetAttackDirection()
     {
-        //없으면 앞으로
-        if (owner == null)
-            return Vector3.forward;
-        //없으면 앞으로
         if (target == null)
+        {
             return owner.forward.normalized;
+        }
 
         Vector3 direction = target.position - owner.position;
         return direction.normalized;
     }
 
-    public virtual void Init(UpgradeData upgradeData, Transform owner)
+    //투사체 생성 위치
+    protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        this.upgradeData = upgradeData;
-        this.owner = owner;
+        return owner.position + direction;
     }
-
-    protected virtual void Attack()
-    {
-        Vector3 direction = GetAttackDirection();
-
-    }
-
-
-
-
-
 }
