@@ -1,13 +1,24 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class AttackObject : MonoBehaviour
 {
     protected float damage;
     protected Vector3 direction;
-    [SerializeField] private float lifeTime;
+    [SerializeField] private float lifeTime = 3.0f;
+
 
     private Rigidbody rb;
     private Collider col;
+
+    //투사체 프리펩이 돌아갈 풀
+    private IObjectPool<GameObject> pool;
+
+    public void SetPool(IObjectPool<GameObject> pool)
+    {
+        this.pool = pool;
+    }
+
 
     private void Awake()
     {
@@ -39,10 +50,18 @@ public class AttackObject : MonoBehaviour
     //}
 
 
-    //일단 리턴으로 사용 이후 오브젝트풀링으로 관리
     protected virtual void Return()
     {
-        Destroy(gameObject);
+        if(pool != null)
+        {
+            //풀이 있으면 반납
+            pool.Release(gameObject);
+        }
+        else
+        {
+            //없으면 삭제
+            Destroy(gameObject);
+        }
     }
 
 }
