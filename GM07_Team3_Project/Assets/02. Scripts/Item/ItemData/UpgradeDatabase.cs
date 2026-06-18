@@ -13,8 +13,9 @@ public class UpgradeDatabase : ScriptableObject
     {
         //원본 복사
         List<UpgradeData> copyList = new List<UpgradeData>(upgrades);
+
         //결과 리스트
-        List<UpgradeData> resault = new List<UpgradeData>();
+        List<UpgradeData> result = new List<UpgradeData>();
 
         //뽑을 카드 개수
         for (int i = 0; i < count; i++)
@@ -27,11 +28,15 @@ public class UpgradeDatabase : ScriptableObject
             int randomindex = Random.Range(0, copyList.Count);
 
             //결과 넣고
-            resault.Add(copyList[randomindex]);
+            result.Add(copyList[randomindex]);
             //중복방지
             copyList.RemoveAt(randomindex);
         }
         //결과 반환
-        return resault;
+        return result;
+
+
     }
+        
+    
 }
