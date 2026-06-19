@@ -3,13 +3,14 @@ using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
 {
+    //싱글톤으로 구성
     public static ObjectPoolManager Instance {  get; private set; }
 
     [Header("풀링할 공격 프리펩")]
     [SerializeField] private GameObject attackPrefab;
 
     [Header("풀링 설정")]
-    [SerializeField] private int defaultCapicity = 10;
+    [SerializeField] private int defaultCapacity = 10;
     [SerializeField] private int maxPoolSize = 30;
 
     // 실제 풀 보관소 attackPool
@@ -27,18 +28,17 @@ public class ObjectPoolManager : MonoBehaviour
             return;
         }
         InitPool();
-
     }
 
     private void InitPool()
     {
         attackPool = new ObjectPool<GameObject>(
-            CreatePooledItem,
-            OnTakeFromPool,
-            OnReturnedtoPool,
-            OnDestroyPoolOnject,
+            CreatePooledItem,//만들고 
+            OnTakeFromPool, //꺼내고
+            OnReturnedtoPool, //반납하고
+            OnDestroyPoolOnject, //삭제
             true,
-            defaultCapicity,
+            defaultCapacity,
             maxPoolSize);
     }
 
