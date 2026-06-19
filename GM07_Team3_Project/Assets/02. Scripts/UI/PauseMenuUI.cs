@@ -16,14 +16,15 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private RectTransform rectTransform;
     private Vector3 originalScale;
-    private bool isClickable;
+    [SerializeField] private bool isClickable;
 
     public event Action<PauseMenuType> OnPauseMenuClicked;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalScale = rectTransform.localScale;
+        originalScale = rectTransform.transform.localScale;
+        isClickable = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -32,7 +33,7 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         rectTransform.DOKill();
         transform.DOKill();
 
-        transform.DOScale(originalScale * hoverScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale * hoverScale, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -40,12 +41,13 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (!isClickable) return;
         rectTransform.DOKill();
         transform.DOKill();
-        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     public void OnClickButton()
     {
         if (!isClickable) return;
+        Debug.Log($"Button clicked: {buttonType}");
         OnPauseMenuClicked?.Invoke(buttonType);
     }
 }
