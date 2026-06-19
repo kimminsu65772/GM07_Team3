@@ -17,6 +17,6 @@ MonoBehaviour:
   upgradeName: 
   description: 
   icon: {fileID: 0}
-  weaponPrefab: {fileID: 0}
-  weaponAttackPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 2623927723216543341, guid: a9ef47bb36edb724a92439672f74bbb5, type: 3}
+  weaponAttackPrefab: {fileID: 774847846204612844, guid: e7fe74f227da1224d9969c0ecb8e6aae, type: 3}
   value: 5
