@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TimerUI : MonoBehaviour
@@ -11,7 +10,7 @@ public class TimerUI : MonoBehaviour
         timerText = GetComponent<TextMeshProUGUI>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         TimeManagerTest.Instance.SubscribeToTimeChanged(UpdateTimerUI);
     }
