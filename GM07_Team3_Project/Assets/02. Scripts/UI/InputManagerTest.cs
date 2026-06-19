@@ -8,22 +8,19 @@ public class InputManagerTest : Singleton<InputManagerTest>
 
 
     private InputAction pauseAction;
-    private bool isPaused;
 
     protected override void Awake()
     {
         base.Awake();
         if (pauseAction == null)
             pauseAction = InputSystem.actions.FindAction("Pause");
-        isPaused = false;
     }
 
     private void Update()
     {
         if (pauseAction.WasPressedThisFrame())
         {
-            isPaused = !isPaused;
-            OnPauseStateChanged?.Invoke(isPaused);
+            UIManager.Instance.TogglePausePanel();
         }
     }
 }

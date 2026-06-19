@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,8 +13,6 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private RectTransform rectTransform;
     private Vector3 originalScale;
     [SerializeField] private bool isClickable;
-
-    public event Action<PauseMenuType> OnPauseMenuClicked;
 
     private void Awake()
     {
@@ -39,12 +36,5 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         rectTransform.DOKill();
         transform.DOKill();
         transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
-    }
-
-    public void OnClickButton()
-    {
-        if (!isClickable) return;
-        Debug.Log($"Button clicked: {buttonType}");
-        OnPauseMenuClicked?.Invoke(buttonType);
     }
 }
