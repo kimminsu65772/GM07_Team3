@@ -35,6 +35,15 @@ public class UIManager : Singleton<UIManager>
         currentUIRoot = uiRoot;
     }
 
+    public void UnregisterUIRoot(UIRoot uiRoot)
+    {
+        Debug.Log($"UIRoot 해제: {uiRoot.name}");
+        if (currentUIRoot == uiRoot)
+        {
+            currentUIRoot = null;
+        }
+    }
+
     ////////////////////////////
     /// Pause Menu 관련 메서드
     ////////////////////////////

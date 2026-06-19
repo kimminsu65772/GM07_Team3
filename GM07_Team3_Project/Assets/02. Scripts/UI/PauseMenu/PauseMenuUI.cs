@@ -37,4 +37,11 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         transform.DOKill();
         transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack).SetUpdate(true);
     }
+
+    private void OnDisable()
+    {
+        rectTransform.DOKill();
+        transform.DOKill();
+        transform.localScale = originalScale;
+    }
 }

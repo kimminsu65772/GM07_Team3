@@ -19,4 +19,11 @@ public class UIRoot : MonoBehaviour
     {
         UIManager.Instance.RegisterUIRoot(this);
     }
+
+    // 씬을 넘어가서 UIRoot가 파괴될 때 UIManager에서 참조를 해제
+    private void OnDestroy()
+    {
+        if (UIManager.Instance == null) return;
+        UIManager.Instance.UnregisterUIRoot(this);
+    }
 }

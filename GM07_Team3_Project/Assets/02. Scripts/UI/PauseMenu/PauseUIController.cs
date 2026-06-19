@@ -102,6 +102,12 @@ public class PauseUIController : MonoBehaviour
         // 일시정지 메뉴에서 Quit 버튼이 클릭되면 UIManager는 게임 매니저에게는 게임 종료 요청을 보내고
         // 씬 매니저에게는 메인 메뉴 씬으로 이동할 것을 요청할 것임.
         UIManager.Instance.HandlePauseMenuRequest(PauseMenuType.Quit);
-        
+    }
+
+    private void OnDestroy()
+    {
+        rectTransform.DOKill();
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 }

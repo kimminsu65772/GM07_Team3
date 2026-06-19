@@ -113,4 +113,11 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         buttonText.DOKill();
         transform.DOScale(originalScale, 0.3f).SetEase(Ease.InBack);
     }
+
+    public void OnDestroy()
+    {
+        transform.DOKill();
+        rectTransform.DOKill();
+        buttonText.DOKill();
+    }
 }

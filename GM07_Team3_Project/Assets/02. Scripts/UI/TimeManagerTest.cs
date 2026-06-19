@@ -45,4 +45,9 @@ public class TimeManagerTest : Singleton<TimeManagerTest>
     {
         OnTimeChanged += callback;
     }
+
+    public void UnsubscribeFromTimeChanged(Action<int> callback)
+    {
+        OnTimeChanged -= callback;
+    }
 }
