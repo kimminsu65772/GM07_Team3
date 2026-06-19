@@ -7,13 +7,16 @@ using DG.Tweening;
  */
 public class PausePanel : MonoBehaviour
 {
-    [Header("패널 슬라이드 동작 시간")]
-    [SerializeField] private float slideTime = 0.1f;
+    [Header("Slide Duration")]
+    [SerializeField] private float slideDuration = 0.1f;
     [Header("패널 슬라이드 거리")]
     [SerializeField] private float slideDistance = 750f;
 
     [Header("캔버스 그룹")]
     [SerializeField] private CanvasGroup canvasGroup;
+
+    [Header("Buttons")]
+    [SerializeField] private PauseMenuUI[] buttons;
 
 
     private bool isPaused = false;
@@ -72,8 +75,9 @@ public class PausePanel : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
+        // SetUpdate(true)를 사용하여 Time.timeScale이 0일 때도 애니메이션이 재생되도록 설정
         rectTransform
-            .DOAnchorPosX(originalXPosition - slideDistance, slideTime)
+            .DOAnchorPosX(originalXPosition - slideDistance, slideDuration)
             .SetEase(Ease.OutCubic)
             .SetUpdate(true)
             .OnComplete(() =>
@@ -92,9 +96,9 @@ public class PausePanel : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
 
         rectTransform
-            .DOAnchorPosX(rectTransform.anchoredPosition.x + slideDistance, slideTime)
+            .DOAnchorPosX(rectTransform.anchoredPosition.x + slideDistance, slideDuration)
             .SetEase(Ease.InCubic)
-            .SetUpdate(true) // DOTween 애니메이션이 Time.timeScale의 영향을 받지 않도록 설정
+            .SetUpdate(true)
             .OnComplete(() =>
             {
                 canvasGroup.alpha = 0f;
