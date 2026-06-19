@@ -3,6 +3,8 @@ using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
 {
+    public static ObjectPoolManager Instance {  get; private set; }
+
     [Header("풀링할 공격 프리펩")]
     [SerializeField] private GameObject attackPrefab;
 
@@ -15,16 +17,32 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        
-
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        InitPool();
 
     }
 
     private void InitPool()
     {
-      //  attackPool = new ObjectPool<GameObject>()
+        attackPool = new ObjectPool<GameObject>(
+            CreatePooledItem,
+            OnTakeFromPool,
+            OnReturnedtoPool,
+            OnDestroyPoolOnject,
+            true,
+            defaultCapicity,
+            maxPoolSize);
     }
 
+    //오브젝트 생성 
     private GameObject CreatePooledItem()
     {
         GameObject PoolObj = Instantiate(attackPrefab);
@@ -39,18 +57,25 @@ public class ObjectPoolManager : MonoBehaviour
         return PoolObj;
     }
 
+    //풀에서 꺼내오기
     private void OnTakeFromPool(GameObject poolObj)
     {
         poolObj.SetActive(true);
     }
+
+    //풀로 반납
     private void OnReturnedtoPool(GameObject poolObj)
     {
         poolObj.SetActive(false);
     }
+
+    //삭제
     private void OnDestroyPoolOnject(GameObject poolObj)
     {
         Destroy(poolObj);
     }
+
+    //외부에서 오브젝트 꺼낼때
     public GameObject GetAttackObject()
     {
         return attackPool.Get();
