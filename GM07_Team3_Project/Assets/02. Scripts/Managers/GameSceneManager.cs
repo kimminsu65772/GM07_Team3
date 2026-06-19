@@ -8,20 +8,8 @@ using UnityEngine.SceneManagement;
  */
 public class GameSceneManager : Singleton<GameSceneManager>
 {
-    private void OnEnable()
-    {
-        // 이벤트 구독은 이곳에서 이루어짐
-        MainMenuController.OnRequireToLoadGameScene += LoadScene;
-    }
-
-    private void OnDisable()
-    {
-        // 이벤트 구독 해제는 이곳에서 이루어짐
-        MainMenuController.OnRequireToLoadGameScene -= LoadScene;
-    }
-
     // enum으로 씬 타입을 파라미터로 받아 타입 기반의 씬 로드를 작동
-    private void LoadScene(SceneType type)
+    public void LoadScene(SceneType type)
     {
         Debug.Log($"씬 로드 요청: {type}");
         string sceneName = SceneTable.GetSceneName(type);
@@ -30,7 +18,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
 
     // 씬을 리로드하는 기능, 현재 씬을 다시 로드하여 초기 상태로 되돌리는 기능을 수행
     // 예를 들어 게임 오버 후 Retry 버튼을 눌렀을 때 게임 씬을 리로드하여 다시 게임을 시작할 수 있도록 함.
-    private void ReloadScene()
+    public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

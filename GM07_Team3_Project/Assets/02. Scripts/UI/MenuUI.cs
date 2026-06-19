@@ -15,12 +15,6 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     [Header("Button Text")]
     [SerializeField] private TextMeshProUGUI buttonText;
 
-    [Header("Button Type")]
-    [SerializeField] private MainMenuType buttonType;
-
-    [Header("Button Group")]
-    [SerializeField] private MenuGroup menuGroup;
-
     // 버튼에 마우스가 올라갔을 때의 스케일을 정의하는 변수
     [Header("Animation Scale Setting")]
     [SerializeField] private float hoverScale = 1.2f;
@@ -34,8 +28,6 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private Vector3 originalScale;
     private Color originalTextColor;
     private bool IsClickable;
-
-    public event Action<MainMenuType> OnMenuClicked;
 
     private void Awake()
     {
@@ -120,16 +112,5 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         rectTransform.DOKill();
         buttonText.DOKill();
         transform.DOScale(originalScale, 0.3f).SetEase(Ease.InBack);
-        buttonText.DOColor(Color.yellow, 0.7f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            OnMenuClicked?.Invoke(buttonType);
-            Debug.Log($"Menu Selected: {buttonType}");
-        });
-    }
-
-    public void OnClickButton()
-    {
-        if (!IsClickable) return;
-        menuGroup.SelectMenu(this);
     }
 }

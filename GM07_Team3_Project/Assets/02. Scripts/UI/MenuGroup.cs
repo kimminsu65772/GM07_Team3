@@ -5,16 +5,13 @@ using UnityEngine;
 
 /*
  * MenuGroup
- * MenuGroup는 메뉴 UI 요소들을 그룹화하는 클래스입니다.
- * 이 클래스에서는 메뉴 버튼 UI 요소들의 등장을 관리합니다.
+ * MenuGroup는 메뉴 UI 요소들을 그룹화하고 해당 버튼들의 등장 애니메이션을 관리합니다.
  */
 public class MenuGroup : MonoBehaviour
 {
     // 메뉴 UI 요소들을 배열로 관리
     [SerializeField] private MenuUI[] menuButtons;
     [SerializeField] private CanvasGroup canvasGroup;
-    private MainMenuType selectedMenu;
-    public event Action<MainMenuType> OnMenuSelected;
 
     private void Start()
     {
@@ -37,10 +34,10 @@ public class MenuGroup : MonoBehaviour
 
         for (int i = 0; i < menuButtons.Length; i++)
         {
-            int index = i; // 클로저 문제 해결을 위해 인덱스를 별도의 변수에 저장
+            // 클로저 문제 해결을 위해 인덱스를 별도의 변수에 저장
+            int index = i; 
             sequence.AppendCallback(() => menuButtons[index].ActiveMenuButton());
-            sequence.AppendInterval(0.1f); // 각 메뉴 버튼이 등장하는 간격
-            menuButtons[i].OnMenuClicked += HandleMenuSelected;
+            sequence.AppendInterval(0.1f);
         }
         yield return sequence.WaitForCompletion();
 
@@ -52,7 +49,6 @@ public class MenuGroup : MonoBehaviour
         canvasGroup.interactable = true;
     }
 
-    // 선택된 메뉴에 애니메이션 효과를 적용하고 컨트롤러에 선택된 버튼의 타입을 전달하는 메서드
     public void SelectMenu(MenuUI menu)
     {
         // 메뉴가 선택되면 더 이상 다른 메뉴를 선택할 수 없도록 설정
@@ -62,20 +58,6 @@ public class MenuGroup : MonoBehaviour
         for (int i = 0; i < menuButtons.Length; i++)
         {
             menuButtons[i].SetIsClickable(false);
-        }
-    }
-
-    private void HandleMenuSelected(MainMenuType menuType)
-    {
-        selectedMenu = menuType;
-        OnMenuSelected?.Invoke(menuType);
-    }
-
-    private void OnDestroy()
-    {
-        for (int i = 0; i < menuButtons.Length; i++)
-        {
-            menuButtons[i].OnMenuClicked -= HandleMenuSelected;
         }
     }
 }

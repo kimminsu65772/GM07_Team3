@@ -10,5 +10,5 @@ public enum PauseMenuType
 {
     None = -1,
     Resume,
-    Exit
+    Quit
 }
