@@ -36,7 +36,7 @@ public class ObjectPoolManager : MonoBehaviour
             CreatePooledItem,//만들고 
             OnTakeFromPool, //꺼내고
             OnReturnedtoPool, //반납하고
-            OnDestroyPoolOnject, //삭제
+            OnDestroyPoolObject, //삭제
             true,
             defaultCapacity,
             maxPoolSize);
@@ -46,7 +46,7 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject CreatePooledItem()
     {
         GameObject PoolObj = Instantiate(attackPrefab);
-        PoolObj.SetActive(true);
+        PoolObj.SetActive(false);
 
         AttackObject attackObject = PoolObj.GetComponent<AttackObject>();
 
@@ -70,7 +70,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     //삭제
-    private void OnDestroyPoolOnject(GameObject poolObj)
+    private void OnDestroyPoolObject(GameObject poolObj)
     {
         Destroy(poolObj);
     }
