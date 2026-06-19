@@ -3,11 +3,10 @@ using DG.Tweening;
 using System;
 
 /*
- * PauseUIController
- * PauseUIController 클래스는 인풋 매니저에서 이벤트를 받아 게임을 일시정지시키고 패널을 활성화/비활성화하는 기능을 담당합니다.
- * 또한 버튼 클릭 이벤트를 구독하여 직접 창을 닫거나 메인 메뉴로 이동하는 등의 기능을 수행할 수 있도록 합니다.
+ * PausePanel
+ * PausePanel 클래스는 인풋 매니저에서 이벤트를 받아 게임을 일시정지시키고 패널을 활성화/비활성화하는 기능을 담당합니다.
  */
-public class PauseUIController : MonoBehaviour
+public class PausePanel : MonoBehaviour
 {
     [Header("Slide Duration")]
     [SerializeField] private float slideDuration = 0.1f;
@@ -24,7 +23,6 @@ public class PauseUIController : MonoBehaviour
     private bool isPaused = false;
     private RectTransform rectTransform;
     private float originalXPosition;
-    private 
 
     InputManagerTest inputManager;
 
@@ -87,7 +85,7 @@ public class PauseUIController : MonoBehaviour
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                SubscribeButtonAction();
+                subscribeButtonAction();
                 canvasGroup.interactable = true;
                 canvasGroup.blocksRaycasts = true;
             });
@@ -107,13 +105,13 @@ public class PauseUIController : MonoBehaviour
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                UnsubscribeButtonAction();
+                unsubscribeButtonAction();
                 canvasGroup.alpha = 0f;
                 Time.timeScale = 1f;
             });
     }
 
-    private void SubscribeButtonAction()
+    private void subscribeButtonAction()
     {
         foreach (var button in buttons)
         {
@@ -121,7 +119,7 @@ public class PauseUIController : MonoBehaviour
         }
     }
 
-    private void UnsubscribeButtonAction()
+    private void unsubscribeButtonAction()
     {
         foreach (var button in buttons)
         {

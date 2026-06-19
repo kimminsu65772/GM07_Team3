@@ -8,9 +8,6 @@ public class PauseMenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Header("Pause Menu Button Type Settings")]
     [SerializeField] private PauseMenuType buttonType;
 
-    [Header("Pause Menu Panel")]
-    [SerializeField] private CanvasGroup canvasGroup;
-
     [Header("Animation Scale Settings")]
     [SerializeField] private float hoverScale = 1.1f;
 

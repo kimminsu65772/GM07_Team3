@@ -22,7 +22,6 @@ public class InputManagerTest : Singleton<InputManagerTest>
     {
         if (pauseAction.WasPressedThisFrame())
         {
-            Debug.Log("Pause button pressed");
             isPaused = !isPaused;
             OnPauseStateChanged?.Invoke(isPaused);
         }

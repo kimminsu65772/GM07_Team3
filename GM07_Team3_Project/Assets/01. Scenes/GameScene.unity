@@ -556,7 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuUI
   buttonType: 0
   canvasGroup: {fileID: 217574245}
-  hoverScale: 20
+  hoverScale: 1.1
   isClickable: 0
 --- !u!1001 &3715337479841163575
 PrefabInstance:
@@ -673,6 +673,10 @@ PrefabInstance:
     - target: {fileID: 1298050465040003171, guid: 4978a9ab074906544a1bdfc9d3c64e9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2460492956468500150, guid: 4978a9ab074906544a1bdfc9d3c64e9d, type: 3}
+      propertyPath: m_Name
+      value: PauseMenuPanel
       objectReference: {fileID: 0}
     - target: {fileID: 6398337834617739442, guid: 4978a9ab074906544a1bdfc9d3c64e9d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
