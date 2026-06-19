@@ -42,6 +42,7 @@ public class UIManager : Singleton<UIManager>
     // InputManager에서 일시정지 버튼이 누른 것을 감지하면 UIManager에서 실행할 메서드.
     public void TogglePausePanel()
     {
+        TimeManagerTest.Instance.ToggleTimeScale();
         currentUIRoot.PauseUIController.TogglePausePanel();
     }
 
@@ -52,8 +53,10 @@ public class UIManager : Singleton<UIManager>
         {
             case PauseMenuType.Resume:
                 // 게임 재개 요청 처리
-                // 실제로는 게임 매니저에게 요청을 전달해야 함.
+                // UI -> 게임 매니저 -> TimeManager 순으로 요청을 전달할지
+                // UI -> TimeManager 순으로 요청을 전달할지 고민 필요.
                 Debug.Log("게임 재개 요청 처리");
+                TimeManagerTest.Instance.ToggleTimeScale();
                 break;
             case PauseMenuType.Quit:
                 // 메인 메뉴로 나가기 요청 처리
