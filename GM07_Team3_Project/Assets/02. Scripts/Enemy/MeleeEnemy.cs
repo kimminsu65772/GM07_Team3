@@ -2,47 +2,9 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-    [Header("Target")]
-    [SerializeField] private Transform target;
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        FindPlayer();
-    }
-
     private void Update()
     {
         MoveToTarget();
-    }
-
-    private void FindPlayer()
-    {
-        if (target != null)
-        {
-            return;
-        }
-
-        GameObject player =
-            GameObject.FindGameObjectWithTag("Player");
-
-        if (player != null)
-        {
-            target = player.transform;
-        }
-    }
-
-    private void MoveToTarget()
-    {
-        if (target == null)
-        {
-            return;
-        }
-
-        Vector3 direction =
-            (target.position - transform.position).normalized;
-
-        transform.position += direction * enemyData.MoveSpeed * Time.deltaTime;
     }
 
     // 공격 쿨타임 계산용 변수
