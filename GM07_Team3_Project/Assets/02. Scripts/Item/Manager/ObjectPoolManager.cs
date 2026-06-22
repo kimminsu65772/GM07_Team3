@@ -72,7 +72,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (pools.ContainsKey(prefab) == false)
         {
-            CreatPool(prefab);
+            CreatePool(prefab);
         }
 
         //pools 딕셔너리에서 prefab 에 해당하는 pool을 찾고
@@ -82,7 +82,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     //이 prefab만 담당하는 ObjecPool을 하나 만들어서
     // 그 Pool을 Dictionary에  저장
-    private void CreatPool(GameObject prefab)
+    private void CreatePool(GameObject prefab)
     {
         IObjectPool<GameObject> pool = null;
 
