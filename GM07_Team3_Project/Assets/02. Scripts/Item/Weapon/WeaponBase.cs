@@ -45,8 +45,9 @@ public class WeaponBase : MonoBehaviour
         Vector3 attackPosition = GetSpawnPosition(direction);
 
         //오브젝트 꺼내오기
-        GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject();
+       GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
 
+        if (attackObj == null) return;
         //위치와 회전 세팅
         attackObj.transform.position = attackPosition;
         attackObj.transform.rotation = Quaternion.LookRotation(direction);
