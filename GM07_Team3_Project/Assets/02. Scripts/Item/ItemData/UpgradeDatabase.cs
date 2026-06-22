@@ -9,7 +9,7 @@ public class UpgradeDatabase : ScriptableObject
     //외부에서 참조할 프로퍼티
     public IReadOnlyList<UpgradeData> Upgrades {get { return upgrades; } }
 
-    public List<UpgradeData>  GetRandomUpgardes(int count)
+    public List<UpgradeData>  GetRandomUpgrades(int count)
     {
         //원본 복사
         List<UpgradeData> copyList = new List<UpgradeData>(upgrades);
