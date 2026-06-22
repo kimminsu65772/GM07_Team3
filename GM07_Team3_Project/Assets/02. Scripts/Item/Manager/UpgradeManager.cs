@@ -8,14 +8,12 @@ public class UpgradeManager : MonoBehaviour
 
     public void CreateUpgradeChoices()
     {
-        if (upgradeDatabase == null)
-        {
-            Debug.LogError("UpgradeDatabase가 연결되지 않았습니다.");
-            return;
-        }
+        if (upgradeDatabase == null) return;
+     
 
         List<UpgradeData> result = upgradeDatabase.GetRandomUpgrades(choiceCount);
 
+        // result 리스트 이벤트로 전송
         UpgradeEventManager.CreateUpgradeChoices(result);
     }
 }
