@@ -1,16 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private UpgradeDatabase upgradeDatabase;
+    [SerializeField] private int choiceCount = 3;
 
-    // Update is called once per frame
-    void Update()
+    public void CreateUpgradeChoices()
     {
-        
+        if (upgradeDatabase == null)
+        {
+            Debug.LogError("UpgradeDatabase가 연결되지 않았습니다.");
+            return;
+        }
+
+        List<UpgradeData> result = upgradeDatabase.GetRandomUpgrades(choiceCount);
+
+        UpgradeEventManager.CreateUpgradeChoices(result);
     }
 }
