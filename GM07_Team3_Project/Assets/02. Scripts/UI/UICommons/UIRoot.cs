@@ -14,6 +14,7 @@ public class UIRoot : MonoBehaviour
 
     // UI 매니저에서 참조하기 위한 프로퍼티
     public PauseUIController PauseUIController => pauseUIController; // = get { return pauseUIController; }
+    public UpgradeUIController UpgradeUIController => GetComponentInChildren<UpgradeUIController>();
 
     private void Awake()
     {

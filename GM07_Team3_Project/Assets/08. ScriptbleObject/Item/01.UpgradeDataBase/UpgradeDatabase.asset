@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6516a93d651ecfb45a6daf0a6691076d, type: 3}
   m_Name: UpgradeDatabase
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeDatabase
-  upgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 06b60d2501862bb4d865a1cbf4b16fc1, type: 2}
+  - {fileID: 11400000, guid: 723be941919e03147a062e53fd35c0a1, type: 2}
+  - {fileID: 11400000, guid: 88a819d42a394f044998db20a81645a2, type: 2}
+  - {fileID: 11400000, guid: 1cb89d14c1be9e24b88fa5272a38a5f2, type: 2}
+  - {fileID: 11400000, guid: 1a0850a8047e8cf4aa9408a371ba689e, type: 2}

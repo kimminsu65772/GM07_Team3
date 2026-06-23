@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -7,6 +10,22 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     private UIRoot currentUIRoot;
+
+    // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
+    public Action<UpgradeData> onUpgradeSelected;
+
+    private void OnEnable()
+    {
+        // UpgradeEventManager의 업그레이드 선택 이벤트에 onUpgradeSelected를 구독
+        UpgradeEventManager.Instance.OnUpgradeChoicesCreated -= HandleUpgradeChoiceCreated;
+        UpgradeEventManager.Instance.OnUpgradeChoicesCreated += HandleUpgradeChoiceCreated;
+    }
+
+    private void OnDisable()
+    {
+        if (!UpgradeEventManager.HasInstance) return;
+        UpgradeEventManager.Instance.OnUpgradeChoicesCreated -= HandleUpgradeChoiceCreated;
+    }
     public void HandleMainMenuRequest(MainMenuType mainMenuType)
     {
         Debug.Log($"메인 메뉴 요청: {mainMenuType}");
@@ -72,5 +91,24 @@ public class UIManager : Singleton<UIManager>
                 GameSceneManager.Instance.LoadScene(SceneType.MainMenu);
                 break;
         }
+    }
+
+    ////////////////////////////
+    /// Upgrade UI 관련 메서드
+    ////////////////////////////
+
+    // UpgradeEventManager에서 업그레이드 선택 이벤트가 발생하면 호출되는 메서드
+    // 컨트롤러에게 레벨업 패널을 열고 upgradeData를 업그레이드 UI에 전달하도록 요청.
+
+    private void HandleUpgradeChoiceCreated(List<UpgradeData> upgradeCards)
+    {
+        Debug.Log("업그레이드 선택 이벤트 발생");
+        currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
+    }
+
+    public void HandleUpgradeSelected(UpgradeData upgradeData)
+    {
+        Debug.Log($"업그레이드 선택 이벤트 발생: {upgradeData.UpgradeName}");
+        onUpgradeSelected?.Invoke(upgradeData);
     }
 }

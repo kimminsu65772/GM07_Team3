@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 
 public class InputManagerTest : Singleton<InputManagerTest>
 {
-    public Action<bool> OnPauseStateChanged;
-
-
     private InputAction pauseAction;
 
     protected override void Awake()

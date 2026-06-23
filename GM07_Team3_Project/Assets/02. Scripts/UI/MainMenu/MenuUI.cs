@@ -2,7 +2,6 @@
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using TMPro;
-using System;
 
 /*
  * MenuUI

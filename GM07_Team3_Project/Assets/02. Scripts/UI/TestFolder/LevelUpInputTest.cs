@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LevelUpInputTest : MonoBehaviour
 {
     private InputAction levelUpAction;
-    private UpgradeManager upgradeManager;
+
+    public static Action OnLevelUp;
 
     private void Awake()
     {
@@ -26,20 +28,10 @@ public class LevelUpInputTest : MonoBehaviour
 
     private void Update()
     {
-        if (!levelUpAction.WasPressedThisFrame()) return;
-
-        if (upgradeManager == null)
+        if (levelUpAction.triggered)
         {
-            upgradeManager = FindFirstObjectByType<UpgradeManager>();
+            Debug.Log("Level Up Input Triggered");
+            OnLevelUp?.Invoke();
         }
-
-        if (upgradeManager == null)
-        {
-            Debug.LogWarning("UpgradeManager was not found. Level up test event was skipped.");
-            return;
-        }
-
-        upgradeManager.CreateUpgradeChoices();
-        Debug.Log("Level up test event triggered.");
     }
 }

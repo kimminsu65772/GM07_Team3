@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   stateType: 0
-  upgradeName: 
+  upgradeName: Gun
   description: 
   icon: {fileID: 0}
   weaponPrefab: {fileID: 2623927723216543341, guid: a9ef47bb36edb724a92439672f74bbb5, type: 3}
