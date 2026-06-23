@@ -98,7 +98,7 @@ public class UIManager : Singleton<UIManager>
     ////////////////////////////
 
     // UpgradeEventManager에서 업그레이드 선택 이벤트가 발생하면 호출되는 메서드
-    // 컨트롤러에게 레벨업 패널을 열고 upgradeData를 업그레이드 UI에 전달하도록 요청.
+    // 컨트롤러에게 레벨업 패널을 열고 UpgradeData를 업그레이드 UI에 전달하도록 요청.
 
     private void HandleUpgradeChoiceCreated(List<UpgradeData> upgradeCards)
     {
@@ -106,9 +106,9 @@ public class UIManager : Singleton<UIManager>
         currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
     }
 
-    public void HandleUpgradeSelected(UpgradeData upgradeData)
+    public void HandleUpgradeSelected(UpgradeData UpgradeData)
     {
-        Debug.Log($"업그레이드 선택 이벤트 발생: {upgradeData.UpgradeName}");
-        onUpgradeSelected?.Invoke(upgradeData);
+        Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.UpgradeName}");
+        onUpgradeSelected?.Invoke(UpgradeData);
     }
 }

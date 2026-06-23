@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c6e12b841cb4f4a8785ac46b40608a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpPanel
-  upgradePanel: {fileID: 0}
+  upgradePanel: {fileID: 1887033886}
 --- !u!225 &221566931
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -912,9 +912,9 @@ RectTransform:
   - {fileID: 86058529}
   m_Father: {fileID: 1887033882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -860, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!225 &443609740
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  upgradeData: {fileID: 0}
+  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 443609740}
   titleText: {fileID: 1268687405}
   iconImage: {fileID: 2136615080}
@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  upgradeData: {fileID: 0}
+  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 1120831310}
   titleText: {fileID: 5106197}
   iconImage: {fileID: 1351233687}
@@ -2636,15 +2636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d58085bcb046e642b962b1abd1a2a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePanel
-  upgradeCards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  currentCardList: []
   upgradeCardSlots:
   - {fileID: 443609744}
   - {fileID: 1120831308}
   - {fileID: 1948703982}
-  upgradeUIController: {fileID: 0}
+  upgradeUIController: {fileID: 86856005}
 --- !u!1 &1893738537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,9 +2817,9 @@ RectTransform:
   - {fileID: 981692894}
   m_Father: {fileID: 1887033882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 860, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1948703982
@@ -2837,7 +2834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  upgradeData: {fileID: 0}
+  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 1948703984}
   titleText: {fileID: 438917058}
   iconImage: {fileID: 1980653923}

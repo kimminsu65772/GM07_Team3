@@ -1,5 +1,7 @@
 using DG.Tweening;
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class LevelUpPanel : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class LevelUpPanel : MonoBehaviour
         originalScale = rectTransform.localScale;
     }
 
-    public void OpenLevelUpPanel()
+    public void OpenLevelUpPanel(List<UpgradeData> upgradeCards)
     {
         Initialize();
 
@@ -28,7 +30,7 @@ public class LevelUpPanel : MonoBehaviour
         rectTransform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBack);
 
         // 업그레이드 카드 그룹 등장 애니메이션 수행
-        upgradePanel.OpenUpgradePanel();
+        upgradePanel.OpenUpgradePanel(upgradeCards);
     }
 
     public void CloseLevelUpPanel()

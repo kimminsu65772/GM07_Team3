@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpgradePanel : MonoBehaviour
 {
     // UI 매니저로부터 전달받은 랜덤 업그레이드 카드 리스트
-    [SerializeField] private List<UpgradeData> upgradeCards;
+    [SerializeField] private List<UpgradeData> currentCardList;
 
     // 업그레이드 카드를 배열로 저장
     [SerializeField] private UpgradeCard[] upgradeCardSlots;
@@ -32,8 +32,9 @@ public class UpgradePanel : MonoBehaviour
         InitializePanel();
     }
 
-    public void OpenUpgradePanel()
+    public void OpenUpgradePanel(List<UpgradeData> upgradeCards)
     {
+
         canvasGroup.alpha = 1f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
@@ -67,21 +68,21 @@ public class UpgradePanel : MonoBehaviour
 
     private void SetUpgradeCards(List<UpgradeData> cards)
     {
-        upgradeCards = cards;
+        currentCardList = cards;
 
         // 업그레이드 카드 슬롯과 업그레이드 카드 리스트의 길이가 일치하지 않으면 에러 메시지를 출력하고 함수를 종료
-        if (!(upgradeCardSlots.Length == upgradeCards.Count))
+        if (!(upgradeCardSlots.Length == currentCardList.Count))
         {
             Debug.LogError("업그레이드 카드 슬롯과 업그레이드 카드 리스트의 길이가 일치하지 않습니다.");
             return;
         }
 
-        // 업그레이드 카드 리스트를 UI 요소에 표시하는 로직 추가
         for (int i = 0; i < upgradeCardSlots.Length; i++)
         {
-            if (i < upgradeCards.Count)
+            if (i < currentCardList.Count)
             {
                 upgradeCardSlots[i].gameObject.SetActive(true);
+                upgradeCardSlots[i].SetUpgradeData(currentCardList[i]);
                 upgradeCardSlots[i].OnCardSelected += HandleSelectedCard;
             }
         }

@@ -22,7 +22,7 @@ public class UpgradeUIController : MonoBehaviour
         levelUpPanel.gameObject.SetActive(true);
 
         // 레벨업 패널의 등장 애니메이션 수행
-        levelUpPanel.OpenLevelUpPanel();
+        levelUpPanel.OpenLevelUpPanel(upgradeCards);
     }
 
     // 버튼으로부터 선택된 업그레이드 옵션을 UIManager에 전달하고 레벨업 패널을 비활성화함.
