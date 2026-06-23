@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UpgradeOption : MonoBehaviour
+public class UpgradeOption
 {
 
   public UpgradeData Data { get; private set; }
