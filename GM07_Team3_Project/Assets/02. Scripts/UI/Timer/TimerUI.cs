@@ -27,7 +27,7 @@ public class TimerUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (TimeManagerTest.Instance == null) return;
+        if (!TimeManagerTest.HasInstance) return;
         TimeManagerTest.Instance.UnsubscribeFromTimeChanged(UpdateTimerUI);
     }
 }
