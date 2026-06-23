@@ -31,6 +31,7 @@ public class UpgradeEventManager : Singleton<UpgradeEventManager>
 
     private void OnDisable()
     {
+        if (!UIManager.HasInstance) return;
         UIManager.Instance.onUpgradeSelected -= SelectUpgrade;
     }
 }
