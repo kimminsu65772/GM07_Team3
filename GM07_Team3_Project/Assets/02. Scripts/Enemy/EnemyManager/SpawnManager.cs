@@ -33,21 +33,21 @@ public class SpawnManager : Singleton<SpawnManager>
     private void CheckWave(int remainingTime)
     {
         // 남은 시간 1000초 이하, 1웨이브 생성이 아직 안된 상태면
-        if (!wave1Spawned && remainingTime <= 1000)
+        if (!wave1Spawned && remainingTime <= 1190)
         {
             SpawnMeleeWave(10); // 근거리 적 10마리 생성
 
             wave1Spawned = true; // 생성 이후 재생성 방지용 true 저장
         }
 
-        if (!wave2Spawned && remainingTime <= 900)
+        if (!wave2Spawned && remainingTime <= 1188)
         {
-            SpawnMeleeWave(15);
+            SpawnMeleeWave(10);
 
             wave2Spawned = true;
         }
 
-        if (!wave3Spawned && remainingTime <= 800)
+        if (!wave3Spawned && remainingTime <= 1186)
         {
             SpawnRangedWave(10); // 원거리 적 10마리 생성
 
