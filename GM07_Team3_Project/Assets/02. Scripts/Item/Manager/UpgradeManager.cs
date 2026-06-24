@@ -11,7 +11,7 @@ public class UpgradeManager : MonoBehaviour
         if (upgradeDatabase == null) return;
      
 
-        List<UpgradeData> result = upgradeDatabase.GetRandomUpgrades(choiceCount);
+        List<UpgradeOption> result = upgradeDatabase.GetRandomUpgrades(choiceCount);
 
         // result 리스트 이벤트로 전송
         UpgradeEventManager.CreateUpgradeChoices(result);
