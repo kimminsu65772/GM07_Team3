@@ -28,6 +28,16 @@ public class UpgradeData : ScriptableObject
     [Header("수치 값")]
     [SerializeField] private float value;
 
+    [Header("랜덤한 수치 사용 여부")]
+    [SerializeField] private bool useRandomValue;
+
+    [Header("랜덤한 수치 범위")]
+    [SerializeField] private float minValue;
+    [SerializeField] private float maxValue;
+     
+
+
+
 
     //외부에서 사용 가능한 읽기전용 프로퍼티
     public UpgradeType UpgradeType {  get { return upgradeType; }}
@@ -38,5 +48,8 @@ public class UpgradeData : ScriptableObject
     public GameObject WeaponPrefab { get {return weaponPrefab;} }
     public GameObject BulletPrefab { get { return weaponAttackPrefab; } }
     public float Value { get {return value;} }  
+    public bool UseRandomValue { get {return useRandomValue;}}
+    public float MinValue { get {return minValue;} }
+    public float MaxValue { get { return maxValue; } }
 
 }

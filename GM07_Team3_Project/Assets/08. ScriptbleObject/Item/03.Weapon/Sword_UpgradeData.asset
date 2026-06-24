@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   stateType: 0
-  upgradeName: 
+  upgradeName: "\uAC80"
   description: 
   icon: {fileID: 0}
-  weaponPrefab: {fileID: 0}
-  weaponAttackPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
+  weaponAttackPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
   value: 0

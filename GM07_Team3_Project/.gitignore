@@ -105,11 +105,6 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
-# Unity recovery folder
-/[Aa]ssets/_Recovery*
 
-# Personal Codex instructions
-AGENTS.md
-
-[#] Shared learning assets kept outside Git <- [] 제거
+# Shared learning assets kept outside Git 
 /[Aa]ssets/99. Assets/
