@@ -1,90 +1,47 @@
 using UnityEngine;
+using UnityEngine.AI; // NavMesh 사용위해 필요
 
 public class SpawnManager : Singleton<SpawnManager>
 {
-    [Header("Spawn Point")]
+    [SerializeField] private Transform player;
+    [SerializeField] private float spawnRadius = 15f; // 플레이어 주변 반지름 15m
+    [SerializeField] private float spawnInterval = 1f; // 1초당 생성
 
-    // 적이 생성될 위치들을 인스펙터에서 등록
-    [SerializeField] private Transform[] spawnPoints;
-    //웨이브 중복생성 방지용
-    private bool wave1Spawned;
-    // 2 웨이브 생성여부 저장
-    private bool wave2Spawned;
-    // 3 웨이브 생성여부 저장
-    private bool wave3Spawned;
+    private float spawnTimer;
 
-    private void OnEnable()
+    private void Update()
     {
-        if (TimeManagerTest.Instance != null)
-        {
-            //타임매니저가 시간을 알려줄때 체크웨이브 실행
-            TimeManagerTest.Instance.OnTimeChanged += CheckWave;
-        }
-    }
-    private void OnDisable()
-    {
-        if (TimeManagerTest.Instance != null)
-        {
-            // 오브젝트 비활성화 시 이벤트 해제
-            TimeManagerTest.Instance.OnTimeChanged -= CheckWave;
-        }
+        // 플레이어가 없을때 예외처리
+        if (player == null) return;
+
+        SpawnEnemy();
     }
 
-    private void CheckWave(int remainingTime)
+    private void SpawnEnemy()
     {
-        // 남은 시간 1000초 이하, 1웨이브 생성이 아직 안된 상태면
-        if (!wave1Spawned && remainingTime <= 1000)
-        {
-            SpawnMeleeWave(10); // 근거리 적 10마리 생성
+        spawnTimer += Time.deltaTime; // 매 프레임 시간 누적
 
-            wave1Spawned = true; // 생성 이후 재생성 방지용 true 저장
+        if (spawnTimer < spawnInterval)
+        {
+            return;
         }
 
-        if (!wave2Spawned && remainingTime <= 900)
-        {
-            SpawnMeleeWave(15);
+        spawnTimer = 0f;
 
-            wave2Spawned = true;
-        }
+        MeleeEnemy enemy =
+            EnemyPoolManager.Instance.GetMeleeEnemy();
 
-        if (!wave3Spawned && remainingTime <= 800)
-        {
-            SpawnRangedWave(10); // 원거리 적 10마리 생성
-
-            wave3Spawned = true;
-        }
+        enemy.transform.position = GetSpawnPosition();
     }
 
-    private void SpawnMeleeWave(int count)
+    private Vector3 GetSpawnPosition()
     {
-        for (int i = 0; i < count; i++)
-        {
-            // 오브젝트 풀에서 근거리 적을 하나 꺼낸다
-            MeleeEnemy enemy = 
-                EnemyPoolManager.Instance.GetMeleeEnemy();
+        // 반지름 15m 원 내부에서 랜덤 좌표 생성
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
 
-            // 등록된 스폰 포인트 중 랜덤으로 선택함
-            Transform spawnPoint = 
-                spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-            // 적 위치를 스폰 포인트 위치로 이동
-            enemy.transform.position = spawnPoint.position;
-        }
+        // 플레이어 주변 적 생성 위치 계산
+        return player.position + 
+            new Vector3(randomDirection.x, 
+            0f, randomDirection.y) * spawnRadius;
     }
-
-    private void SpawnRangedWave(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            RangedEnemy enemy =
-                EnemyPoolManager.Instance.GetRangedEnemy();
-
-            Transform spawnPoint =
-                spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-            enemy.transform.position = spawnPoint.position;
-
-        }
-    }
-
 }
