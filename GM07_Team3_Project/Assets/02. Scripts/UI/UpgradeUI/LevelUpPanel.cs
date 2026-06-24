@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LevelUpPanel : MonoBehaviour
 {
-    [Header("Á¦¾îÇÒ ¾÷±×·¹ÀÌµå ÆĞ³Î ¼³Á¤")]
+    [Header("ì œì–´í•  ì—…ê·¸ë ˆì´ë“œ íŒ¨ë„ ì„¤ì •")]
     [SerializeField] private UpgradePanel upgradePanel;
 
     private RectTransform rectTransform;
@@ -31,7 +31,7 @@ public class LevelUpPanel : MonoBehaviour
             .SetEase(Ease.OutBack)
             .SetUpdate(true);
 
-        // ¾÷±×·¹ÀÌµå Ä«µå ±×·ì µîÀå ¾Ö´Ï¸ŞÀÌ¼Ç ¼öÇà
+        // ì—…ê·¸ë ˆì´ë“œ ì¹´ë“œ ê·¸ë£¹ ë“±ì¥ ì• ë‹ˆë©”ì´ì…˜ ìˆ˜í–‰
         upgradePanel.OpenUpgradePanel(upgradeCards);
     }
 
@@ -47,7 +47,7 @@ public class LevelUpPanel : MonoBehaviour
         });
     }
 
-    // ·¹º§¾÷ ÆĞ³ÎÀ» ¿­°í ´İÀ» ¶§ ÆĞ³ÎÀ» ±âº» »óÅÂ·Î ÃÊ±âÈ­ÇÏ´Â ¸Ş¼­µå
+    // ë ˆë²¨ì—… íŒ¨ë„ì„ ì—´ê³  ë‹«ì„ ë•Œ íŒ¨ë„ì„ ê¸°ë³¸ ìƒíƒœë¡œ ì´ˆê¸°í™”í•˜ëŠ” ë©”ì„œë“œ
     private void Initialize()
     {
         rectTransform.DOKill();
