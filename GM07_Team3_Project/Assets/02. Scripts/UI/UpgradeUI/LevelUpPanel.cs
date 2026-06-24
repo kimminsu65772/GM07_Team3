@@ -19,7 +19,7 @@ public class LevelUpPanel : MonoBehaviour
         originalScale = rectTransform.localScale;
     }
 
-    public void OpenLevelUpPanel(List<UpgradeData> upgradeCards)
+    public void OpenLevelUpPanel(List<UpgradeOption> upgradeCards)
     {
         Initialize();
 

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8885dd0b15a1e3488efab35da8980dc, type: 3}
-  m_Name: HpIncrease_UpgradeData
+  m_Name: Defense_UpgradeData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 1
-  stateType: 2
-  upgradeName: 
-  description: 
+  stateType: 5
+  upgradeName: Defense Up
+  description: Defense +
   icon: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 0
+  value: 10

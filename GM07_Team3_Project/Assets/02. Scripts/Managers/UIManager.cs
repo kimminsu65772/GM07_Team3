@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
     private UIPanelType currentPanel = UIPanelType.None;
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
-    public Action<UpgradeData> onUpgradeSelected;
+    public Action<UpgradeOption> onUpgradeSelected;
 
     private void OnEnable()
     {
@@ -113,15 +113,15 @@ public class UIManager : Singleton<UIManager>
     // UpgradeEventManager에서 업그레이드 선택 이벤트가 발생하면 호출되는 메서드
     // 컨트롤러에게 레벨업 패널을 열고 UpgradeData를 업그레이드 UI에 전달하도록 요청.
 
-    private void HandleUpgradeChoiceCreated(List<UpgradeData> upgradeCards)
+    private void HandleUpgradeChoiceCreated(List<UpgradeOption> upgradeCards)
     {
         Debug.Log("업그레이드 선택 이벤트 발생");
         currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
     }
 
-    public void HandleUpgradeSelected(UpgradeData UpgradeData)
+    public void HandleUpgradeSelected(UpgradeOption UpgradeData)
     {
-        Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.UpgradeName}");
+        Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.Data.UpgradeName}");
         onUpgradeSelected?.Invoke(UpgradeData);
     }
 

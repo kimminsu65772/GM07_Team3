@@ -15,8 +15,8 @@ MonoBehaviour:
   upgradeType: 1
   stateType: 1
   upgradeName: Max HP Up!
-  description: Max HP + 50
+  description: 'Max HP + '
   icon: {fileID: 21300000, guid: 3a26e130801be5c419f8fa2c14c6416d, type: 3}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 5
+  value: 50

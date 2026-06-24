@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpgradePanel : MonoBehaviour
 {
     // UI 매니저로부터 전달받은 랜덤 업그레이드 카드 리스트
-    [SerializeField] private List<UpgradeData> currentCardList;
+    [SerializeField] private List<UpgradeOption> currentCardList;
 
     // 업그레이드 카드를 배열로 저장
     [SerializeField] private UpgradeCard[] upgradeCardSlots;
@@ -13,7 +13,7 @@ public class UpgradePanel : MonoBehaviour
     [SerializeField] private UpgradeUIController upgradeUIController;
 
     private CanvasGroup canvasGroup;
-    private UpgradeData selectedCard;
+    private UpgradeOption selectedCard;
 
     
 
@@ -32,7 +32,7 @@ public class UpgradePanel : MonoBehaviour
         InitializePanel();
     }
 
-    public void OpenUpgradePanel(List<UpgradeData> upgradeCards)
+    public void OpenUpgradePanel(List<UpgradeOption> upgradeCards)
     {
 
         canvasGroup.alpha = 1f;
@@ -66,7 +66,7 @@ public class UpgradePanel : MonoBehaviour
         }
     }
 
-    private void SetUpgradeCards(List<UpgradeData> cards)
+    private void SetUpgradeCards(List<UpgradeOption> cards)
     {
         currentCardList = cards;
 
@@ -88,7 +88,7 @@ public class UpgradePanel : MonoBehaviour
         }
     }
 
-    private void HandleSelectedCard(UpgradeData card)
+    private void HandleSelectedCard(UpgradeOption card)
     {
         selectedCard = card;
         upgradeUIController.UpgradeCardSelected(selectedCard);

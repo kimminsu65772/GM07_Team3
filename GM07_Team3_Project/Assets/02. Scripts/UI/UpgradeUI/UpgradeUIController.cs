@@ -17,7 +17,7 @@ public class UpgradeUIController : MonoBehaviour
     {
         levelUpPanel.gameObject.SetActive(false);
     }
-    public void ShowLevelUpPanel(List<UpgradeData> upgradeCards)
+    public void ShowLevelUpPanel(List<UpgradeOption> upgradeCards)
     {
         levelUpPanel.gameObject.SetActive(true);
 
@@ -26,7 +26,7 @@ public class UpgradeUIController : MonoBehaviour
     }
 
     // 버튼으로부터 선택된 업그레이드 옵션을 UIManager에 전달하고 레벨업 패널을 비활성화함.
-    public void UpgradeCardSelected(UpgradeData upgradeData)
+    public void UpgradeCardSelected(UpgradeOption upgradeData)
     {
         UIManager.Instance.HandleUpgradeSelected(upgradeData);
         levelUpPanel.CloseLevelUpPanel();

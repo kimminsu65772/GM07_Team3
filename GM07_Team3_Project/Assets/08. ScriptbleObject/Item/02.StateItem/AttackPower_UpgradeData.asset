@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeType: 1
   stateType: 4
   upgradeName: Attack Power Up!
-  description: Attack Power + 10
+  description: 'Attack Power + '
   icon: {fileID: 21300000, guid: 7fa8d0412fd094b9ebb85d721af6c5ca, type: 3}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
