@@ -14,6 +14,7 @@ public class UIManager : Singleton<UIManager>
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
     public Action<UpgradeOption> onUpgradeSelected;
+    public Action onPausePressed;
 
     private void OnEnable()
     {
@@ -74,6 +75,8 @@ public class UIManager : Singleton<UIManager>
         if (currentUIRoot == null) return;
 
         if (!CanControlPanel(UIPanelType.Pause)) return;
+
+        onPausePressed?.Invoke();
 
         if (AlreadyOpenPanel(UIPanelType.Pause))
         {
