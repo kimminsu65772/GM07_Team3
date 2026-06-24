@@ -73,7 +73,7 @@ public class UIManager : Singleton<UIManager>
     {
         if (currentUIRoot == null) return;
 
-        if (!CanOpenPanel(UIPanelType.Pause)) return;
+        if (!CanControlPanel(UIPanelType.Pause)) return;
 
         if (AlreadyOpenPanel(UIPanelType.Pause))
         {
@@ -112,23 +112,39 @@ public class UIManager : Singleton<UIManager>
 
     // UpgradeEventManager에서 업그레이드 선택 이벤트가 발생하면 호출되는 메서드
     // 컨트롤러에게 레벨업 패널을 열고 UpgradeData를 업그레이드 UI에 전달하도록 요청.
+    // [임시] 일단은 레벨업 패널이 열릴 때 게임이 일시정지되도록 구현.
+    // 추후에는 레벨업 이벤트를 TimeManager에서 받아서 게임이 일시정지되도록 구현하도록 변경 필요.
 
     private void HandleUpgradeChoiceCreated(List<UpgradeOption> upgradeCards)
     {
         Debug.Log("업그레이드 선택 이벤트 발생");
+        if (currentUIRoot == null) return;
+        currentPanel = UIPanelType.LevelUp;
+        TimeManagerTest.Instance.ToggleTimeScale();
         currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
     }
 
     public void HandleUpgradeSelected(UpgradeOption UpgradeData)
     {
         Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.Data.UpgradeName}");
+        currentPanel = UIPanelType.None;
         onUpgradeSelected?.Invoke(UpgradeData);
+        TimeManagerTest.Instance.ToggleTimeScale();
     }
 
-    // 패널을 열기 전에 현재 열려있는 패널이 있는지 확인하고, 없으면 열고 있으면 닫는 메서드
-    private bool CanOpenPanel(UIPanelType panelType)
+    // 제어하고자 하는 패널이 제어 가능 상태인지 확인하는 메서드
+    private bool CanControlPanel(UIPanelType panelType)
     {
-        return currentPanel == UIPanelType.None;
+        // 이미 열려있는 경우에는 다시 닫을 수 있도록 같은 타입의 패널
+        if (currentPanel == UIPanelType.None || currentPanel == panelType)
+        {
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning($"이미 다른 패널이 열려있습니다: {currentPanel}");
+            return false;
+        }
     }
 
     private bool AlreadyOpenPanel(UIPanelType panelType)
