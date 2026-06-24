@@ -10,6 +10,7 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     private UIRoot currentUIRoot;
+    private UIPanelType currentPanel = UIPanelType.None;
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
     public Action<UpgradeData> onUpgradeSelected;
