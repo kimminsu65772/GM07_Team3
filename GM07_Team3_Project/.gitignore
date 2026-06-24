@@ -111,5 +111,5 @@ InitTestScene*.unity*
 # Personal Codex instructions
 AGENTS.md
 
-[#] Shared learning assets kept outside Git <- [] 제거
+# Shared learning assets kept outside Git
 /[Aa]ssets/99. Assets/

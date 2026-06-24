@@ -10,6 +10,7 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     private UIRoot currentUIRoot;
+    private UIPanelType currentPanel = UIPanelType.None;
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
     public Action<UpgradeData> onUpgradeSelected;
@@ -67,11 +68,23 @@ public class UIManager : Singleton<UIManager>
     /// Pause Menu 관련 메서드
     ////////////////////////////
 
-    // InputManager에서 일시정지 버튼이 누른 것을 감지하면 UIManager에서 실행할 메서드.
+    // InputManager에서 일시정지 버튼이 누른 것을 감지하면 UIManager에서 일시정지 패널을 요청하는 메서드
     public void TogglePausePanel()
     {
-        TimeManagerTest.Instance.ToggleTimeScale();
-        currentUIRoot.PauseUIController.TogglePausePanel();
+        if (currentUIRoot == null) return;
+
+        if (!CanOpenPanel(UIPanelType.Pause)) return;
+
+        if (AlreadyOpenPanel(UIPanelType.Pause))
+        {
+            currentUIRoot.PauseUIController.ClosePausePanel();
+            currentPanel = UIPanelType.None;
+        }
+        else
+        {
+            currentUIRoot.PauseUIController.OpenPausePanel();
+            currentPanel = UIPanelType.Pause;
+        }
     }
 
     public void HandlePauseMenuRequest(PauseMenuType pauseMenuType)
@@ -110,5 +123,16 @@ public class UIManager : Singleton<UIManager>
     {
         Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.UpgradeName}");
         onUpgradeSelected?.Invoke(UpgradeData);
+    }
+
+    // 패널을 열기 전에 현재 열려있는 패널이 있는지 확인하고, 없으면 열고 있으면 닫는 메서드
+    private bool CanOpenPanel(UIPanelType panelType)
+    {
+        return currentPanel == UIPanelType.None;
+    }
+
+    private bool AlreadyOpenPanel(UIPanelType panelType)
+    {
+        return currentPanel == panelType;
     }
 }
