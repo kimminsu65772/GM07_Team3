@@ -84,7 +84,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (UpgradeData == null) return;
         titleText.text = UpgradeData.Data.UpgradeName;
         iconImage.sprite = UpgradeData.Data.Icon;
-        descriptionText.text = UpgradeData.Data.Description + $" {UpgradeData.Value}";
+        descriptionText.text = UpgradeData.Data.Description + $" {UpgradeData.Value:F1}";
     }
 
     public Tween CardOpen()

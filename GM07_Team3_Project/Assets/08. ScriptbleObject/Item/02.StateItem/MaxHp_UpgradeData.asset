@@ -20,3 +20,6 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
   value: 50
+  useRandomValue: 1
+  minValue: 30
+  maxValue: 60
