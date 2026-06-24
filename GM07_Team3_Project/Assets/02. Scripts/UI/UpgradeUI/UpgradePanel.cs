@@ -50,6 +50,7 @@ public class UpgradePanel : MonoBehaviour
                 upgradeCardSlots[index].CardOpen();
             });
             sequence.AppendInterval(0.2f);
+            sequence.SetUpdate(true);
         }
     }
 

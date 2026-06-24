@@ -100,6 +100,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         sequence.Join(rectTransform.DOAnchorPos(originalPosition, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DORotateQuaternion(originalRotation, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DOScale(originalScale, 0.35f).SetEase(Ease.OutBack));
+        sequence.SetUpdate(true);
         return sequence;
     }
 
@@ -116,7 +117,9 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 현재 진행중인 애니메이션이 있다면 중지
         transform.DOKill();
         rectTransform.DOKill();
-        transform.DOScale(originalScale * hoverScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale * hoverScale, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -125,6 +128,8 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 현재 진행중인 애니메이션이 있다면 중지
         transform.DOKill();
         rectTransform.DOKill();
-        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 }
