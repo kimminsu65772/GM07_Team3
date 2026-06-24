@@ -10,12 +10,27 @@ public class InputManagerTest : Singleton<InputManagerTest>
     {
         base.Awake();
         if (pauseAction == null)
-            pauseAction = InputSystem.actions.FindAction("Pause");
+        {
+            pauseAction = new InputAction(
+                name: "PauseTest",
+                type: InputActionType.Button,
+                binding: "<Keyboard>/p");
+        }
+    }
+
+    private void OnEnable()
+    {
+        pauseAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        pauseAction.Disable();
     }
 
     private void Update()
     {
-        if (pauseAction.WasPressedThisFrame())
+        if (pauseAction.triggered)
         {
             UIManager.Instance.TogglePausePanel();
         }

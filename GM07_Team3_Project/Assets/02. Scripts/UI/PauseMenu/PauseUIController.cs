@@ -27,16 +27,20 @@ public class PauseUIController : MonoBehaviour
         canvasGroup.gameObject.SetActive(false);
     }
 
-    public void TogglePausePanel()
+    public void OpenPausePanel()
     {
-        isPaused = !isPaused;
-        Debug.Log($"Pause state changed: {isPaused}");
-        if (isPaused)
+        if (!isPaused)
         {
+            isPaused = true;
             Open();
         }
-        else
+    }
+
+    public void ClosePausePanel()
+    {
+        if (isPaused)
         {
+            isPaused = false;
             Close();
         }
     }
@@ -87,7 +91,7 @@ public class PauseUIController : MonoBehaviour
 
     public void OnClickResumeBtn()
     {
-        TogglePausePanel();
+        ClosePausePanel();
 
         // 일시정지 메뉴에서 Resume 버튼이 클릭되면 UIManager에게 Resume 요청을 보내고 패널을 닫음.
         // 아마 UIManager에서는 게임 매니저에게 일시정지 해제 요청을 보낼 것으로 예상됨.
@@ -97,7 +101,7 @@ public class PauseUIController : MonoBehaviour
 
     public void OnClickQuitBtn()
     {
-        TogglePausePanel();
+        ClosePausePanel();
 
         // 일시정지 메뉴에서 Quit 버튼이 클릭되면 UIManager는 게임 매니저에게는 게임 종료 요청을 보내고
         // 씬 매니저에게는 메인 메뉴 씬으로 이동할 것을 요청할 것임.
