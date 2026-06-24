@@ -50,32 +50,65 @@ public sealed class PlayerStatController : MonoBehaviour
         //UpgradeEventManager.OnUpgradeSelected -= HandleUpgradeSelected;
     }
 
-    public float GetStat(StatType statType)
+    public float GetStat(StateType stateType)
     {
         if (!CheckPlayerStats())
         {
             Debug.LogError($"{name}: PlayerStats가 초기화되지 않았습니다.", this);
             return 0f;
         }
-        return playerStats.GetTotalStat(statType);
+        return playerStats.GetTotalStat(stateType);
     }
 
-    //private void HandleUpgradeSelected(UpgradeData upgradeData)
+    //private void HandleUpgradeSelected(UpgradeOption upgradeOption)
     //{
-    //    if (upgradeData == null)
+    //    if (upgradeOption == null)
     //    {
-    //        Debug.LogWarning($"{name}: 선택된 UpgradeData가 없습니다.", this);
+    //        Debug.LogWarning($"{name}: 선택된 UpgradeOption이 없습니다.", this);
 
     //        return;
     //    }
 
-    //    if (upgradeData.StatType == StatType.None)
+    //    if (upgradeOption.Data == null)
+    //    {
+    //        Debug.LogWarning($"{name}: UpgradeOption에 UpgradeData가 없습니다.", this);
+
+    //        return;
+    //    }
+
+    //    StateType stateType =  upgradeOption.Data.StateType;
+
+    //    if (stateType == StateType.None)
     //    {
     //        return;
     //    }
-    //    playerStats.AddItemStat(upgradeData.StatType, upgradeData.Value);
 
-    //    UpdateRuntimeStat(upgradeData.StatType);
+    //    AddItemStat(stateType, upgradeOption.Value);
+    //}
+    //public void AddItemStat(StateType stateType, float amount)
+    //{
+    //    if (!CheckPlayerStats())
+    //    {
+    //        return;
+    //    }
+    //    float stateValue = playerStats.GetTotalStat(stateType);
+
+    //    playerStats.AddItemStat(stateType, amount);
+
+    //    float totalValue = playerStats.GetTotalStat(stateType);
+
+    //    StatChanged(stateType, stateValue, totalValue);
+    //}
+
+    //private void StatChanged(StateType stateType, float stateValue, float totalValue)
+    //{
+    //    if (Mathf.Approximately(stateValue, totalValue))
+    //    {
+    //        return;
+    //    }
+    //    UpdateRuntimeStat(stateType);
+
+    //    OnStatChanged?.Invoke(stateType, stateValue, totalValue);
     //}
 
     private void HandleExperience(int amount)
@@ -100,36 +133,35 @@ public sealed class PlayerStatController : MonoBehaviour
     {
         runtimeStats.Clear();
 
-        for (int i = 0; i < (int)StatType.Length; i++)
+        foreach (StateType stateType in Enum.GetValues(typeof(StateType)))
         {
-            StatType statType = (StatType)i;
-
-            RuntimeStatEntry runtimeStat =
-                new RuntimeStatEntry(
-                    statType,
-                    playerStats.GetBaseStat(statType),
-                    playerStats.GetItemStat(statType),
-                    playerStats.GetTotalStat(statType));
+            if (stateType == StateType.None)
+            {
+                continue;
+            }
+            RuntimeStatEntry runtimeStat = new RuntimeStatEntry(
+                stateType,
+                playerStats.GetBaseStat(stateType),
+                playerStats.GetItemStat(stateType),
+                playerStats.GetTotalStat(stateType));
 
             runtimeStats.Add(runtimeStat);
         }
     }
 
-    private void UpdateRuntimeStat(
-    StatType statType)
+    private void UpdateRuntimeStat(StateType stateType)
     {
-        foreach (RuntimeStatEntry runtimeStat
-                 in runtimeStats)
+        foreach (RuntimeStatEntry runtimeStat in runtimeStats)
         {
-            if (runtimeStat.StatType != statType)
+            if (runtimeStat.StatType != stateType)
             {
                 continue;
             }
 
             runtimeStat.SetValues(
-                playerStats.GetBaseStat(statType),
-                playerStats.GetItemStat(statType),
-                playerStats.GetTotalStat(statType));
+                playerStats.GetBaseStat(stateType),
+                playerStats.GetItemStat(stateType),
+                playerStats.GetTotalStat(stateType));
 
             return;
         }
@@ -159,7 +191,7 @@ public sealed class PlayerStatController : MonoBehaviour
 public sealed class RuntimeStatEntry
 {
     [SerializeField]
-    private StatType statType;
+    private StateType stateType;
 
     [SerializeField]
     private float baseValue;
@@ -170,7 +202,7 @@ public sealed class RuntimeStatEntry
     [SerializeField]
     private float totalValue;
 
-    public StatType StatType => statType;
+    public StateType StatType => stateType;
 
     public float BaseValue => baseValue;
 
@@ -178,18 +210,18 @@ public sealed class RuntimeStatEntry
 
     public float TotalValue => totalValue;
 
-    public RuntimeStatEntry(StatType statType, float baseValue, float itemValue, float totalValue)
+    public RuntimeStatEntry(StateType stateType, float baseValue, float itemValue, float totalValue)
     {
-        this.statType = statType;
+        this.stateType = stateType;
         this.baseValue = baseValue;
         this.itemValue = itemValue;
         this.totalValue = totalValue;
     }
 
-    public void SetValues(float newBaseValue, float newAdditionalValue, float newTotalValue)
+    public void SetValues(float newBaseValue, float newAdditemValue, float newTotalValue)
     {
         baseValue = newBaseValue;
-        itemValue = newAdditionalValue;
+        itemValue = newAdditemValue;
         totalValue = newTotalValue;
     }
 }
@@ -236,32 +268,10 @@ public float GetBaseStat(StatType statType)
         NotifyStatChanged(statType, previousTotalValue, currentTotalValue);
     }
 
-    public void AddItemStat(StatType statType, float amount)
-    {
-        if (!CheckPlayerStats())
-        {
-            return;
-        }
-        float previousTotalValue = playerStats.GetTotalStat(statType);
-
-        playerStats.AddItemStat(statType, amount);
-
-        float currentTotalValue = playerStats.GetTotalStat(statType);
-
-        NotifyStatChanged(statType, previousTotalValue, currentTotalValue);
-    }
 
 
 
 
-    private void NotifyStatChanged(StatType statType, float previousValue, float currentValue)
-    {
-        if (Mathf.Approximately(previousValue, currentValue))
-        {
-            return;
-        }
-        UpdateRuntimeStat(statType);
 
-        OnStatChanged?.Invoke(statType, previousValue, currentValue);
-    }
+
  */
