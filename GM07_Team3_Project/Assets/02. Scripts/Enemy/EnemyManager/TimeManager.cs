@@ -13,6 +13,7 @@ public class TimeManagerTest : MonoBehaviour
 
     // Time 매니저의 경우 다른 매니저와 다르게 게임 씬에서만 존재해야 하므로 싱글톤 패턴을 적용하되, DontDestroyOnLoad를 사용하지 않고 씬이 변경될 때마다 새로 생성되도록 한다. (임시)
     private static TimeManagerTest instance;
+    public static bool HasInstance => instance != null;
     public static TimeManagerTest Instance
     {
         get
