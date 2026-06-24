@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
+    private UpgradeOption option;
     private UpgradeData upgradeData;
     private Transform owner;
     private Transform target;
+    private float value;
     
     
     [SerializeField] private float attackInterval = 1.0f;
@@ -13,10 +15,12 @@ public class WeaponBase : MonoBehaviour
 
 
     //데이터 가져오기
-    public virtual void Init(UpgradeData upgradeData, Transform owner)
+    public virtual void Init(UpgradeOption option, Transform owner)
     {
-        this.upgradeData = upgradeData;
+        this.upgradeData = option.Data;
+        this.option = option;
         this.owner = owner;
+        this.value = option.Value;
         timer = 0.0f;
     }
 
@@ -44,9 +48,12 @@ public class WeaponBase : MonoBehaviour
         Vector3 direction = GetAttackDirection();
         Vector3 attackPosition = GetSpawnPosition(direction);
 
+        //오브젝트풀이 널인지 검사
+        if (ObjectPoolManager.Instance == null) return;
         //오브젝트 꺼내오기
-        GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject();
+        GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
 
+       
         //위치와 회전 세팅
         attackObj.transform.position = attackPosition;
         attackObj.transform.rotation = Quaternion.LookRotation(direction);
@@ -55,7 +62,7 @@ public class WeaponBase : MonoBehaviour
       
         if(attackObject != null)
         {
-            attackObject.Init(upgradeData.Value, direction);
+            attackObject.Init(value, direction);
         }
     }
 

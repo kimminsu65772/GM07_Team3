@@ -19,15 +19,17 @@ public class LevelUpPanel : MonoBehaviour
         originalScale = rectTransform.localScale;
     }
 
-    public void OpenLevelUpPanel(List<UpgradeData> upgradeCards)
+    public void OpenLevelUpPanel(List<UpgradeOption> upgradeCards)
     {
         Initialize();
 
         levelUpCanvasGroup.alpha = 1f;
         levelUpCanvasGroup.interactable = true;
         levelUpCanvasGroup.blocksRaycasts = true;
-        
-        rectTransform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBack);
+
+        rectTransform.DOScale(originalScale, 0.3f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
 
         // 업그레이드 카드 그룹 등장 애니메이션 수행
         upgradePanel.OpenUpgradePanel(upgradeCards);
@@ -36,7 +38,9 @@ public class LevelUpPanel : MonoBehaviour
     public void CloseLevelUpPanel()
     {
         rectTransform.DOKill();
-        rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
+            .SetUpdate(true)
+            .OnComplete(() =>
         {
             Initialize();
             gameObject.SetActive(false);

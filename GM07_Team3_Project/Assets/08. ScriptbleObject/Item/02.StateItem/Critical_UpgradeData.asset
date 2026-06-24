@@ -15,8 +15,11 @@ MonoBehaviour:
   upgradeType: 1
   stateType: 6
   upgradeName: Critical Chance Up!
-  description: Critical Chance + 5%
+  description: 'Critical Chance + '
   icon: {fileID: 21300000, guid: 9a054775d90e34c9cba80046883d47ad, type: 3}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
   value: 5
+  useRandomValue: 1
+  minValue: 5
+  maxValue: 8

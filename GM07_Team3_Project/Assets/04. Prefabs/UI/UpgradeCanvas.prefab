@@ -241,7 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d58085bcb046e642b962b1abd1a2a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePanel
-  currentCardList: []
   upgradeCardSlots:
   - {fileID: 6264443750490793893}
   - {fileID: 9202267889145511706}
@@ -518,10 +517,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -936,7 +935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 5849119717140903656}
   titleText: {fileID: 3406273952359533667}
   iconImage: {fileID: 2999333732921742077}
@@ -1106,7 +1104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 703961884450313892}
   titleText: {fileID: 7242813040034585929}
   iconImage: {fileID: 5127399380330589349}
@@ -1276,7 +1273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a280b2cb0e5434eb44a9d489a49e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCard
-  UpgradeData: {fileID: 0}
   canvasGroup: {fileID: 824536295918713620}
   titleText: {fileID: 4020853011951772995}
   iconImage: {fileID: 3056463849189262711}
@@ -1426,10 +1422,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1878,10 +1874,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

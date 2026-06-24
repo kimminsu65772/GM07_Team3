@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8885dd0b15a1e3488efab35da8980dc, type: 3}
   m_Name: Defense_UpgradeData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeType: 0
+  upgradeType: 1
   stateType: 5
-  upgradeName: Defense Up!
-  description: Defense + 7
-  icon: {fileID: 21300000, guid: be4e9580b073f491a9ff5ef61ee4ec93, type: 3}
+  upgradeName: Defense Up
+  description: Defense +
+  icon: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 7
+  value: 10
+  useRandomValue: 1
+  minValue: 7
+  maxValue: 10

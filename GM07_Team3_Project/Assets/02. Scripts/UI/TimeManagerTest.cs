@@ -50,6 +50,28 @@ public class TimeManagerTest : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        UIManager.Instance.onPausePressed -= ToggleTimeScale;
+        UIManager.Instance.onPausePressed += ToggleTimeScale;
+    }
+
+    private void OnDisable()
+    {
+        if (!UIManager.HasInstance) return;
+        UIManager.Instance.onPausePressed -= ToggleTimeScale;
+
+        if (instance == this)
+        {
+            instance = null;
+        }
+        // 일시정지 상태에서 메인 화면으로 넘어가버리면
+        // Time.timeScale이 0인 상태로 남아있어서
+        // 메인 화면에서 아무것도 작동하지 않는 문제가 발생할 수 있으므로,
+        // TimeManagerTest가 파괴될 때 Time.timeScale을 1로 초기화하여 일시정지 상태가 유지되지 않도록 한다.
+        Time.timeScale = 1f;
+    }
+
 
     void Update()
     {
@@ -88,18 +110,5 @@ public class TimeManagerTest : MonoBehaviour
     public void UnsubscribeFromTimeChanged(Action<int> callback)
     {
         OnTimeChanged -= callback;
-    }
-
-    private void OnDisable()
-    {
-        if (instance == this)
-        {
-            instance = null;
-        }
-        // 일시정지 상태에서 메인 화면으로 넘어가버리면
-        // Time.timeScale이 0인 상태로 남아있어서
-        // 메인 화면에서 아무것도 작동하지 않는 문제가 발생할 수 있으므로,
-        // TimeManagerTest가 파괴될 때 Time.timeScale을 1로 초기화하여 일시정지 상태가 유지되지 않도록 한다.
-        Time.timeScale = 1f; 
     }
 }

@@ -7,7 +7,7 @@ using System;
 
 public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private UpgradeData UpgradeData;
+    [SerializeField] private UpgradeOption UpgradeData;
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("UI Elements")]
@@ -26,7 +26,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Header("Start Y Rotation Setting")]
     [SerializeField] private float startYRotation = 180f;
 
-    public Action<UpgradeData> OnCardSelected;
+    public Action<UpgradeOption> OnCardSelected;
 
     private RectTransform rectTransform;
     private Vector2 originalPosition;
@@ -73,7 +73,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     // 업그레이드 데이터를 설정하는 메서드
-    public void SetUpgradeData(UpgradeData data)
+    public void SetUpgradeData(UpgradeOption data)
     {
         UpgradeData = data;
     }
@@ -82,9 +82,9 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void SetUpgradeCardUI()
     {
         if (UpgradeData == null) return;
-        titleText.text = UpgradeData.UpgradeName;
-        iconImage.sprite = UpgradeData.Icon;
-        descriptionText.text = UpgradeData.Description;
+        titleText.text = UpgradeData.Data.UpgradeName;
+        iconImage.sprite = UpgradeData.Data.Icon;
+        descriptionText.text = UpgradeData.Data.Description + $" {UpgradeData.Value:F1}";
     }
 
     public Tween CardOpen()
@@ -100,6 +100,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         sequence.Join(rectTransform.DOAnchorPos(originalPosition, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DORotateQuaternion(originalRotation, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DOScale(originalScale, 0.35f).SetEase(Ease.OutBack));
+        sequence.SetUpdate(true);
         return sequence;
     }
 
@@ -116,7 +117,9 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 현재 진행중인 애니메이션이 있다면 중지
         transform.DOKill();
         rectTransform.DOKill();
-        transform.DOScale(originalScale * hoverScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale * hoverScale, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -125,6 +128,8 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // 현재 진행중인 애니메이션이 있다면 중지
         transform.DOKill();
         rectTransform.DOKill();
-        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutBack);
+        transform.DOScale(originalScale, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 }
