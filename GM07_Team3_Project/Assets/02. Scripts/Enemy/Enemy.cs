@@ -35,16 +35,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     // 자식 공통 플레이어 탐색기능
-    protected virtual void FindPlayer()
+    private void FindPlayer()
     {
-        if (target != null)
-        {
-            return;
-        }
+        if (target != null) return;
 
-        GameObject player = 
-            GameObject.FindGameObjectWithTag("Player");
-
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             target = player.transform;
