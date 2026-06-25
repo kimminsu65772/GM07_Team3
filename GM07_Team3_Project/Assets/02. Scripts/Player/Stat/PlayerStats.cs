@@ -23,17 +23,18 @@ public sealed class PlayerStats
 
     private void InitializeStats(PlayerStatSO playerStatData)
     {
-        for (int i = 0; i < (int)StatType.Length; i++)
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            StatType statType = (StatType)i;
+            if (statType == StatType.None)
+            {
+                continue;
+            }
 
             float defaultValue = GetDefaultValue(statType);
 
             baseStats[statType] = defaultValue;
             itemStats[statType] = 0f;
             totalStats[statType] = defaultValue;
-
-            //stats[statType] = GetDefaultValue(statType);
         }
         foreach (StatEntry statEntry in playerStatData.BaseStats)
         {
@@ -46,9 +47,12 @@ public sealed class PlayerStats
             }
             baseStats[statType] = ClampStat(statType, statEntry.Value);
         }
-        for (int i = 0; i < (int)StatType.Length; i++)
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            StatType statType = (StatType)i;
+            if (statType == StatType.None)
+            {
+                continue;
+            }
 
             RecalculateTotalStat(statType);
         }
@@ -124,10 +128,12 @@ public sealed class PlayerStats
     //모든 아이템 스탯 초기화용
     public void ClearAllAdditionalStats()
     {
-        for (int i = 0; i < (int)StatType.Length; i++)
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            StatType statType = (StatType)i;
-
+            if (statType == StatType.None)
+            {
+                continue;
+            }
             itemStats[statType] = 0f;
 
             RecalculateTotalStat(statType);
@@ -142,13 +148,13 @@ public sealed class PlayerStats
 
     private static bool IsValidStatType(StatType statType)
     {
-        return statType > StatType.None && statType < StatType.Length;
+        return statType > StatType.None && Enum.IsDefined(typeof(StatType), statType);
     }
     private static float GetDefaultValue(StatType statType)
     {
         switch (statType)
         {
-            case StatType.MaxHealth:
+            case StatType.MaxHp:
                 return 1f;
 
             case StatType.AttackSpeed:
@@ -163,19 +169,19 @@ public sealed class PlayerStats
     {
         switch (statType)
         {
-            case StatType.MaxHealth:
+            case StatType.MaxHp:
                 return Mathf.Max(1f, value);
 
             case StatType.Defense:
                 return Mathf.Max(0f, value);
 
-            case StatType.AttackPower:
+            case StatType.Damage:
                 return Mathf.Max(0f, value);
 
             case StatType.AttackSpeed:
                 return Mathf.Max(0.1f, value);
 
-            case StatType.CriticalChance:
+            case StatType.Critical:
                 return Mathf.Max(0f, value);
 
             default:

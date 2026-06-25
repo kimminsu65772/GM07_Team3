@@ -6,6 +6,20 @@ public sealed class PlayerLevel
     private readonly int[] requiredExperiences;
     public int CurrentLevel { get; private set; }
     public int CurrentExperience { get; private set; }
+    public int RequiredExperience
+    {
+        get
+        {
+            if (CurrentLevel >= maxLevel)
+            {
+                return 0;
+            }
+
+            int index = CurrentLevel - 1;
+
+            return Math.Max(1, requiredExperiences[index]);
+        }
+    }
     public PlayerLevel(PlayerLevelSO playerLevelData)
     {
         if (playerLevelData == null)
@@ -16,7 +30,7 @@ public sealed class PlayerLevel
         maxLevel = playerLevelData.MaxLevel;
 
         //requiredExperiences = playerLevelData.RequiredExperiences;
-        requiredExperiences =(int[])playerLevelData.RequiredExperiences.Clone();
+        requiredExperiences = (int[])playerLevelData.RequiredExperiences.Clone();
 
         CurrentLevel = 1;
         CurrentExperience = 0;
