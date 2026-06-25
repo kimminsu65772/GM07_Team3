@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class ExpBar : MonoBehaviour
     [Header("경험치 바 설정")]
     [SerializeField] private Slider expSlider;
     [SerializeField] private Image expFillImage;
+    [SerializeField] private TextMeshProUGUI expText;
 
     [Header("색상 변환 설정")]
     // 비율에 따른 색깔 설정
@@ -38,5 +40,15 @@ public class ExpBar : MonoBehaviour
         }
         
         expFillImage.color = expGradient.Evaluate(value);
+    }
+
+    public void SetExpBar(float currentExp, float maxExp)
+    {
+        expSlider.value = currentExp / maxExp;
+    }
+
+    public void ChangeLevelText(int currentLevel)
+    {
+        expText.text = $"Lv. {currentLevel}";
     }
 }
