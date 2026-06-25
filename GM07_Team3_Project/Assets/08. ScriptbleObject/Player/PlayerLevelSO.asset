@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ebbbde04d9ebb43b18e09fd5acbf72, type: 3}
   m_Name: PlayerLevelSO
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLevelSO
-  requiredExperiences: 
+  requiredExperiences: 0a0000000d00000012000000
