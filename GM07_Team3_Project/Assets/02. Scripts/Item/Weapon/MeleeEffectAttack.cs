@@ -8,13 +8,13 @@ public class MeleeEffectAttack : AttackObject
     [SerializeField] private float attackAngle = 180.0f;
     [SerializeField] private LayerMask targetLayer;
 
-    private HashSet<IDamageable> hitTargets = new HashSet<IDamageable>();
+    //private HashSet<IDamageable> hitTargets = new HashSet<IDamageable>();
 
     public override void Init(float damage, Vector3 direction)
     {
         base.Init(damage, direction);
 
-        hitTargets.Clear();
+        //hitTargets.Clear();
 
         transform.rotation = Quaternion.LookRotation(direction);
 
@@ -41,21 +41,21 @@ public class MeleeEffectAttack : AttackObject
                 continue;
             }
 
-           IDamageable damageable = hit.GetComponentInParent<IDamageable>();
+           //IDamageable damageable = hit.GetComponentInParent<IDamageable>();
 
-            if (damageable == null)
-            {
-                continue;
-            }
+           // if (damageable == null)
+           // {
+           //     continue;
+           // }
 
-            if (hitTargets.Contains(damageable))
-            {
-                continue;
-            }
+           // if (hitTargets.Contains(damageable))
+           // {
+           //     continue;
+           // }
 
-            hitTargets.Add(damageable);
+           // hitTargets.Add(damageable);
 
-            damageable.TakeDamage(damage);
+           // damageable.TakeDamage(damage);
         }
     }
 

@@ -7,8 +7,8 @@ public class WeaponBase : MonoBehaviour
     private Transform owner;
     private Transform target;
     private float value;
-    
-    
+
+    [SerializeField] private float spawnDistance = 0.5f;
     [SerializeField] private float attackInterval = 1.0f;
 
     private float timer = 0.0f;
@@ -81,6 +81,6 @@ public class WeaponBase : MonoBehaviour
     //투사체 생성 위치
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        return owner.position + direction;
+        return owner.position + direction * spawnDistance;
     }
 }
