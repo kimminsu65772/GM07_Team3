@@ -155,6 +155,10 @@ public sealed class PlayerStatController : MonoBehaviour
             OnLevelChanged?.Invoke(playerLevel.CurrentLevel);
         }
     }
+    public int GetRequiredExperience()
+    {
+        return playerLevel.RequiredExperience;
+    }
 
     //경험치 얻는 걸 이벤트로 변경시
     //private void HandleExperience(int amount)
