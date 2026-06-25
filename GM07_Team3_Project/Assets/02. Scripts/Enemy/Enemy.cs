@@ -35,6 +35,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             agent.speed = enemyData.MoveSpeed;
         }
+
+        agent = GetComponent<NavMeshAgent>();
+
+        if (agent != null)
+        {
+            agent.updateUpAxis = false;
+            agent.updateRotation = true;
+        }
     }
 
     public void Initialize(Transform player, PlayerStatController statController)
@@ -44,7 +52,33 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
         
 
-    // 플레이어 추적 기능
+    // 적이 스폰될 때 NavMesh가 있는 위치로 이동시키는 위치 보정 메서드
+    public bool WarpToNavMesh(Vector3 position)
+    {
+        // 위치를 스포너가 지정한 위치로 이동시키되 NavMeshAgent가 없으므로 false 반환
+        // 이 경우 플레이어를 추적할 수 없는 상태이므로 pool로 반환될 수 있게 false 반환
+        if (agent == null)
+        {
+            transform.position = position;
+            return false;
+        }
+
+        // NavMeshAgent가 있는 경우 지정한 위치로 이동시키고 결과를 isWarped에 저장
+        bool isWarped = agent.Warp(position);
+
+        // 이동이 불가능해 위치 보정에 실패한 경우 pool에 반환될 수 있게 false 반환
+        if (!isWarped)
+        {
+            return false;
+        }
+
+        // pool에서 재사용 하는 과정에서 기존에 남아있을 수 있는 경로를 초기화하고 이동을 재개
+        agent.ResetPath();
+        agent.isStopped = false;
+
+        return true;
+    }
+
     protected virtual void MoveToTarget()
     {
         if (target == null)

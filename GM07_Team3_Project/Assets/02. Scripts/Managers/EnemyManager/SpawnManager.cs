@@ -9,6 +9,7 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField] private float spawnRadius = 15f; // 플레이어 주변 반지름 15m
     [SerializeField] private float spawnInterval = 1f; // 1초당 생성
 
+    private NavMeshAgent agent;
 
     private float spawnTimer;
 
@@ -32,7 +33,10 @@ public class SpawnManager : Singleton<SpawnManager>
         spawnTimer = 0f;
 
         // 계산 좌표를 spawnPosition에 저장
-        Vector3 spawnPosition = GetSpawnPosition();
+        if (!TryGetSpawnPosition(out Vector3 spawnPosition))
+        {
+            return;
+        }
 
         if (Random.value < 0.7f)
         {
@@ -41,8 +45,11 @@ public class SpawnManager : Singleton<SpawnManager>
 
             enemy.Initialize(player, playerStatController);
 
-            // 적 위치 spawnPosition에 저장된 좌표로 이동
-            enemy.transform.position = spawnPosition;
+            // NavMesh에 bake된 위치로 이동을 시도하고 실패한 경우 pool로 반환함.
+            if (!enemy.WarpToNavMesh(spawnPosition))
+            {
+                EnemyPoolManager.Instance.ReturnMeleeEnemy(enemy);
+            }
         }
         else
         {
@@ -50,15 +57,20 @@ public class SpawnManager : Singleton<SpawnManager>
                 EnemyPoolManager.Instance.GetRangedEnemy();
 
             enemy.Initialize(player, playerStatController);
-            
-            enemy.transform.position = spawnPosition;
 
+            if (!enemy.WarpToNavMesh(spawnPosition))
+            {
+                EnemyPoolManager.Instance.ReturnRangedEnemy(enemy);
+            }
         }
+
     }
 
     // Vector3 좌표 계산
-    private Vector3 GetSpawnPosition()
+    private bool TryGetSpawnPosition(out Vector3 spawnPosition)
     {
+        spawnPosition = Vector3.zero;
+
         // 반지름 15m 원 내부에서 랜덤 좌표 생성
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
 
@@ -74,9 +86,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
         if (NavMesh.SamplePosition(targetPosition, out hit, 5.0f, NavMesh.AllAreas))
         {
-            return hit.position;
+            spawnPosition = hit.position;
+            return true;
         }
 
-        return targetPosition;
+        return false;
     }
 }
