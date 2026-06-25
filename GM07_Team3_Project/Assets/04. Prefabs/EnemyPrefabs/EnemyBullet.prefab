@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2298c0813c0cca34bbd49d05de457e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  speed: 10
-  lifeTime: 5
+  speed: 20
+  lifeTime: 3
 --- !u!1 &5368051041034203441
 GameObject:
   m_ObjectHideFlags: 0
