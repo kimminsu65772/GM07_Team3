@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum StatType
+public enum StateType
 {
     None,
     MaxHp,

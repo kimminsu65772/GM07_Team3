@@ -17,9 +17,6 @@ MonoBehaviour:
   upgradeName: "\uAC80"
   description: 
   icon: {fileID: 0}
-  weaponPrefab: {fileID: 3750520547730692517, guid: 0026e1c406d77c142b7fc19e4606577c, type: 3}
-  weaponAttackPrefab: {fileID: 3750520547730692517, guid: 0026e1c406d77c142b7fc19e4606577c, type: 3}
-  value: 10
-  useRandomValue: 1
-  minValue: 1
-  maxValue: 10
+  weaponPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
+  weaponAttackPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
+  value: 0

@@ -1,37 +1,37 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = " UpgradeData", menuName ="GameData/Upgrade Data")]
 public class UpgradeData : ScriptableObject
 {
-    [Header("ì—…ê·¸ë ˆì´ë“œ íƒ€ì…")]
+    [Header("¾÷±×·¹ÀÌµå Å¸ÀÔ")]
     [SerializeField] private UpgradeType upgradeType;
 
-    [Header("ëŠ¥ë ¥ì¹˜ íƒ€ì…")]
-    [SerializeField] private StatType statType;
+    [Header("´É·ÂÄ¡ Å¸ÀÔ")]
+    [SerializeField] private StateType stateType;
 
-    [Header("ì´ë¦„")]
+    [Header("ÀÌ¸§")]
     [SerializeField] private string upgradeName;
 
-    [Header("ì„¤ëª…")]
+    [Header("¼³¸í")]
     [TextArea]
     [SerializeField] private string description;
 
-    [Header("ì•„ì´ì½˜")]
+    [Header("¾ÆÀÌÄÜ")]
     [SerializeField] private Sprite icon;
 
-    [Header("ë¬´ê¸° í”„ë¦¬í©")]
+    [Header("¹«±â ÇÁ¸®Æé")]
     [SerializeField] private GameObject weaponPrefab;
 
-    [Header("ë¬´ê¸° íˆ¬ì‚¬ì²´ í”„ë¦¬í©")]
+    [Header("¹«±â Åõ»çÃ¼ ÇÁ¸®Æé")]
     [SerializeField] private GameObject weaponAttackPrefab;
 
-    [Header("ìˆ˜ì¹˜ ê°’")]
+    [Header("¼öÄ¡ °ª")]
     [SerializeField] private float value;
 
-    [Header("ëœë¤í•œ ìˆ˜ì¹˜ ì‚¬ìš© ì—¬ë¶€")]
+    [Header("·£´ıÇÑ ¼öÄ¡ »ç¿ë ¿©ºÎ")]
     [SerializeField] private bool useRandomValue;
 
-    [Header("ëœë¤í•œ ìˆ˜ì¹˜ ë²”ìœ„")]
+    [Header("·£´ıÇÑ ¼öÄ¡ ¹üÀ§")]
     [SerializeField] private float minValue;
     [SerializeField] private float maxValue;
      
@@ -39,9 +39,9 @@ public class UpgradeData : ScriptableObject
 
 
 
-    //ì™¸ë¶€ì—ì„œ ì‚¬ìš© ê°€ëŠ¥í•œ ì½ê¸°ì „ìš© í”„ë¡œí¼í‹°
+    //¿ÜºÎ¿¡¼­ »ç¿ë °¡´ÉÇÑ ÀĞ±âÀü¿ë ÇÁ·ÎÆÛÆ¼
     public UpgradeType UpgradeType {  get { return upgradeType; }}
-    public StatType StatType { get {return statType;} }
+    public StateType StateType { get {return stateType;} }
     public string UpgradeName { get {return upgradeName;} }
     public string Description { get {return description;} } 
     public Sprite Icon { get {return icon;} }
