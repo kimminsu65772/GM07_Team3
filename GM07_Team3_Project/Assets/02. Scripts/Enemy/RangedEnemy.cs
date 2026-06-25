@@ -19,8 +19,8 @@ public class RangedEnemy : Enemy
         {
             MoveToTarget();
 
-            // NavMeshAgent 깨워서 다시 작동
-            if (agent != null)
+            // NavMesh 위에 있을때만 정지 해제
+            if (agent != null && agent.isOnNavMesh)
             {
                 agent.isStopped = false;
             }
@@ -28,7 +28,7 @@ public class RangedEnemy : Enemy
 
         else
         {
-            if (agent != null)
+            if (agent != null && agent.isOnNavMesh)
             {
                 agent.isStopped = true;
             }
@@ -49,10 +49,25 @@ public class RangedEnemy : Enemy
         {
             return;
         }
-        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
-            transform.position, Quaternion.identity);
 
-        Vector3 direction = target.position - transform.position;
+        if (enemyData.BulletPrefab == null)
+        {
+            Debug.LogWarning("BulletPrefab이 없습니다.");
+            return;
+        }
+
+        Vector3 spawnPosition = 
+            transform.position + Vector3.up * 1.5f;
+
+        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
+            spawnPosition, Quaternion.identity);
+
+        // 플레이어 몸통 쪽으로
+        Vector3 targetPosition = 
+            target.position + Vector3.up * 1f;
+
+        Vector3 direction =
+            targetPosition - spawnPosition;
 
         bullet.Initialize(direction);
 

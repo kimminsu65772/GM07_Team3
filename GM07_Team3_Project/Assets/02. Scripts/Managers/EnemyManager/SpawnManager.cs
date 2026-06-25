@@ -41,8 +41,19 @@ public class SpawnManager : Singleton<SpawnManager>
 
             enemy.Initialize(player, playerStatController);
 
-            // 적 위치 spawnPosition에 저장된 좌표로 이동
-            enemy.transform.position = spawnPosition;
+            // 회전값을 (0, 0, 0)으로 강제 초기화 (모델 드르렁 방지)
+            enemy.transform.rotation = Quaternion.identity;
+
+            // NavMeshAgent의 위치를 Warp로 안전하게 순간이동
+            if (enemy.TryGetComponent<NavMeshAgent>(out var agent))
+            {
+                agent.Warp(spawnPosition);
+            }
+            else
+            {
+                // 에이전트가 없을 때를 대비한 예외처리 유지
+                enemy.transform.position = spawnPosition;
+            }
         }
         else
         {
@@ -50,8 +61,18 @@ public class SpawnManager : Singleton<SpawnManager>
                 EnemyPoolManager.Instance.GetRangedEnemy();
 
             enemy.Initialize(player, playerStatController);
-            
-            enemy.transform.position = spawnPosition;
+
+            // 회전값을 (0, 0, 0)으로 강제 초기화 (모델 드르렁 방지)
+            enemy.transform.rotation = Quaternion.identity;
+
+            if (enemy.TryGetComponent<NavMeshAgent>(out var agent))
+            {
+                agent.Warp(spawnPosition);
+            }
+            else
+            {
+                enemy.transform.position = spawnPosition;
+            }
 
         }
     }
