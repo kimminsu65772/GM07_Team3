@@ -7,7 +7,7 @@ public class UpgradeData : ScriptableObject
     [SerializeField] private UpgradeType upgradeType;
 
     [Header("능력치 타입")]
-    [SerializeField] private StateType stateType;
+    [SerializeField] private StatType statType;
 
     [Header("이름")]
     [SerializeField] private string upgradeName;
@@ -41,7 +41,7 @@ public class UpgradeData : ScriptableObject
 
     //외부에서 사용 가능한 읽기전용 프로퍼티
     public UpgradeType UpgradeType {  get { return upgradeType; }}
-    public StateType StateType { get {return stateType;} }
+    public StatType StatType { get {return statType;} }
     public string UpgradeName { get {return upgradeName;} }
     public string Description { get {return description;} } 
     public Sprite Icon { get {return icon;} }
