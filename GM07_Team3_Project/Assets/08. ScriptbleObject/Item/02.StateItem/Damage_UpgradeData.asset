@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8885dd0b15a1e3488efab35da8980dc, type: 3}
   m_Name: Damage_UpgradeData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeType: 0
-  statType: 0
-  upgradeName: 
-  description: 
+  upgradeType: 1
+  statType: 4
+  upgradeName: "\uB370\uBBF8\uC9C0 \uC99D\uAC00"
+  description: "\uD655\uB960\uC5D0 \uB530\uB77C\uB370\uBBF8\uC9C0\uB97C  \uC62C\uB824\uC900\uB2E4"
   icon: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 0
-  useRandomValue: 0
-  minValue: 0
-  maxValue: 0
+  value: 3
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 3

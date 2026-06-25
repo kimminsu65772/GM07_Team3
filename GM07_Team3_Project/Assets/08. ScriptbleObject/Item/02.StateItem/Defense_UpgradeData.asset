@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   statType: 0
-  upgradeName: 
-  description: 
+  upgradeName: "\uBC29\uC5B4\uB825 \uC99D\uAC00"
+  description: "\uD655\uB960\uC5D0 \uB530\uB77C \uBC15\uC5B4\uB825\uC744 \uC62C\uB824\uC900\uB2E4"
   icon: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 0
-  useRandomValue: 0
-  minValue: 0
-  maxValue: 0
+  value: 4
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 4
