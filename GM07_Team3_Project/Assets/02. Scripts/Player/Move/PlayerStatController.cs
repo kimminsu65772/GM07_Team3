@@ -12,11 +12,20 @@ public sealed class PlayerStatController : MonoBehaviour
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
     [SerializeField] private int runtimeLevel;
     [SerializeField] private int runtimeExperience;
+    [SerializeField] private float currentHealth;
+
+    public float CurrentHealth => currentHealth;
+
+    public float MaxHealth => GetStat(StateType.MaxHp);
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
 
-    //public event Action<StatType, float, float> OnStatChanged;
+    public event Action<StateType, float, float> OnStateChanged;
+    public event Action<float, float> OnHealthChanged;
+    public event Action<int> OnLevelChanged;
+    public event Action<int, int> OnExperienceChanged;
+
 
     private void Awake()
     {
@@ -35,7 +44,7 @@ public sealed class PlayerStatController : MonoBehaviour
 
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
-
+        currentHealth = MaxHealth;
         RuntimeStat();
         UpdateRuntimeLevel();
     }
@@ -76,7 +85,7 @@ public sealed class PlayerStatController : MonoBehaviour
     //        return;
     //    }
 
-    //    StateType stateType =  upgradeOption.Data.StateType;
+    //    StateType stateType = upgradeOption.Data.StateType;
 
     //    if (stateType == StateType.None)
     //    {
@@ -85,47 +94,89 @@ public sealed class PlayerStatController : MonoBehaviour
 
     //    AddItemStat(stateType, upgradeOption.Value);
     //}
-    //public void AddItemStat(StateType stateType, float amount)
-    //{
-    //    if (!CheckPlayerStats())
-    //    {
-    //        return;
-    //    }
-    //    float stateValue = playerStats.GetTotalStat(stateType);
-
-    //    playerStats.AddItemStat(stateType, amount);
-
-    //    float totalValue = playerStats.GetTotalStat(stateType);
-
-    //    StatChanged(stateType, stateValue, totalValue);
-    //}
-
-    //private void StatChanged(StateType stateType, float stateValue, float totalValue)
-    //{
-    //    if (Mathf.Approximately(stateValue, totalValue))
-    //    {
-    //        return;
-    //    }
-    //    UpdateRuntimeStat(stateType);
-
-    //    OnStatChanged?.Invoke(stateType, stateValue, totalValue);
-    //}
-
-    private void HandleExperience(int amount)
+    public void AddItemStat(StateType stateType, float amount)
     {
+        if (!CheckPlayerStats())
+        {
+            return;
+        }
+        float previousValue = playerStats.GetTotalStat(stateType);
+
+        playerStats.AddItemStat(stateType, amount);
+
+        float currentValue = playerStats.GetTotalStat(stateType);
+
+        StatChanged(stateType, currentValue, currentValue);
+    }
+
+    private void StatChanged(StateType stateType, float previousValue, float currentValue)
+    {
+        if (Mathf.Approximately(previousValue, currentValue))
+        {
+            return;
+        }
+        UpdateRuntimeStat(stateType);
+
+        if (stateType == StateType.MaxHp)
+        {
+            float increasedAmount = currentValue - previousValue;
+
+            if (increasedAmount > 0f)
+            {
+                currentHealth += increasedAmount;
+            }
+
+            currentHealth = Mathf.Clamp(currentHealth, 0f, currentValue);
+        }
+
+        OnStateChanged?.Invoke(stateType, previousValue, currentValue);
+        if (stateType == StateType.MaxHp)
+        {
+            OnHealthChanged?.Invoke(currentHealth, currentValue);
+        }
+    }
+    public void AddExperience(int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
         int previousLevel = playerLevel.CurrentLevel;
 
-        int levelUpCount = playerLevel.AddExperience(amount);
+        playerLevel.AddExperience(amount);
 
         UpdateRuntimeLevel();
 
-        //for (int i = 0; i < levelUpCount; i++)
-        //{
-        //    int newLevel = previousLevel + i + 1;
+        OnExperienceChanged?.Invoke(playerLevel.CurrentExperience, playerLevel.RequiredExperience);
 
-        //    HandleLevelUp(newLevel);
-        //}
+        if (previousLevel != playerLevel.CurrentLevel)
+        {
+            OnLevelChanged?.Invoke(playerLevel.CurrentLevel);
+        }
     }
+
+    //경험치 얻는 걸 이벤트로 변경시
+    //private void HandleExperience(int amount)
+    //{
+    //    if (amount <= 0)
+    //    {
+    //        return;
+    //    }
+
+    //    int previousLevel = playerLevel.CurrentLevel;
+
+    //    int levelUpCount = playerLevel.AddExperience(amount);
+
+    //    UpdateRuntimeLevel();
+
+    //    //for (int i = 0; i < levelUpCount; i++)
+    //    //{
+    //    //    int newLevel = previousLevel + i + 1;
+
+    //    //    HandleLevelUp(newLevel);
+    //    //}
+    //}
 
 
 
@@ -183,6 +234,48 @@ public sealed class PlayerStatController : MonoBehaviour
         runtimeLevel = playerLevel.CurrentLevel;
 
         runtimeExperience = playerLevel.CurrentExperience;
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        if (damage <= 0f)
+        {
+            return;
+        }
+
+        float maxHp = GetStat(StateType.MaxHp);
+
+        float newHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHp);
+
+        if (Mathf.Approximately(currentHealth, newHealth))
+        {
+            return;
+        }
+
+        currentHealth = newHealth;
+
+        OnHealthChanged?.Invoke(currentHealth, maxHp);
+    }
+    public void Heal(float amount)
+    {
+        if (amount <= 0f)
+        {
+            return;
+        }
+
+        float maxHp = GetStat(StateType.MaxHp);
+
+        float newHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHp);
+
+        if (Mathf.Approximately(currentHealth, newHealth))
+        {
+            return;
+        }
+
+        currentHealth = newHealth;
+
+        OnHealthChanged?.Invoke(currentHealth, maxHp);
     }
 }
 
