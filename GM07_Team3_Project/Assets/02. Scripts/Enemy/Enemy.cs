@@ -35,28 +35,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             agent.speed = enemyData.MoveSpeed;
         }
-
-        FindPlayer();
-
-        playerStatController = 
-            FindFirstObjectByType<PlayerStatController>();
     }
 
-    // 자식 공통 플레이어 탐색기능
-    private void FindPlayer()
+    public void Initialize(Transform player, PlayerStatController statController)
     {
-        if (target != null)
-        {
-            return;
-        }
-
-        GameObject player = 
-            GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            target = player.transform;
-        }
+        target = player;
+        playerStatController = statController;
     }
+        
 
     // 플레이어 추적 기능
     protected virtual void MoveToTarget()

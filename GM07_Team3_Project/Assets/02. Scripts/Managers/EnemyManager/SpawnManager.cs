@@ -4,8 +4,11 @@ using UnityEngine.AI; // NavMesh 사용위해 필요
 public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private Transform player;
+    [SerializeField] private PlayerStatController playerStatController;
+
     [SerializeField] private float spawnRadius = 15f; // 플레이어 주변 반지름 15m
     [SerializeField] private float spawnInterval = 1f; // 1초당 생성
+
 
     private float spawnTimer;
 
@@ -36,6 +39,8 @@ public class SpawnManager : Singleton<SpawnManager>
             MeleeEnemy enemy =
             EnemyPoolManager.Instance.GetMeleeEnemy();
 
+            enemy.Initialize(player, playerStatController);
+
             // 적 위치 spawnPosition에 저장된 좌표로 이동
             enemy.transform.position = spawnPosition;
         }
@@ -44,11 +49,11 @@ public class SpawnManager : Singleton<SpawnManager>
             RangedEnemy enemy =
                 EnemyPoolManager.Instance.GetRangedEnemy();
 
-            // 적 위치 spawnPosition에 저장된 좌표로 이동
-            // 근접 적, 원거리 적 둘 다 같은 위치 사용
+            enemy.Initialize(player, playerStatController);
+            
             enemy.transform.position = spawnPosition;
-        }
 
+        }
     }
 
     // Vector3 좌표 계산
