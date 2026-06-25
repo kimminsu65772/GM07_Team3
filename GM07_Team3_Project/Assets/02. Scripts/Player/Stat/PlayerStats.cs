@@ -6,9 +6,9 @@ public sealed class PlayerStats
 {
     //private readonly Dictionary<StatType, float> stats = new();
 
-    private readonly Dictionary<StateType, float> baseStats = new();
-    private readonly Dictionary<StateType, float> itemStats = new();
-    private readonly Dictionary<StateType, float> totalStats = new();
+    private readonly Dictionary<StatType, float> baseStats = new();
+    private readonly Dictionary<StatType, float> itemStats = new();
+    private readonly Dictionary<StatType, float> totalStats = new();
 
     //public event Action<StatType, float, float> OnStatChanged;
 
@@ -23,141 +23,141 @@ public sealed class PlayerStats
 
     private void InitializeStats(PlayerStatSO playerStatData)
     {
-        foreach (StateType stateType in Enum.GetValues(typeof(StateType)))
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            if (stateType == StateType.None)
+            if (statType == StatType.None)
             {
                 continue;
             }
 
-            float defaultValue = GetDefaultValue(stateType);
+            float defaultValue = GetDefaultValue(statType);
 
-            baseStats[stateType] = defaultValue;
-            itemStats[stateType] = 0f;
-            totalStats[stateType] = defaultValue;
+            baseStats[statType] = defaultValue;
+            itemStats[statType] = 0f;
+            totalStats[statType] = defaultValue;
         }
         foreach (StatEntry statEntry in playerStatData.BaseStats)
         {
-            StateType stateType = statEntry.StateType;
+            StatType statType = statEntry.StatType;
 
-            if (!IsValidStatType(stateType))
+            if (!IsValidStatType(statType))
             {
-                Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+                Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
                 continue;
             }
-            baseStats[stateType] = ClampStat(stateType, statEntry.Value);
+            baseStats[statType] = ClampStat(statType, statEntry.Value);
         }
-        foreach (StateType stateType in Enum.GetValues(typeof(StateType)))
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            if (stateType == StateType.None)
+            if (statType == StatType.None)
             {
                 continue;
             }
 
-            RecalculateTotalStat(stateType);
+            RecalculateTotalStat(statType);
         }
     }
 
-    public float GetBaseStat(StateType stateType)
+    public float GetBaseStat(StatType statType)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return 0f;
         }
-        return baseStats[stateType];
+        return baseStats[statType];
     }
 
-    public float GetItemStat(StateType stateType)
+    public float GetItemStat(StatType statType)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return 0f;
         }
-        return itemStats[stateType];
+        return itemStats[statType];
     }
-    public float GetTotalStat(StateType stateType)
+    public float GetTotalStat(StatType statType)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return 0f;
         }
-        return totalStats[stateType];
+        return totalStats[statType];
     }
     //기본 스탯 증가 메서드 ex-레벨업? 혹시 몰라서만듦
-    public void AddBaseStat(StateType stateType, float amount)
+    public void AddBaseStat(StatType statType, float amount)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return;
         }
 
-        float newBaseValue = baseStats[stateType] + amount;
+        float newBaseValue = baseStats[statType] + amount;
 
-        baseStats[stateType] = ClampStat(stateType, newBaseValue);
+        baseStats[statType] = ClampStat(statType, newBaseValue);
 
-        RecalculateTotalStat(stateType);
+        RecalculateTotalStat(statType);
     }
-    public void AddItemStat(StateType stateType, float amount)
+    public void AddItemStat(StatType statType, float amount)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return;
         }
 
-        itemStats[stateType] += amount;
+        itemStats[statType] += amount;
 
-        RecalculateTotalStat(stateType);
+        RecalculateTotalStat(statType);
     }
     //아이템 스탯 초기화용 어찌 쓰일지 모름
-    public void ClearItemStats(StateType stateType)
+    public void ClearItemStats(StatType statType)
     {
-        if (!IsValidStatType(stateType))
+        if (!IsValidStatType(statType))
         {
-            Debug.LogWarning($"{stateType}은 유효한 스탯이 아닙니다.");
+            Debug.LogWarning($"{statType}은 유효한 스탯이 아닙니다.");
             return;
         }
-        itemStats[stateType] = 0f;
+        itemStats[statType] = 0f;
 
-        RecalculateTotalStat(stateType);
+        RecalculateTotalStat(statType);
     }
     //모든 아이템 스탯 초기화용
     public void ClearAllAdditionalStats()
     {
-        foreach (StateType stateType in Enum.GetValues(typeof(StateType)))
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            if (stateType == StateType.None)
+            if (statType == StatType.None)
             {
                 continue;
             }
-            itemStats[stateType] = 0f;
+            itemStats[statType] = 0f;
 
-            RecalculateTotalStat(stateType);
+            RecalculateTotalStat(statType);
         }
     }
-    private void RecalculateTotalStat(StateType stateType)
+    private void RecalculateTotalStat(StatType statType)
     {
-        float calculatedValue = baseStats[stateType] + itemStats[stateType];
+        float calculatedValue = baseStats[statType] + itemStats[statType];
 
-        totalStats[stateType] = ClampStat(stateType, calculatedValue);
+        totalStats[statType] = ClampStat(statType, calculatedValue);
     }
 
-    private static bool IsValidStatType(StateType stateType)
+    private static bool IsValidStatType(StatType statType)
     {
-        return stateType > StateType.None && Enum.IsDefined(typeof(StateType), stateType);
+        return statType > StatType.None && Enum.IsDefined(typeof(StatType), statType);
     }
-    private static float GetDefaultValue(StateType stateType)
+    private static float GetDefaultValue(StatType statType)
     {
-        switch (stateType)
+        switch (statType)
         {
-            case StateType.MaxHp:
+            case StatType.MaxHp:
                 return 1f;
 
-            case StateType.AttackSpeed:
+            case StatType.AttackSpeed:
                 return 1f;
 
             default:
@@ -165,23 +165,23 @@ public sealed class PlayerStats
         }
     }
 
-    private static float ClampStat(StateType stateType, float value)
+    private static float ClampStat(StatType statType, float value)
     {
-        switch (stateType)
+        switch (statType)
         {
-            case StateType.MaxHp:
+            case StatType.MaxHp:
                 return Mathf.Max(1f, value);
 
-            case StateType.Defense:
+            case StatType.Defense:
                 return Mathf.Max(0f, value);
 
-            case StateType.Damage:
+            case StatType.Damage:
                 return Mathf.Max(0f, value);
 
-            case StateType.AttackSpeed:
+            case StatType.AttackSpeed:
                 return Mathf.Max(0.1f, value);
 
-            case StateType.Critical:
+            case StatType.Critical:
                 return Mathf.Max(0f, value);
 
             default:

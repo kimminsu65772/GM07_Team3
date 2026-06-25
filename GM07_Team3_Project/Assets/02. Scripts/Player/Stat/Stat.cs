@@ -1,5 +1,5 @@
 
-//public enum StateType
+//public enum StatType
 //{
 //    None,
 //    MaxHp,

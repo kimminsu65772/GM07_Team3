@@ -21,11 +21,11 @@ public class PlayerStatSO : ScriptableObject
 public sealed class StatEntry
 {
     [SerializeField]
-    private StateType stateType;
+    private StatType statType;
 
     [SerializeField]
     private float value;
 
-    public StateType StateType => stateType;
+    public StatType StatType => statType;
     public float Value => value;
 }

@@ -16,12 +16,12 @@ public sealed class PlayerStatController : MonoBehaviour
 
     public float CurrentHealth => currentHealth;
 
-    public float MaxHealth => GetStat(StateType.MaxHp);
+    public float MaxHealth => GetStat(StatType.MaxHp);
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
 
-    public event Action<StateType, float, float> OnStateChanged;
+    public event Action<StatType, float, float> OnStateChanged;
     public event Action<float, float> OnHealthChanged;
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
@@ -59,65 +59,65 @@ public sealed class PlayerStatController : MonoBehaviour
         //UpgradeEventManager.OnUpgradeSelected -= HandleUpgradeSelected;
     }
 
-    public float GetStat(StateType stateType)
+    public float GetStat(StatType statType)
     {
         if (!CheckPlayerStats())
         {
             Debug.LogError($"{name}: PlayerStats가 초기화되지 않았습니다.", this);
             return 0f;
         }
-        return playerStats.GetTotalStat(stateType);
+        return playerStats.GetTotalStat(statType);
     }
 
-    //private void HandleUpgradeSelected(UpgradeOption upgradeOption)
-    //{
-    //    if (upgradeOption == null)
-    //    {
-    //        Debug.LogWarning($"{name}: 선택된 UpgradeOption이 없습니다.", this);
+    private void HandleUpgradeSelected(UpgradeOption upgradeOption)
+    {
+        if (upgradeOption == null)
+        {
+            Debug.LogWarning($"{name}: 선택된 UpgradeOption이 없습니다.", this);
 
-    //        return;
-    //    }
+            return;
+        }
 
-    //    if (upgradeOption.Data == null)
-    //    {
-    //        Debug.LogWarning($"{name}: UpgradeOption에 UpgradeData가 없습니다.", this);
+        if (upgradeOption.Data == null)
+        {
+            Debug.LogWarning($"{name}: UpgradeOption에 UpgradeData가 없습니다.", this);
 
-    //        return;
-    //    }
+            return;
+        }
 
-    //    StateType stateType = upgradeOption.Data.StateType;
+        StatType statType = upgradeOption.Data.StatType;
 
-    //    if (stateType == StateType.None)
-    //    {
-    //        return;
-    //    }
+        if (statType == StatType.None)
+        {
+            return;
+        }
 
-    //    AddItemStat(stateType, upgradeOption.Value);
-    //}
-    public void AddItemStat(StateType stateType, float amount)
+        AddItemStat(statType, upgradeOption.Value);
+    }
+    public void AddItemStat(StatType statType, float amount)
     {
         if (!CheckPlayerStats())
         {
             return;
         }
-        float previousValue = playerStats.GetTotalStat(stateType);
+        float previousValue = playerStats.GetTotalStat(statType);
 
-        playerStats.AddItemStat(stateType, amount);
+        playerStats.AddItemStat(statType, amount);
 
-        float currentValue = playerStats.GetTotalStat(stateType);
+        float currentValue = playerStats.GetTotalStat(statType);
 
-        StatChanged(stateType, currentValue, currentValue);
+        StatChanged(statType, currentValue, currentValue);
     }
 
-    private void StatChanged(StateType stateType, float previousValue, float currentValue)
+    private void StatChanged(StatType StatType, float previousValue, float currentValue)
     {
         if (Mathf.Approximately(previousValue, currentValue))
         {
             return;
         }
-        UpdateRuntimeStat(stateType);
+        UpdateRuntimeStat(StatType);
 
-        if (stateType == StateType.MaxHp)
+        if (StatType == StatType.MaxHp)
         {
             float increasedAmount = currentValue - previousValue;
 
@@ -129,8 +129,8 @@ public sealed class PlayerStatController : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0f, currentValue);
         }
 
-        OnStateChanged?.Invoke(stateType, previousValue, currentValue);
-        if (stateType == StateType.MaxHp)
+        OnStateChanged?.Invoke(StatType, previousValue, currentValue);
+        if (StatType == StatType.MaxHp)
         {
             OnHealthChanged?.Invoke(currentHealth, currentValue);
         }
@@ -184,35 +184,35 @@ public sealed class PlayerStatController : MonoBehaviour
     {
         runtimeStats.Clear();
 
-        foreach (StateType stateType in Enum.GetValues(typeof(StateType)))
+        foreach (StatType statType in Enum.GetValues(typeof(StatType)))
         {
-            if (stateType == StateType.None)
+            if (statType == StatType.None)
             {
                 continue;
             }
             RuntimeStatEntry runtimeStat = new RuntimeStatEntry(
-                stateType,
-                playerStats.GetBaseStat(stateType),
-                playerStats.GetItemStat(stateType),
-                playerStats.GetTotalStat(stateType));
+                statType,
+                playerStats.GetBaseStat(statType),
+                playerStats.GetItemStat(statType),
+                playerStats.GetTotalStat(statType));
 
             runtimeStats.Add(runtimeStat);
         }
     }
 
-    private void UpdateRuntimeStat(StateType stateType)
+    private void UpdateRuntimeStat(StatType statType)
     {
         foreach (RuntimeStatEntry runtimeStat in runtimeStats)
         {
-            if (runtimeStat.StatType != stateType)
+            if (runtimeStat.StatType != statType)
             {
                 continue;
             }
 
             runtimeStat.SetValues(
-                playerStats.GetBaseStat(stateType),
-                playerStats.GetItemStat(stateType),
-                playerStats.GetTotalStat(stateType));
+                playerStats.GetBaseStat(statType),
+                playerStats.GetItemStat(statType),
+                playerStats.GetTotalStat(statType));
 
             return;
         }
@@ -244,7 +244,7 @@ public sealed class PlayerStatController : MonoBehaviour
             return;
         }
 
-        float maxHp = GetStat(StateType.MaxHp);
+        float maxHp = GetStat(StatType.MaxHp);
 
         float newHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHp);
 
@@ -264,7 +264,7 @@ public sealed class PlayerStatController : MonoBehaviour
             return;
         }
 
-        float maxHp = GetStat(StateType.MaxHp);
+        float maxHp = GetStat(StatType.MaxHp);
 
         float newHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHp);
 
@@ -284,7 +284,7 @@ public sealed class PlayerStatController : MonoBehaviour
 public sealed class RuntimeStatEntry
 {
     [SerializeField]
-    private StateType stateType;
+    private StatType statType;
 
     [SerializeField]
     private float baseValue;
@@ -295,7 +295,7 @@ public sealed class RuntimeStatEntry
     [SerializeField]
     private float totalValue;
 
-    public StateType StatType => stateType;
+    public StatType StatType => statType;
 
     public float BaseValue => baseValue;
 
@@ -303,9 +303,9 @@ public sealed class RuntimeStatEntry
 
     public float TotalValue => totalValue;
 
-    public RuntimeStatEntry(StateType stateType, float baseValue, float itemValue, float totalValue)
+    public RuntimeStatEntry(StatType statType, float baseValue, float itemValue, float totalValue)
     {
-        this.stateType = stateType;
+        this.statType = statType;
         this.baseValue = baseValue;
         this.itemValue = itemValue;
         this.totalValue = totalValue;
