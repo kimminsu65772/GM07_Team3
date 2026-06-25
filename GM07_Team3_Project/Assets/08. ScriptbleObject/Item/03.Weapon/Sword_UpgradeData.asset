@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Sword_UpgradeData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
-  stateType: 0
+  statType: 0
   upgradeName: "\uAC80"
   description: 
   icon: {fileID: 0}
   weaponPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
   weaponAttackPrefab: {fileID: 7225171307147553781, guid: 41ef53c3337d27c428c54ed8a1526300, type: 3}
-  value: 0
+  value: 10
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 10

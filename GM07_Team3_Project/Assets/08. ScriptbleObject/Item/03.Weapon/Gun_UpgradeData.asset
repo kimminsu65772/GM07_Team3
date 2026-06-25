@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Gun_UpgradeData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
-  stateType: 0
+  statType: 0
   upgradeName: "\uCD1D"
   description: 
   icon: {fileID: 0}
   weaponPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
-  weaponAttackPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
+  weaponAttackPrefab: {fileID: 2427930029432529123, guid: fd72e93e822f75d4ba59b1a99d4ff046, type: 3}
   value: 5
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 5
