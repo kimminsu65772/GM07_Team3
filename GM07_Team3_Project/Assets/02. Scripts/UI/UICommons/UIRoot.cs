@@ -11,10 +11,11 @@ public class UIRoot : MonoBehaviour
 {
     [Header("UI Controller Setting")]
     [SerializeField] private PauseUIController pauseUIController;
+    [SerializeField] private UpgradeUIController upgradeUIController;
 
     // UI 매니저에서 참조하기 위한 프로퍼티
     public PauseUIController PauseUIController => pauseUIController; // = get { return pauseUIController; }
-    public UpgradeUIController UpgradeUIController => GetComponentInChildren<UpgradeUIController>();
+    public UpgradeUIController UpgradeUIController => upgradeUIController;
 
     private void Awake()
     {
