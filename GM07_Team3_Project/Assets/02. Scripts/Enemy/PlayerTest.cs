@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI; // NavMesh 사용위해 필요
 
 public class PlayerTest : MonoBehaviour, IDamageable

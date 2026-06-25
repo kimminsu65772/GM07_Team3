@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "EnemyData",
@@ -16,7 +16,11 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float attackRange = 10f; //원거리 공격 사정거리
     [SerializeField] private EnemyBullet bulletPrefab; //원거리 투사체
 
-    
+    [Header("Exp Reward")]
+    [SerializeField] private int experience = 10;
+
+    public int Experience => experience;
+
     public EnemyBullet BulletPrefab => bulletPrefab;
 
     public float AttackRange => attackRange;
