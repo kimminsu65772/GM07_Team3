@@ -1,5 +1,5 @@
-using UnityEngine;
-using UnityEngine.AI; // NavMesh »ç¿ëÀ§ÇØ ÇÊ¿ä
+ï»¿using UnityEngine;
+using UnityEngine.AI; // NavMesh ì‚¬ìš©ìœ„í•´ í•„ìš”
 
 public class PlayerTest : MonoBehaviour, IDamageable
 {
@@ -16,7 +16,7 @@ public class PlayerTest : MonoBehaviour, IDamageable
         if (currentHp <= 0f) return;
 
         currentHp -= damage;
-        Debug.Log($"ÇÃ·¹ÀÌ¾î ÇÇ°Ý. ³²Àº Ã¼·Â: {currentHp}");
+        Debug.Log($"í”Œë ˆì´ì–´ í”¼ê²©. ë‚¨ì€ ì²´ë ¥: {currentHp}");
 
         if (currentHp <= 0f)
         {
@@ -25,7 +25,7 @@ public class PlayerTest : MonoBehaviour, IDamageable
     }
     private void Die()
     {
-        Debug.Log("»ç¸Á");
+        Debug.Log("ì‚¬ë§");
         gameObject.SetActive(false);
     }
     

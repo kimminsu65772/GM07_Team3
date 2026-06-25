@@ -1,17 +1,17 @@
-using UnityEngine;
-using UnityEngine.AI; // NavMesh »ç¿ëÀ§ÇØ ÇÊ¿ä
+ï»¿using UnityEngine;
+using UnityEngine.AI; // NavMesh ì‚¬ìš©ìœ„í•´ í•„ìš”
 
 public class SpawnManager : Singleton<SpawnManager>
 {
     [SerializeField] private Transform player;
-    [SerializeField] private float spawnRadius = 15f; // ÇÃ·¹ÀÌ¾î ÁÖº¯ ¹İÁö¸§ 15m
-    [SerializeField] private float spawnInterval = 1f; // 1ÃÊ´ç »ı¼º
+    [SerializeField] private float spawnRadius = 15f; // í”Œë ˆì´ì–´ ì£¼ë³€ ë°˜ì§€ë¦„ 15m
+    [SerializeField] private float spawnInterval = 1f; // 1ì´ˆë‹¹ ìƒì„±
 
     private float spawnTimer;
 
     private void Update()
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ¾øÀ»¶§ ¿¹¿ÜÃ³¸®
+        // í”Œë ˆì´ì–´ê°€ ì—†ì„ë•Œ ì˜ˆì™¸ì²˜ë¦¬
         if (player == null) return;
 
         SpawnEnemy();
@@ -19,7 +19,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void SpawnEnemy()
     {
-        spawnTimer += Time.deltaTime; // ¸Å ÇÁ·¹ÀÓ ½Ã°£ ´©Àû
+        spawnTimer += Time.deltaTime; // ë§¤ í”„ë ˆì„ ì‹œê°„ ëˆ„ì 
 
         if (spawnTimer < spawnInterval)
         {
@@ -36,10 +36,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private Vector3 GetSpawnPosition()
     {
-        // ¹İÁö¸§ 15m ¿ø ³»ºÎ¿¡¼­ ·£´ı ÁÂÇ¥ »ı¼º
+        // ë°˜ì§€ë¦„ 15m ì› ë‚´ë¶€ì—ì„œ ëœë¤ ì¢Œí‘œ ìƒì„±
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
 
-        // ÇÃ·¹ÀÌ¾î ÁÖº¯ Àû »ı¼º À§Ä¡ °è»ê
+        // í”Œë ˆì´ì–´ ì£¼ë³€ ì  ìƒì„± ìœ„ì¹˜ ê³„ì‚°
         return player.position + 
             new Vector3(randomDirection.x, 
             0f, randomDirection.y) * spawnRadius;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "EnemyData",
@@ -7,15 +7,18 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     [Header("HP")]
-    [SerializeField] private float maxHp = 100f; //ÃÖ´ë Ã¼·Â
+    [SerializeField] private float maxHp = 100f; //ìµœëŒ€ ì²´ë ¥
 
     [Header("Combat")]
-    [SerializeField] private float attackPower = 10f; //°ø°Ý·Â
-    [SerializeField] private float defensePower = 3f; //¹æ¾î·Â
-    [SerializeField] private float attackSpeed = 1f; //°ø°Ý¼Óµµ
+    [SerializeField] private float attackPower = 10f; //ê³µê²©ë ¥
+    [SerializeField] private float defensePower = 3f; //ë°©ì–´ë ¥
+    [SerializeField] private float attackSpeed = 1f; //ê³µê²©ì†ë„
+    [SerializeField] private float attackRange = 10f; //ê³µê²© ì‚¬ì •ê±°ë¦¬
+
+    public float AttackRange => attackRange;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 3f; //ÀÌµ¿¼Óµµ
+    [SerializeField] private float moveSpeed = 3f; //ì´ë™ì†ë„
 
     public float MaxHp => maxHp;
     public float AttackPower => attackPower;
