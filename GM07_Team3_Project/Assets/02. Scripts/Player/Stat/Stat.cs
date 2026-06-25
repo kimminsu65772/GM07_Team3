@@ -1,12 +1,12 @@
 
-public enum StateType
-{
-    None,
-    MaxHp,
-    AttackSpeed,
-    MoveSpeed,
-    Damage,
-    Defense,
-    Critical
-}
+//public enum StateType
+//{
+//    None,
+//    MaxHp,
+//    AttackSpeed,
+//    MoveSpeed,
+//    Damage,
+//    Defense,
+//    Critical
+//}
 
