@@ -28,12 +28,30 @@ public class SpawnManager : Singleton<SpawnManager>
 
         spawnTimer = 0f;
 
-        MeleeEnemy enemy =
+        // 계산 좌표를 spawnPosition에 저장
+        Vector3 spawnPosition = GetSpawnPosition();
+
+        if (Random.value < 0.7f)
+        {
+            MeleeEnemy enemy =
             EnemyPoolManager.Instance.GetMeleeEnemy();
 
-        enemy.transform.position = GetSpawnPosition();
+            // 적 위치 spawnPosition에 저장된 좌표로 이동
+            enemy.transform.position = spawnPosition;
+        }
+        else
+        {
+            RangedEnemy enemy =
+                EnemyPoolManager.Instance.GetRangedEnemy();
+
+            // 적 위치 spawnPosition에 저장된 좌표로 이동
+            // 근접 적, 원거리 적 둘 다 같은 위치 사용
+            enemy.transform.position = spawnPosition;
+        }
+
     }
 
+    // Vector3 좌표 계산
     private Vector3 GetSpawnPosition()
     {
         // 반지름 15m 원 내부에서 랜덤 좌표 생성

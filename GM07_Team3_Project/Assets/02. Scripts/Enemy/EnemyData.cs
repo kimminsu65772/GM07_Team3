@@ -13,9 +13,14 @@ public class EnemyData : ScriptableObject
     [SerializeField] private float attackPower = 10f; //공격력
     [SerializeField] private float defensePower = 3f; //방어력
     [SerializeField] private float attackSpeed = 1f; //공격속도
-    [SerializeField] private float attackRange = 10f; //공격 사정거리
+    [SerializeField] private float attackRange = 10f; //원거리 공격 사정거리
+    [SerializeField] private EnemyBullet bulletPrefab; //원거리 투사체
+
+    
+    public EnemyBullet BulletPrefab => bulletPrefab;
 
     public float AttackRange => attackRange;
+
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 3f; //이동속도

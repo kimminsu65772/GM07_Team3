@@ -6,27 +6,56 @@ public class RangedEnemy : Enemy
 
     private void Update()
     {
-        MoveToTarget();
-
         if (target == null)
         {
             return;
         }
+        
+        // 적 현재위치와 타겟 위치 사이 실제거리 계산 후 distance에 저장
+        float distance = 
+            Vector3.Distance(transform.position, target.position);
 
-        //원거리 공격 쿨타임 계산
-        attackTime += Time.deltaTime;
-
-        if (attackTime >= enemyData.AttackSpeed)
+        if (distance > enemyData.AttackRange)
         {
-            Shoot();
-            attackTime = 0f;
+            MoveToTarget();
+
+            // NavMeshAgent 깨워서 다시 작동
+            if (agent != null)
+            {
+                agent.isStopped = false;
+            }
         }
 
+        else
+        {
+            if (agent != null)
+            {
+                agent.isStopped = true;
+            }
+
+            attackTime += Time.deltaTime;
+
+            if (attackTime >= enemyData.AttackSpeed)
+            {
+                Shoot();
+                attackTime = 0f;
+            }
+        }
     }
 
     private void Shoot()
     {
-        Debug.Log("원거리 공격");
+        if (target == null)
+        {
+            return;
+        }
+        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
+            transform.position, Quaternion.identity);
+
+        Vector3 direction = target.position - transform.position;
+
+        bullet.Initialize(direction);
+
     }
 
     //플레이어에 부딪히면 데미지
