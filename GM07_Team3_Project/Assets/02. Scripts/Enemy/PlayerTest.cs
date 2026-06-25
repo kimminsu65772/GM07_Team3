@@ -1,11 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI; // NavMesh 사용위해 필요
 
-public class PlayerTest : MonoBehaviour
+public class PlayerTest : MonoBehaviour, IDamageable
 {
     public float maxHp = 100;
-    private float currentHp;
+    [SerializeField] private float currentHp;
 
-    void Awake()
+    void Start()
     {
         currentHp = maxHp;
     }
@@ -15,15 +16,17 @@ public class PlayerTest : MonoBehaviour
         if (currentHp <= 0f) return;
 
         currentHp -= damage;
+        Debug.Log($"플레이어 피격. 남은 체력: {currentHp}");
 
         if (currentHp <= 0f)
         {
             Die();
         }
-
-        void Die()
-        {
-            gameObject.SetActive(false);
-        }
     }
+    private void Die()
+    {
+        Debug.Log("사망");
+        gameObject.SetActive(false);
+    }
+    
 }
