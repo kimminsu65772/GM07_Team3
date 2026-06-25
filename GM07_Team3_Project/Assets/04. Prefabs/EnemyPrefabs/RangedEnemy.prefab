@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1400332635323976735}
   - component: {fileID: 7125358388001731726}
   - component: {fileID: 6549305125841264312}
+  - component: {fileID: 9155921951694289867}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -97,6 +98,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   enemyData: {fileID: 11400000, guid: dd5856b85e053a842ad82499124fc1d2, type: 2}
+--- !u!136 &9155921951694289867
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565405171667724470}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &8448453163492868865
 PrefabInstance:
   m_ObjectHideFlags: 0

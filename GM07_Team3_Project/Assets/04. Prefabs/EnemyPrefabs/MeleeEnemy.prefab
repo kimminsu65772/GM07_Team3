@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9153514280682537022}
   - component: {fileID: 2380973529055678195}
   - component: {fileID: 809378176370098624}
+  - component: {fileID: 845636496847082897}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -97,6 +98,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
   enemyData: {fileID: 11400000, guid: dd5856b85e053a842ad82499124fc1d2, type: 2}
+--- !u!136 &845636496847082897
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420767513793778082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &3608255431027464442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,6 +180,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f2ba085ae087bd4a8f1f9c8ee42f053, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5774185911025963564}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f2ba085ae087bd4a8f1f9c8ee42f053, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7363956955797482075}
   m_SourcePrefab: {fileID: 100100000, guid: 1f2ba085ae087bd4a8f1f9c8ee42f053, type: 3}
 --- !u!4 &3862294416743563025 stripped
 Transform:
@@ -189,3 +216,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!33 &7363956955797482075
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4526804698359473579}
+  m_Mesh: {fileID: 0}
