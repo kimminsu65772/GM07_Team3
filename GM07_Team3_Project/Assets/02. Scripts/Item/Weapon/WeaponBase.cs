@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
@@ -7,14 +7,14 @@ public class WeaponBase : MonoBehaviour
     private Transform owner;
     private Transform target;
     private float value;
-
-    [SerializeField] private float spawnDistance = 0.5f;
+    
+    
     [SerializeField] private float attackInterval = 1.0f;
 
     private float timer = 0.0f;
 
 
-    //ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+    //µ¥ÀÌÅÍ °¡Á®¿À±â
     public virtual void Init(UpgradeOption option, Transform owner)
     {
         this.upgradeData = option.Data;
@@ -33,7 +33,7 @@ public class WeaponBase : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        //ê³µê²©ì†ë„
+        //°ø°İ¼Óµµ
         if (timer >= attackInterval)
         {
             timer = 0.0f;
@@ -41,20 +41,20 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    //ê³µê²©
+    //°ø°İ
     protected virtual void Attack()
     {
-        //ë§Œë“¤ì–´ë‘” ë°©í–¥ ìœ„ì¹˜ ì‚¬ìš©
+        //¸¸µé¾îµĞ ¹æÇâ À§Ä¡ »ç¿ë
         Vector3 direction = GetAttackDirection();
         Vector3 attackPosition = GetSpawnPosition(direction);
 
-        //ì˜¤ë¸Œì íŠ¸í’€ì´ ë„ì¸ì§€ ê²€ì‚¬
+        //¿ÀºêÁ§Æ®Ç®ÀÌ ³ÎÀÎÁö °Ë»ç
         if (ObjectPoolManager.Instance == null) return;
-        //ì˜¤ë¸Œì íŠ¸ êº¼ë‚´ì˜¤ê¸°
+        //¿ÀºêÁ§Æ® ²¨³»¿À±â
         GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
 
        
-        //ìœ„ì¹˜ì™€ íšŒì „ ì„¸íŒ…
+        //À§Ä¡¿Í È¸Àü ¼¼ÆÃ
         attackObj.transform.position = attackPosition;
         attackObj.transform.rotation = Quaternion.LookRotation(direction);
 
@@ -66,7 +66,7 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    //íˆ¬ì‚¬ì²´ ë°©í–¥
+    //Åõ»çÃ¼ ¹æÇâ
     protected virtual Vector3 GetAttackDirection()
     {
         if (target == null)
@@ -78,9 +78,9 @@ public class WeaponBase : MonoBehaviour
         return direction.normalized;
     }
 
-    //íˆ¬ì‚¬ì²´ ìƒì„± ìœ„ì¹˜
+    //Åõ»çÃ¼ »ı¼º À§Ä¡
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        return owner.position + direction * spawnDistance;
+        return owner.position + direction;
     }
 }
