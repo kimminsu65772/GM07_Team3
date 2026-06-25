@@ -13,4 +13,16 @@ MonoBehaviour:
   m_Name: PlayerStatSO
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatSO
   characterName: 
-  baseStats: []
+  baseStats:
+  - statType: 1
+    value: 100
+  - statType: 2
+    value: 10
+  - statType: 3
+    value: 5
+  - statType: 4
+    value: 10
+  - statType: 5
+    value: 5
+  - statType: 6
+    value: 25
