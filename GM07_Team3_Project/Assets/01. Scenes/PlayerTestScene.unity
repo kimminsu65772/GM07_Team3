@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 1312632632}
   - component: {fileID: 1312632629}
   - component: {fileID: 1312632631}
+  - component: {fileID: 1312632633}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -998,6 +999,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1312632633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312632628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730bb5af1e991ac4e80efea83fec0918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatController
+  playerStatData: {fileID: 11400000, guid: e2482d4d53e6457408f40d023ec42fcd, type: 2}
+  playerLevelData: {fileID: 11400000, guid: 7636d3ad22706274482c5925dc9ed6e9, type: 2}
+  runtimeStats: []
+  runtimeLevel: 0
+  runtimeExperience: 0
 --- !u!1 &1556769213
 GameObject:
   m_ObjectHideFlags: 0

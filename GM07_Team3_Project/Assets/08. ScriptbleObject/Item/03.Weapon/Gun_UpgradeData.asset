@@ -20,6 +20,3 @@ MonoBehaviour:
   weaponPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
   weaponAttackPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
   value: 5
-  useRandomValue: 1
-  minValue: 1
-  maxValue: 5
