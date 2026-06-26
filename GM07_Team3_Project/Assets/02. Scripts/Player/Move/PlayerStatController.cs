@@ -8,10 +8,6 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatSO playerStatData;
     [SerializeField] private PlayerLevelSO playerLevelData;
 
-    [Header("시작 무기 설정")]
-    [SerializeField] private WeaponBase weaponBase;
-    [SerializeField] private UpgradeData startWeapon;
-
     [Header("런타임 스탯 확인용")]
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
     [SerializeField] private int runtimeLevel;
@@ -52,9 +48,6 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
         currentHealth = MaxHealth;
-
-        UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
-        weaponBase.Init(option, transform);
 
         RuntimeStat();
         UpdateRuntimeLevel();
@@ -97,10 +90,6 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
             return;
         }
-
-        Debug.Log($"{name}: UpgradeOption 선택됨 - {upgradeOption.Data.name}, Value: {upgradeOption.Value}", this);
-
-        // weaponBase.Init(upgradeOption, transform);
 
         StatType statType = upgradeOption.Data.StatType;
 

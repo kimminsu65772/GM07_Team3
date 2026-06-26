@@ -58,6 +58,8 @@ public class MeleeEnemy : Enemy
             damageable.TakeDamage(enemyData.AttackPower);
         }
 
+        anim.SetTrigger("Attack");
+
         attackTimer = 0f;
     }
 
@@ -78,5 +80,4 @@ public class MeleeEnemy : Enemy
             attackTimer = 0f;
         }
     }
-
 }
