@@ -84,22 +84,22 @@ public class WeaponBase : MonoBehaviour
 
         if (target == null)
         {
-           Vector3 forward =  owner.forward;
-            forward.y = 0.0f;
-            if(forward == Vector3.zero)
+            Vector3 forward = owner.forward;
+
+            if (forward == Vector3.zero)
             {
                 return Vector3.forward;
             }
+
             return forward.normalized;
-           
         }
 
-        Vector3 targetPosition = target.position;
-        targetPosition.y = owner.position.y;
+        Vector3 targetPosition = GetTargetAimPosition(target);
+        Vector3 startPosition = GetFireStartPosition();
 
 
 
-        Vector3 direction = targetPosition - owner.position;
+        Vector3 direction = targetPosition - startPosition;
 
         if (direction == Vector3.zero)
         {
@@ -108,6 +108,24 @@ public class WeaponBase : MonoBehaviour
 
         return direction.normalized;
 
+    }
+
+    //적 몸통 중앙으로 투사체 보내기
+    private Vector3 GetTargetAimPosition(Transform target)
+    {
+        Collider targetCollider = target.GetComponentInChildren<Collider>();
+
+        if (targetCollider != null)
+        {
+            return targetCollider.bounds.center;
+        }
+
+        return target.position + Vector3.up * 1.0f;
+    }
+
+    private Vector3 GetFireStartPosition()
+    {
+        return owner.position + Vector3.up * spawnHeight;
     }
 
     //투사체 생성 위치
