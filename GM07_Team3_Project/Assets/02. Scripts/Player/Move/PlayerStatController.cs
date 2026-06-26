@@ -8,9 +8,9 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatSO playerStatData;
     [SerializeField] private PlayerLevelSO playerLevelData;
 
-    [Header("시작 무기 설정")]
-    [SerializeField] private WeaponBase weaponBase;
-    [SerializeField] private UpgradeData startWeapon;
+    //[Header("시작 무기 설정")]
+    //[SerializeField] private WeaponBase weaponBase;
+    //[SerializeField] private UpgradeData startWeapon;
 
     [Header("런타임 스탯 확인용")]
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
@@ -21,7 +21,6 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     
 
     public float CurrentHealth => currentHealth;
-
     public float MaxHealth => GetStat(StatType.MaxHp);
     public bool IsDead { get; private set; }
 
@@ -54,8 +53,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         playerLevel = new PlayerLevel(playerLevelData);
         currentHealth = MaxHealth;
 
-        UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
-        weaponBase.Init(option, transform);
+        //UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
+        //weaponBase.Init(option, transform);
 
         RuntimeStat();
         UpdateRuntimeLevel();
