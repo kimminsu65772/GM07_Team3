@@ -6,7 +6,7 @@ public class RangedEnemy : Enemy
 
     private void Update()
     {
-        if (target == null)
+        if (target == null || enemyData == null)
         {
             return;
         }
@@ -33,6 +33,15 @@ public class RangedEnemy : Enemy
                 agent.isStopped = true;
             }
 
+            // 원거리 적 공격 중 플레이어 바라보게
+            Vector3 dir = (target.position - transform.position);
+            dir.y = 0;
+
+            if (dir != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(dir);
+            }
+
             attackTime += Time.deltaTime;
 
             if (attackTime >= enemyData.AttackSpeed)
@@ -45,14 +54,8 @@ public class RangedEnemy : Enemy
 
     private void Shoot()
     {
-        if (target == null)
+        if (target == null || enemyData == null || enemyData.BulletPrefab == null)
         {
-            return;
-        }
-
-        if (enemyData.BulletPrefab == null)
-        {
-            Debug.LogWarning("BulletPrefab이 없습니다.");
             return;
         }
 
@@ -62,12 +65,9 @@ public class RangedEnemy : Enemy
         EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
             spawnPosition, Quaternion.identity);
 
-        // 플레이어 몸통 쪽으로
-        Vector3 targetPosition = 
-            target.position + Vector3.up * 1f;
 
         Vector3 direction =
-            targetPosition - spawnPosition;
+            (target.position + Vector3.up * 1f) - spawnPosition;
 
         bullet.Initialize(direction);
 
@@ -77,7 +77,7 @@ public class RangedEnemy : Enemy
     private void OnTriggerStay(Collider other)
     {
         // 충돌 물체 태그가 플레이어인지 확인하는 용도
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || enemyData == null)
         {
             return;
         }

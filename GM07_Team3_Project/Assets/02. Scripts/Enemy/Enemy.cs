@@ -30,6 +30,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 컴포넌트, 타겟 세팅용 NavMeshAgent 가져오기
         agent = GetComponent<NavMeshAgent>();
 
+
+        if (agent != null)
+        {
+            // NavMeshAgent가 캐릭터의 "위쪽 방향(Y축 Up)"까지 자동으로 보정하는 기능을 끔
+            // (경사/회전/축 꼬임 때문에 모델이 기울어지는 현상을 방지할 때 사용)
+            agent.updateUpAxis = false;
+        }
+
         // 내비게이션 속도를 기존 속도 데이터와 동기화
         if (agent != null && enemyData != null)
         {
