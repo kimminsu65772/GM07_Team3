@@ -30,7 +30,7 @@ public class HPBar : MonoBehaviour
 
     private void UpdateHPText(float currentHp, float maxHp)
     {
-        hpText.text = $"{currentHp}/{maxHp}";
+        hpText.text = $"{(int)currentHp}/{(int)maxHp}";
     }
 
     public void SetHPBar(float currentHp, float maxHp)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
-    private float attackTime;
+    private float attackTimer;
 
     private void Update()
     {
@@ -24,6 +24,8 @@ public class RangedEnemy : Enemy
             {
                 agent.isStopped = false;
             }
+
+            attackTimer = 0f;
         }
 
         else
@@ -42,12 +44,12 @@ public class RangedEnemy : Enemy
                 transform.rotation = Quaternion.LookRotation(dir);
             }
 
-            attackTime += Time.deltaTime;
+            attackTimer += Time.deltaTime;
 
-            if (attackTime >= enemyData.AttackSpeed)
+            if (attackTimer >= enemyData.AttackSpeed)
             {
                 Shoot();
-                attackTime = 0f;
+                attackTimer = 0f;
             }
         }
     }
@@ -90,4 +92,24 @@ public class RangedEnemy : Enemy
             damageable.TakeDamage(enemyData.AttackPower);
         }
     }
+
+    // 공격범위 들어올때 타이머 초기화
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            attackTimer = 0f;
+        }
+    }
+
+    // 플레이어가 공격범위 빠질때 타이머 초기화
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            attackTimer = 0f;
+        }
+    }
+
+
 }
