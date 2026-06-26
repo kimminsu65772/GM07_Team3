@@ -15,7 +15,10 @@ public class SpawnManager : Singleton<SpawnManager>
     private void Update()
     {
         // 플레이어가 없을때 예외처리
-        if (player == null) return;
+        if (player == null)
+        {
+            return;
+        }
 
         SpawnEnemy();
     }

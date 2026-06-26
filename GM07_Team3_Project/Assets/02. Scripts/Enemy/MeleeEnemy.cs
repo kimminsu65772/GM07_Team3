@@ -57,11 +57,13 @@ public class MeleeEnemy : Enemy
         {
             damageable.TakeDamage(enemyData.AttackPower);
 
-            // 공격 애니 트리거
+            
+            /* 공격 애니 트리거
             if (anim != null)
             {
                 anim.SetTrigger("Attack");
             }
+            추후 사용하게되면 꺼냄 */
         }
 
         attackTimer = 0f;
