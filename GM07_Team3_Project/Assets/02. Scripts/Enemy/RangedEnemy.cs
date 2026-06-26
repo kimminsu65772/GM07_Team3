@@ -6,7 +6,7 @@ public class RangedEnemy : Enemy
 
     private void Update()
     {
-        if (target == null)
+        if (target == null || enemyData == null)
         {
             return;
         }
@@ -19,8 +19,8 @@ public class RangedEnemy : Enemy
         {
             MoveToTarget();
 
-            // NavMeshAgent 깨워서 다시 작동
-            if (agent != null)
+            // NavMesh 위에 있을때만 정지 해제
+            if (agent != null && agent.isOnNavMesh)
             {
                 agent.isStopped = false;
             }
@@ -28,9 +28,18 @@ public class RangedEnemy : Enemy
 
         else
         {
-            if (agent != null)
+            if (agent != null && agent.isOnNavMesh)
             {
                 agent.isStopped = true;
+            }
+
+            // 원거리 적 공격 중 플레이어 바라보게
+            Vector3 dir = (target.position - transform.position);
+            dir.y = 0;
+
+            if (dir != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(dir);
             }
 
             attackTime += Time.deltaTime;
@@ -45,14 +54,20 @@ public class RangedEnemy : Enemy
 
     private void Shoot()
     {
-        if (target == null)
+        if (target == null || enemyData == null || enemyData.BulletPrefab == null)
         {
             return;
         }
-        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
-            transform.position, Quaternion.identity);
 
-        Vector3 direction = target.position - transform.position;
+        Vector3 spawnPosition = 
+            transform.position + Vector3.up * 1.5f;
+
+        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
+            spawnPosition, Quaternion.identity);
+
+
+        Vector3 direction =
+            (target.position + Vector3.up * 1f) - spawnPosition;
 
         bullet.Initialize(direction);
 
@@ -62,7 +77,7 @@ public class RangedEnemy : Enemy
     private void OnTriggerStay(Collider other)
     {
         // 충돌 물체 태그가 플레이어인지 확인하는 용도
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || enemyData == null)
         {
             return;
         }
