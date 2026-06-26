@@ -13,8 +13,8 @@ public class WeaponBase : MonoBehaviour
     [SerializeField] private float spawnDistance = 1.0f;
     [SerializeField] private float spawnHeight = 1.0f;
     [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private float targetSerchRadius = 10.0f;
-    [SerializeField] private float attackInterval = 1.0f;
+    [SerializeField] private float targetSerchRadius = 500.0f;
+    [SerializeField] private float attackInterval = 0.2f;
 
     private float timer = 0.0f;
 
