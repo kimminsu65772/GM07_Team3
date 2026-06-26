@@ -1,4 +1,4 @@
-// ¾ÀÀÇ Å¸ÀÔÀ» Á¤ÀÇÇÏ´Â enum
+// ì”¬ì˜ íƒ€ì…ì„ ì •ì˜í•˜ëŠ” enum
 public enum SceneType
 {
     None = -1,
