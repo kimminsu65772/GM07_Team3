@@ -10,6 +10,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     // 실제 싱글톤 인스턴스를 저장하는 정적 변수
     private static T instance;
+    // 외부에서 인스턴스가 존재하는지 확인할 수 있는 정적 프로퍼티
+    // Instance 프로퍼티를 직접 호출하는 경우, OnDestroy()에서 다시 매니저가 생성된 채로 남아있을 수 있음.
+    public static bool HasInstance => instance != null;
 
     // 다른 스크립트에서 매니저 인스턴스에 접근할 수 있게 하는 정적 프로퍼티 
     public static T Instance
@@ -33,7 +36,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
-
     protected virtual void Awake()
     {
         // 매니저 인스턴스가 없는 경우에는 현재 객체를 싱글톤 인스턴스로 설정

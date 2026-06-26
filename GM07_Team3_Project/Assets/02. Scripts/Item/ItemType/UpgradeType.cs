@@ -1,5 +1,5 @@
 public enum UpgradeType
 {
     Weapon,
-    State
+    Stat
 }
