@@ -27,8 +27,12 @@ public class WeaponBase : MonoBehaviour
         this.option = option;
         this.owner = owner;
         this.value = option.Value;
+
         timer = 0.0f;
+
         itemStatManager = owner.GetComponent<ItemStatManager>();
+
+
         if (targetLayer.value == 0)
         {
             targetLayer = LayerMask.GetMask("Target");
