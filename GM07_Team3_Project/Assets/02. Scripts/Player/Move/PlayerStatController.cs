@@ -153,6 +153,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         if (previousLevel != playerLevel.CurrentLevel)
         {
             OnLevelChanged?.Invoke(playerLevel.CurrentLevel);
+            UpgradeManager.Instance.CreateUpgradeChoices();
         }
     }
     public int GetRequiredExperience()
