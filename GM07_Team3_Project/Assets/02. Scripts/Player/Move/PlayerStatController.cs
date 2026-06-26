@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class PlayerStatController : MonoBehaviour
+public sealed class PlayerStatController : MonoBehaviour, IDamageable
 {
     [Header("플레이어 기본 스탯 데이터")]
     [SerializeField] private PlayerStatSO playerStatData;
@@ -154,6 +154,10 @@ public sealed class PlayerStatController : MonoBehaviour
         {
             OnLevelChanged?.Invoke(playerLevel.CurrentLevel);
         }
+    }
+    public int GetRequiredExperience()
+    {
+        return playerLevel.RequiredExperience;
     }
 
     //경험치 얻는 걸 이벤트로 변경시

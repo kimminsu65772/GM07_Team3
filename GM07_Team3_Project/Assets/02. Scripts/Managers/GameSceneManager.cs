@@ -8,23 +8,12 @@ using UnityEngine.SceneManagement;
  */
 public class GameSceneManager : Singleton<GameSceneManager>
 {
-    private void OnEnable()
-    {
-        // 이벤트 구독은 이곳에서 이루어짐
-        // SceneLoadRequestChannel.OnSceneLoadRequested += LoadScene;
-    }
-
-    private void OnDisable()
-    {
-        // 이벤트 구독 해제는 이곳에서 이루어짐
-        // SceneLoadRequestChannel.OnSceneLoadRequested -= LoadScene;
-    }
-
     // enum으로 씬 타입을 파라미터로 받아 타입 기반의 씬 로드를 작동
     public void LoadScene(SceneType type)
     {
-       string sceneName = SceneTable.GetSceneName(type);
-       SceneManager.LoadScene(sceneName);
+        Debug.Log($"씬 로드 요청: {type}");
+        string sceneName = SceneTable.GetSceneName(type);
+        SceneManager.LoadScene(sceneName);
     }
 
     // 씬을 리로드하는 기능, 현재 씬을 다시 로드하여 초기 상태로 되돌리는 기능을 수행
