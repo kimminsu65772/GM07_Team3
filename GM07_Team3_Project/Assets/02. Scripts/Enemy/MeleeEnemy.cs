@@ -6,7 +6,7 @@ public class MeleeEnemy : Enemy
     // 공격 쿨타임 계산용 변수
     private float attackTimer;
 
-    // 애니메이터와 내브메쉬에이전트 참조 변수
+    // 애니메이터와 NavMeshAgent 참조 변수
     private Animator anim;
     private NavMeshAgent agent;
 
@@ -56,6 +56,12 @@ public class MeleeEnemy : Enemy
         if (damageable != null)
         {
             damageable.TakeDamage(enemyData.AttackPower);
+
+            // 공격 애니 트리거
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            }
         }
 
         attackTimer = 0f;
