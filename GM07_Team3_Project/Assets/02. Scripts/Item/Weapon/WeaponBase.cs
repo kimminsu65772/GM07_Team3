@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class WeaponBase : MonoBehaviour
 {
@@ -8,7 +10,8 @@ public class WeaponBase : MonoBehaviour
     private float value;
     private Transform target;
 
-
+    [SerializeField] private float spawnDistance = 1.0f;
+    [SerializeField] private float spawnHeight = 1.0f;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private float targetSerchRadius = 10.0f;
     [SerializeField] private float attackInterval = 1.0f;
@@ -24,6 +27,11 @@ public class WeaponBase : MonoBehaviour
         this.owner = owner;
         this.value = option.Value;
         timer = 0.0f;
+
+        if (targetLayer.value == 0)
+        {
+            targetLayer = LayerMask.GetMask("Target");
+        }
     }
 
     private void Update()
@@ -76,17 +84,36 @@ public class WeaponBase : MonoBehaviour
 
         if (target == null)
         {
+           Vector3 forward =  owner.forward;
+            forward.y = 0.0f;
+            if(forward == Vector3.zero)
+            {
+                return Vector3.forward;
+            }
+            return forward.normalized;
+           
+        }
+
+        Vector3 targetPosition = target.position;
+        targetPosition.y = owner.position.y;
+
+
+
+        Vector3 direction = targetPosition - owner.position;
+
+        if (direction == Vector3.zero)
+        {
             return owner.forward.normalized;
         }
 
-        Vector3 direction = target.position - owner.position;
         return direction.normalized;
+
     }
 
     //투사체 생성 위치
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        return owner.position + direction;
+        return owner.position + Vector3.up * spawnHeight + direction * spawnDistance;
     }
 
     private Transform FindNearestTarget()
