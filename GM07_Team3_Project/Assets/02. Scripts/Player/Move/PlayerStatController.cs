@@ -23,6 +23,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public float CurrentHealth => currentHealth;
 
     public float MaxHealth => GetStat(StatType.MaxHp);
+    public bool IsDead { get; private set; }
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
@@ -31,8 +32,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public event Action<float, float> OnHealthChanged;
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
+    public event Action OnDied;
 
-    
 
     private void Awake()
     {
@@ -283,10 +284,16 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
     }
+
     public void Heal(float amount)
     {
-        if (amount <= 0f)
+        if (IsDead || amount <= 0f)
         {
             return;
         }
@@ -303,6 +310,17 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+    }
+    private void Die()
+    {
+        if (IsDead)
+        {
+            return;
+        }
+
+        IsDead = true;
+
+        OnDied?.Invoke();
     }
 }
 
