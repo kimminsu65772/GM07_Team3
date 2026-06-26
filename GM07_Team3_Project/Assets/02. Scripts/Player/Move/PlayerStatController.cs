@@ -26,6 +26,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
 
+    [SerializeField] private WeaponBase weaponBase;
 
     private void Awake()
     {
@@ -51,12 +52,12 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        //UpgradeEventManager.OnUpgradeSelected += HandleUpgradeSelected;
+        UpgradeEventManager.Instance.OnUpgradeSelected -= HandleUpgradeSelected; ;
     }
 
     private void OnDisable()
     {
-        //UpgradeEventManager.OnUpgradeSelected -= HandleUpgradeSelected;
+        UpgradeEventManager.Instance.OnUpgradeSelected -= HandleUpgradeSelected; ;
     }
 
     public float GetStat(StatType statType)
@@ -84,6 +85,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
             return;
         }
+
+        weaponBase.Init(upgradeOption,transform);
 
         StatType statType = upgradeOption.Data.StatType;
 
