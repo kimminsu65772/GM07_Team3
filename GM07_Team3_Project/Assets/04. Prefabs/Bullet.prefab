@@ -155,3 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangedAttackObject
   lifeTime: 3
   speed: 15
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64

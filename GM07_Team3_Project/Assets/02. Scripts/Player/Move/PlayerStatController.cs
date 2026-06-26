@@ -8,11 +8,17 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatSO playerStatData;
     [SerializeField] private PlayerLevelSO playerLevelData;
 
+    [Header("시작 무기 설정")]
+    [SerializeField] private WeaponBase weaponBase;
+    [SerializeField] private UpgradeData startWeapon;
+
     [Header("런타임 스탯 확인용")]
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
     [SerializeField] private int runtimeLevel;
     [SerializeField] private int runtimeExperience;
     [SerializeField] private float currentHealth;
+
+    
 
     public float CurrentHealth => currentHealth;
 
@@ -26,7 +32,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
 
-    [SerializeField] private WeaponBase weaponBase;
+    
 
     private void Awake()
     {
@@ -46,18 +52,24 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
         currentHealth = MaxHealth;
+
+        UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
+        weaponBase.Init(option, transform);
+
         RuntimeStat();
         UpdateRuntimeLevel();
+
+        
     }
 
     private void OnEnable()
     {
-        UpgradeEventManager.Instance.OnUpgradeSelected -= HandleUpgradeSelected; ;
+        UpgradeEventManager.Instance.OnUpgradeSelected += HandleUpgradeSelected;
     }
 
     private void OnDisable()
     {
-        UpgradeEventManager.Instance.OnUpgradeSelected -= HandleUpgradeSelected; ;
+        UpgradeEventManager.Instance.OnUpgradeSelected -= HandleUpgradeSelected;
     }
 
     public float GetStat(StatType statType)
@@ -86,12 +98,15 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
             return;
         }
 
-        weaponBase.Init(upgradeOption,transform);
+        Debug.Log($"{name}: UpgradeOption 선택됨 - {upgradeOption.Data.name}, Value: {upgradeOption.Value}", this);
+
+        // weaponBase.Init(upgradeOption, transform);
 
         StatType statType = upgradeOption.Data.StatType;
 
         if (statType == StatType.None)
         {
+            Debug.LogWarning($"{name}: UpgradeOption의 StatType이 None입니다. 스탯 변경이 적용되지 않습니다.", this);
             return;
         }
 
@@ -103,17 +118,21 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         {
             return;
         }
+
+        Debug.Log($"{name}: AddItemStat 호출 - StatType: {statType}, Amount: {amount}", this);
+
         float previousValue = playerStats.GetTotalStat(statType);
 
         playerStats.AddItemStat(statType, amount);
 
         float currentValue = playerStats.GetTotalStat(statType);
 
-        StatChanged(statType, currentValue, currentValue);
+        StatChanged(statType, previousValue, currentValue);
     }
 
     private void StatChanged(StatType StatType, float previousValue, float currentValue)
     {
+        Debug.Log($"{name}: StatChanged 호출 - StatType: {StatType}, PreviousValue: {previousValue}, CurrentValue: {currentValue}", this);
         if (Mathf.Approximately(previousValue, currentValue))
         {
             return;

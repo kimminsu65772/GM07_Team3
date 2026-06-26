@@ -45,12 +45,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
 
         agent = GetComponent<NavMeshAgent>();
-
-        if (agent != null)
-        {
-            agent.updateUpAxis = false;
-            agent.updateRotation = true;
-        }
     }
 
     public void Initialize(Transform player, PlayerStatController statController)
