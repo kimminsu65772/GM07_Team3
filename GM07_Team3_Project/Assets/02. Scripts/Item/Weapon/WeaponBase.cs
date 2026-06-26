@@ -9,6 +9,7 @@ public class WeaponBase : MonoBehaviour
     private Transform owner;
     private float value;
     private Transform target;
+    private ItemStatManager itemStatManager;
 
     [SerializeField] private float spawnDistance = 1.0f;
     [SerializeField] private float spawnHeight = 1.0f;
@@ -27,7 +28,7 @@ public class WeaponBase : MonoBehaviour
         this.owner = owner;
         this.value = option.Value;
         timer = 0.0f;
-
+        itemStatManager = owner.GetComponent<ItemStatManager>();
         if (targetLayer.value == 0)
         {
             targetLayer = LayerMask.GetMask("Target");
@@ -44,7 +45,9 @@ public class WeaponBase : MonoBehaviour
         timer += Time.deltaTime;
 
         //공격속도
-        if (timer >= attackInterval)
+        float finalAttackInterval = GetFinalAttackInterval();
+
+        if (timer >= finalAttackInterval)
         {
             timer = 0.0f;
             Attack();
@@ -73,8 +76,44 @@ public class WeaponBase : MonoBehaviour
 
         if (attackObject != null)
         {
-            attackObject.Init(value, direction);
+            float finalDamage = GetFinalDamage();
+            attackObject.Init(finalDamage, direction);
         }
+    }
+    //공격 속도 증가 적용
+    private float GetFinalAttackInterval()
+    {
+        if (itemStatManager == null)
+        {
+            return attackInterval;
+        }
+
+        float attackSpeedMultiplier = 1.0f + itemStatManager.AttackSpeedBonus;
+
+        attackSpeedMultiplier = Mathf.Max(0.1f, attackSpeedMultiplier);
+
+        return attackInterval / attackSpeedMultiplier;
+    }
+
+
+    //증가된 데미지/ 크리데미지 계산 및 적용 시키기
+    private float GetFinalDamage()
+    {
+        float finalDamage = value;
+
+        if (itemStatManager != null)
+        {
+            finalDamage += itemStatManager.DamageBonus;
+
+            float criticalChance = itemStatManager.CriticalChanceBonus;
+
+            if (Random.Range(0.0f, 100.0f) < criticalChance)
+            {
+                finalDamage *= 2.0f;
+            }
+        }
+
+        return finalDamage;
     }
 
     //투사체 방향
