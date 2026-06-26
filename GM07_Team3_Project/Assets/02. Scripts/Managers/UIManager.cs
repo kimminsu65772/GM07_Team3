@@ -82,11 +82,15 @@ public class UIManager : Singleton<UIManager>
         {
             currentUIRoot.PauseUIController.ClosePausePanel();
             currentPanel = UIPanelType.None;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             currentUIRoot.PauseUIController.OpenPausePanel();
             currentPanel = UIPanelType.Pause;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
