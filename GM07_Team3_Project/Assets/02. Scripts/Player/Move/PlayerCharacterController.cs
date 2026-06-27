@@ -54,6 +54,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
 
     public Vector3 Velocity { get; private set; }
 
+    public bool JumpedThisFrame { get; private set; }
+
     public PlayerSurfaceState CurrentSurfaceState => currentSurfaceState;
     private float MaxWalkSlopeAngle => characterController.slopeLimit;
 
@@ -157,6 +159,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
 
     private void TryJump()
     {
+        JumpedThisFrame = false;
+
         if (!IsGrounded || !inputManager.GetJumpInputDown())
         {
             return;
@@ -171,6 +175,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
         IsGrounded = false;
 
         steepSlideVelocity = Vector3.zero;
+
+        JumpedThisFrame = true;
     }
 
     private Vector3 CalculateVelocity(Vector3 moveDirection)

@@ -8,6 +8,10 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatSO playerStatData;
     [SerializeField] private PlayerLevelSO playerLevelData;
 
+    //[Header("시작 무기 설정")]
+    //[SerializeField] private WeaponBase weaponBase;
+    //[SerializeField] private UpgradeData startWeapon;
+
     [Header("런타임 스탯 확인용")]
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
     [SerializeField] private int runtimeLevel;
@@ -17,8 +21,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     
 
     public float CurrentHealth => currentHealth;
-
     public float MaxHealth => GetStat(StatType.MaxHp);
+    public bool IsDead { get; private set; }
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
@@ -27,8 +31,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public event Action<float, float> OnHealthChanged;
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
+    public event Action OnDied;
 
-    
 
     private void Awake()
     {
@@ -48,6 +52,9 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
         currentHealth = MaxHealth;
+
+        //UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
+        //weaponBase.Init(option, transform);
 
         RuntimeStat();
         UpdateRuntimeLevel();
@@ -90,6 +97,10 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
             return;
         }
+
+        Debug.Log($"{name}: UpgradeOption 선택됨 - {upgradeOption.Data.name}, Value: {upgradeOption.Value}", this);
+
+        // weaponBase.Init(upgradeOption, transform);
 
         StatType statType = upgradeOption.Data.StatType;
 
@@ -272,10 +283,16 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
     }
+
     public void Heal(float amount)
     {
-        if (amount <= 0f)
+        if (IsDead || amount <= 0f)
         {
             return;
         }
@@ -292,6 +309,17 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+    }
+    private void Die()
+    {
+        if (IsDead)
+        {
+            return;
+        }
+
+        IsDead = true;
+
+        OnDied?.Invoke();
     }
 }
 
