@@ -4,112 +4,110 @@ public class RangedEnemy : Enemy
 {
     private float attackTimer;
 
+    private float contactTimer;
+
     private void Update()
     {
         if (target == null || enemyData == null)
         {
             return;
         }
-        
-        // 적 현재위치와 타겟 위치 사이 실제거리 계산 후 distance에 저장
-        float distance = 
-            Vector3.Distance(transform.position, target.position);
 
-        if (distance > enemyData.AttackRange)
+        Vector3 toTarget = target.position - transform.position;
+        float sqrDistance = toTarget.sqrMagnitude;
+
+        float sqrAttackRange = 
+            enemyData.AttackRange * enemyData.AttackRange;
+
+
+        // 추적
+        if (sqrDistance > sqrAttackRange)
         {
-            MoveToTarget();
-
-            // NavMesh 위에 있을때만 정지 해제
-            if (agent != null && agent.isOnNavMesh)
+            if (agent.isOnNavMesh)
             {
                 agent.isStopped = false;
             }
 
-            attackTimer = 0f;
-        }
-
-        else
-        {
-            if (agent != null && agent.isOnNavMesh)
-            {
-                agent.isStopped = true;
-            }
-
-            // 원거리 적 공격 중 플레이어 바라보게
-            Vector3 dir = (target.position - transform.position);
-            dir.y = 0;
-
-            if (dir != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(dir);
-            }
-
-            attackTimer += Time.deltaTime;
-
-            if (attackTimer >= enemyData.AttackSpeed)
-            {
-                Shoot();
-                attackTimer = 0f;
-            }
-        }
-    }
-
-    private void Shoot()
-    {
-        if (target == null || enemyData == null || enemyData.BulletPrefab == null)
-        {
+            MoveToTarget();
             return;
         }
 
-        Vector3 spawnPosition = 
+        // 공격
+        if (agent.isOnNavMesh)
+        {
+            agent.isStopped = true;
+        }
+
+        Vector3 dir = toTarget;
+        dir.y = 0;
+
+        if (dir != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(dir);
+        }
+
+        attackTimer += Time.deltaTime;
+
+        if (attackTimer >= enemyData.AttackSpeed)
+        {
+            Shoot();
+            attackTimer = 0f;
+        }
+    }
+    private void Shoot()
+    {
+        Vector3 spawnPosition =
             transform.position + Vector3.up * 1.5f;
 
-        EnemyBullet bullet = Instantiate(enemyData.BulletPrefab,
-            spawnPosition, Quaternion.identity);
+        EnemyBullet bullet = EnemyBulletPool.Instance.Get();
 
+        bullet.transform.position = spawnPosition;
 
         Vector3 direction =
             (target.position + Vector3.up * 1f) - spawnPosition;
 
         bullet.Initialize(direction);
-
     }
 
-    //플레이어에 부딪히면 데미지
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        // 충돌 물체 태그가 플레이어인지 확인하는 용도
         if (!other.CompareTag("Player") || enemyData == null)
         {
             return;
         }
 
-        IDamageable damageable =
-            other.GetComponent<IDamageable>();
-
-        if (damageable != null)
+        // 부딪혔을때 즉시 데미지 1회
+        if (other.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(enemyData.AttackPower);
         }
+
+        contactTimer = 0f;
     }
 
-    // 공격범위 들어올때 타이머 초기화
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            attackTimer = 0f;
-        }
-    }
+        if (!other.CompareTag("Player") || enemyData == null)
 
-    // 플레이어가 공격범위 빠질때 타이머 초기화
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
         {
-            attackTimer = 0f;
+            return;
         }
-    }
 
+        contactTimer += Time.deltaTime;
+
+        // 부딪힌 동안 1초마다 지속 데미지
+        if (contactTimer < 1f)
+
+        {
+            return;
+        }
+
+        if (other.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.TakeDamage(enemyData.AttackPower);
+        }
+
+        contactTimer = 0f;
+    }
 
 }

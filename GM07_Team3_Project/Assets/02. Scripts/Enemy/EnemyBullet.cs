@@ -7,16 +7,25 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float lifeTime = 5f;
 
     private Vector3 moveDirection;
+    private float lifeTimer;
 
-    private void Start()
+    private void OnEnable()
     {
-        Destroy(gameObject, lifeTime);
+        lifeTimer = lifeTime;
+        moveDirection = Vector3.zero;
     }
 
     private void Update()
     {
         transform.position +=
             moveDirection * speed * Time.deltaTime;
+
+        lifeTimer -= Time.deltaTime;
+
+        if (lifeTimer <= 0f)
+        {
+            EnemyBulletPool.Instance.Return(this);
+        }
     }
 
     public void Initialize(Vector3 direction)
@@ -40,6 +49,6 @@ public class EnemyBullet : MonoBehaviour
             damageable.TakeDamage(10f);
         }
 
-        Destroy(gameObject);
+        EnemyBulletPool.Instance.Return(this);
     }
 }
