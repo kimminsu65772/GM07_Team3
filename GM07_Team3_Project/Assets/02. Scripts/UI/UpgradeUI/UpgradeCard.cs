@@ -14,6 +14,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private ParticleSystem[] particleSystems;
 
     // 버튼에 마우스가 올라갔을 때의 스케일을 정의하는 변수
     [Header("Animation Scale Setting")]
@@ -44,6 +45,8 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         originalPosition = rectTransform.anchoredPosition;
         originalRotation = rectTransform.rotation;
         originalScale = rectTransform.localScale;
+
+        particleSystems = GetComponentsInChildren<ParticleSystem>();
     }
 
     private void OnEnable()
@@ -101,12 +104,23 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         sequence.Join(rectTransform.DORotateQuaternion(originalRotation, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DOScale(originalScale, 0.35f).SetEase(Ease.OutBack));
         sequence.SetUpdate(true);
+
+        foreach (var ps in particleSystems)
+        {
+            ps.Clear();
+            ps.Play();
+        }
         return sequence;
     }
 
     public void SelectCard()
     {
         if (!isClickable) return;
+        foreach (var ps in particleSystems)
+        {
+            ps.Stop();
+            ps.Clear();
+        }
         OnCardSelected?.Invoke(UpgradeData);
     }
 
