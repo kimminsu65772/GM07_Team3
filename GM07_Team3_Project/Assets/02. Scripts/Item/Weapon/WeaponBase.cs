@@ -1,20 +1,25 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class WeaponBase : MonoBehaviour
 {
     private UpgradeOption option;
     private UpgradeData upgradeData;
     private Transform owner;
-    private Transform target;
     private float value;
-    
-    
-    [SerializeField] private float attackInterval = 1.0f;
+    private Transform target;
+
+    [SerializeField] private float spawnDistance = 1.0f;
+    [SerializeField] private float spawnHeight = 1.0f;
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private float targetSerchRadius = 500.0f;
+    [SerializeField] private float attackInterval = 0.2f;
 
     private float timer = 0.0f;
 
 
-    //µ¥ÀÌÅÍ °¡Á®¿À±â
+    //ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
     public virtual void Init(UpgradeOption option, Transform owner)
     {
         this.upgradeData = option.Data;
@@ -22,6 +27,11 @@ public class WeaponBase : MonoBehaviour
         this.owner = owner;
         this.value = option.Value;
         timer = 0.0f;
+
+        if (targetLayer.value == 0)
+        {
+            targetLayer = LayerMask.GetMask("Target");
+        }
     }
 
     private void Update()
@@ -33,7 +43,7 @@ public class WeaponBase : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        //°ø°İ¼Óµµ
+        //ê³µê²©ì†ë„
         if (timer >= attackInterval)
         {
             timer = 0.0f;
@@ -41,46 +51,106 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
-    //°ø°İ
+    //ê³µê²©
     protected virtual void Attack()
     {
-        //¸¸µé¾îµĞ ¹æÇâ À§Ä¡ »ç¿ë
+        //ë§Œë“¤ì–´ë‘” ë°©í–¥ ìœ„ì¹˜ ì‚¬ìš©
         Vector3 direction = GetAttackDirection();
         Vector3 attackPosition = GetSpawnPosition(direction);
 
-        //¿ÀºêÁ§Æ®Ç®ÀÌ ³ÎÀÎÁö °Ë»ç
+        //ì˜¤ë¸Œì íŠ¸í’€ì´ ë„ì¸ì§€ ê²€ì‚¬
         if (ObjectPoolManager.Instance == null) return;
-        //¿ÀºêÁ§Æ® ²¨³»¿À±â
+        //ì˜¤ë¸Œì íŠ¸ êº¼ë‚´ì˜¤ê¸°
         GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
+        if (attackObj == null) return;
 
-       
-        //À§Ä¡¿Í È¸Àü ¼¼ÆÃ
+
+        //ìœ„ì¹˜ì™€ íšŒì „ ì„¸íŒ…
         attackObj.transform.position = attackPosition;
         attackObj.transform.rotation = Quaternion.LookRotation(direction);
 
         AttackObject attackObject = attackObj.GetComponent<AttackObject>();
-      
-        if(attackObject != null)
+
+        if (attackObject != null)
         {
             attackObject.Init(value, direction);
         }
     }
 
-    //Åõ»çÃ¼ ¹æÇâ
+    //íˆ¬ì‚¬ì²´ ë°©í–¥
     protected virtual Vector3 GetAttackDirection()
     {
+        target = FindNearestTarget();
+
         if (target == null)
+        {
+            Vector3 forward = owner.forward;
+
+            if (forward == Vector3.zero)
+            {
+                return Vector3.forward;
+            }
+
+            return forward.normalized;
+        }
+
+        Vector3 targetPosition = GetTargetAimPosition(target);
+        Vector3 startPosition = GetFireStartPosition();
+
+
+
+        Vector3 direction = targetPosition - startPosition;
+
+        if (direction == Vector3.zero)
         {
             return owner.forward.normalized;
         }
 
-        Vector3 direction = target.position - owner.position;
         return direction.normalized;
+
     }
 
-    //Åõ»çÃ¼ »ı¼º À§Ä¡
+    //ì  ëª¸í†µ ì¤‘ì•™ìœ¼ë¡œ íˆ¬ì‚¬ì²´ ë³´ë‚´ê¸°
+    private Vector3 GetTargetAimPosition(Transform target)
+    {
+        Collider targetCollider = target.GetComponentInChildren<Collider>();
+
+        if (targetCollider != null)
+        {
+            return targetCollider.bounds.center;
+        }
+
+        return target.position + Vector3.up * 1.0f;
+    }
+
+    private Vector3 GetFireStartPosition()
+    {
+        return owner.position + Vector3.up * spawnHeight;
+    }
+
+    //íˆ¬ì‚¬ì²´ ìƒì„± ìœ„ì¹˜
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        return owner.position + direction;
+        return owner.position + Vector3.up * spawnHeight + direction * spawnDistance;
+    }
+
+    private Transform FindNearestTarget()
+    {
+        Collider[] hits = Physics.OverlapSphere(owner.position, targetSerchRadius, targetLayer);
+
+        Transform nearestTarget = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach(Collider hit in hits)
+        {
+            float distance = Vector3.Distance(owner.position,hit.transform.position);
+
+            if(distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestTarget = hit.transform;
+            }
+        }
+        return nearestTarget;
     }
 }

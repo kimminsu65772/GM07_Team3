@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/01. Scenes/MainManuScene.unity.meta
 guid: 83ff956a167d3734388d65b0d6954f44
+========
+guid: 155978a6e3c40d74e926c88d68c6168e
+>>>>>>>> enemy:GM07_Team3_Project/Assets/01. Scenes/EnemyScenes.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

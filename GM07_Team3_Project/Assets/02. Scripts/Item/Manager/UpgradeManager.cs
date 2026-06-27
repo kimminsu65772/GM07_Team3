@@ -6,27 +6,14 @@ public class UpgradeManager : Singleton<UpgradeManager>
     [SerializeField] private UpgradeDatabase upgradeDatabase;
     [SerializeField] private int choiceCount = 3;
 
-    private void OnEnable()
-    {
-        // ¸ÕÀú Áßº¹À¸·Î ±¸µ¶±«´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇØ ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ ½Ãµµ
-        LevelUpInputTest.OnLevelUp -= CreateUpgradeChoices;
-        LevelUpInputTest.OnLevelUp += CreateUpgradeChoices;
-    }
-
     public void CreateUpgradeChoices()
     {
-        Debug.Log("OnLevelUp event received. Creating upgrade choices...");
         if (upgradeDatabase == null) return;
      
-
+        Debug.Log("ëœë¤ ì—…ê·¸ë ˆì´ë“œ ì„ íƒ ìƒì„±");
         List<UpgradeOption> result = upgradeDatabase.GetRandomUpgrades(choiceCount);
 
-        // result ¸®½ºÆ® ÀÌº¥Æ®·Î Àü¼Û
+        // result ë¦¬ìŠ¤íŠ¸ ì´ë²¤íŠ¸ë¡œ ì „ì†¡
         UpgradeEventManager.Instance.CreateUpgradeChoices(result);
-    }
-
-    private void OnDisable()
-    {
-        LevelUpInputTest.OnLevelUp -= CreateUpgradeChoices;
     }
 }

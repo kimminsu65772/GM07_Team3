@@ -13,7 +13,8 @@ public class InputManager : MonoBehaviour
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
-    private InputAction slideAction;
+    // private InputAction slideAction;
+    private InputAction pauseAction;
     private void Awake()
     {
         moveAction = InputSystem.actions.FindAction("Player/Move");
@@ -22,7 +23,9 @@ public class InputManager : MonoBehaviour
 
         jumpAction = InputSystem.actions.FindAction("Player/Jump");
 
-        slideAction = InputSystem.actions.FindAction("Player/Slide");
+        // slideAction = InputSystem.actions.FindAction("Player/Slide");
+
+        pauseAction = InputSystem.actions.FindAction("Player/Pause");
 
         if (moveAction == null)
         {
@@ -39,9 +42,14 @@ public class InputManager : MonoBehaviour
             Debug.LogError("Player/Jump 액션을 찾지 못했습니다.", this);
         }
 
-        if (slideAction == null)
+        //if (slideAction == null)
+        //{
+        //    Debug.LogError("Player/Slide 액션을 찾지 못했습니다.", this);
+        //}
+
+        if (pauseAction == null)
         {
-            Debug.LogError("Player/Slide 액션을 찾지 못했습니다.", this);
+            Debug.LogError("Player/Pause 액션을 찾지 못했습니다.", this);
         }
     }
     private void OnEnable()
@@ -49,7 +57,7 @@ public class InputManager : MonoBehaviour
         moveAction?.Enable();
         lookAction?.Enable();
         jumpAction?.Enable();
-        slideAction?.Enable();
+        // slideAction?.Enable();
     }
 
     private void OnDisable()
@@ -57,7 +65,7 @@ public class InputManager : MonoBehaviour
         moveAction?.Disable();
         lookAction?.Disable();
         jumpAction?.Disable();
-        slideAction?.Disable();
+        // slideAction?.Disable();
     }
 
     private void Start()
@@ -116,13 +124,21 @@ public class InputManager : MonoBehaviour
 
         return jumpAction.WasPressedThisFrame();
     }
-    public bool GetSlideInput()
-    {
-        if (!CanProcessInput() || slideAction == null)
-        {
-            return false;
-        }
 
-        return slideAction.IsPressed();
+    private void Update()
+    {
+        if (pauseAction != null && pauseAction.triggered)
+        {
+            UIManager.Instance.TogglePausePanel();
+        }
     }
+    //public bool GetSlideInput()
+    //{
+    //    if (!CanProcessInput() || slideAction == null)
+    //    {
+    //        return false;
+    //    }
+
+    //    return slideAction.IsPressed();
+    //}
 }
