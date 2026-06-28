@@ -27395,11 +27395,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db5cbae1bb008e4685720cd25ed8262, type: 3}
---- !u!95 &782234579 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1329501139448554460, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
-  m_PrefabInstance: {fileID: 6526954624467231189}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &782708531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71276,7 +71271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aba763aeed640942b60a948c767c8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
-  animator: {fileID: 782234579}
+  animator: {fileID: 5866666021909216657, guid: ca0f88ad9f7584346bb7899425893ade, type: 3}
   movementController: {fileID: 9044328522409972921}
   statController: {fileID: 524850024861067890}
 --- !u!114 &9044328522409972929
