@@ -10,12 +10,13 @@ public class GarlicAuraAttack : MonoBehaviour
     [SerializeField] private float damageInterval = 0.5f;
     [SerializeField] private LayerMask targetLayer;
 
-    [Header("시각 효과")]
-    //근접공격과 동일하게 파티클에서 시각적 효과 넣기
-    [SerializeField] private Transform visualRoot;
+    //[Header("시각 효과")]
+    ////근접공격과 동일하게 파티클에서 시각적 효과 넣기
+    //[SerializeField] private Transform visualRoot;
 
     private Transform owner;
     private float damage;
+
     private float timer;
 
     //적 중복데미지 방지용 해쉬셋
@@ -29,7 +30,7 @@ public class GarlicAuraAttack : MonoBehaviour
         timer = 0.0f;
 
         UpdatePosition();
-        UpdateVisualScale();
+        //UpdateVisualScale();
     }
 
     private void Update()
@@ -54,7 +55,7 @@ public class GarlicAuraAttack : MonoBehaviour
     //오라를 캐릭터에 고정
     private void UpdatePosition()
     {
-        transform.position = owner.position;
+        transform.position = owner.position + Vector3.up;
     }
 
     //데미지 함수
@@ -88,12 +89,14 @@ public class GarlicAuraAttack : MonoBehaviour
     //눈에 보이는 원 크기를 공격 범위로 설정
     private void UpdateVisualScale()
     {
-        if (visualRoot == null)
-        {
-            return;
-        }
-
-        visualRoot.localScale = new Vector3(radius * 2.0f, 1.0f, radius * 2.0f);
+        //if(visualRoot == null)
+        //{ return; }
+        //if (visualRoot == null)
+        //{
+        //    return;
+        //}
+        ////반지름의 * 2 반큼 계산해서 원을 만들어 줌
+        //visualRoot.localScale = new Vector3(radius * 2.0f, 1.0f, radius * 2.0f);
     }
 
     private void OnDrawGizmosSelected()
