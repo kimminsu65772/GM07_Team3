@@ -6,20 +6,6 @@ public class MeleeEnemy : Enemy
     // 공격 쿨타임 계산용 변수
     private float attackTimer;
 
-    // 애니메이터와 NavMeshAgent 참조 변수
-    private Animator anim;
-    private NavMeshAgent agent;
-
-    private void Start()
-    {
-        // 자식(현재 오크 프리팹)에 붙은 애니메이터 찾아옴
-        anim = GetComponentInChildren<Animator>();
-
-        // 이동 속도를 계산하기 위해 본인에게 붙은 NavMeshAgent를 가져옴
-        agent = GetComponent<NavMeshAgent>();
-
-    }
-
     private void Update()
     {
         MoveToTarget();

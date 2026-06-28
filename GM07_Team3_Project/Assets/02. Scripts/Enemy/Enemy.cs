@@ -7,6 +7,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("Data")]
     [SerializeField] protected EnemyData enemyData;
 
+    // EnemyPoolManager에서 사용할 프로퍼티
+    public EnemyData EnemyData => enemyData;
+
     protected float currentHp;
 
     // 내비게이션 변수
@@ -22,7 +25,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public event Action<Enemy> OnDead; // 사망 알림
 
     // 애니메이터 참조 변수
-    private Animator enemyAnim;
+    protected Animator anim;
 
     protected virtual void OnEnable()
     {
@@ -34,8 +37,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         agent = GetComponent<NavMeshAgent>();
 
         // 애니메이터 가져오기
-        enemyAnim = GetComponentInChildren<Animator>();
-
+        anim = GetComponentInChildren<Animator>();
 
         if (agent != null)
         {
@@ -51,8 +53,21 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             agent.speed = enemyData.MoveSpeed;
         }
+    }
 
-        agent = GetComponent<NavMeshAgent>();
+    // 
+    public void SetEnemyData(EnemyData data)
+    {
+        enemyData = data;
+
+        currentHp = enemyData.MaxHp;
+
+        if (agent != null)
+        {
+            agent.speed = enemyData.MoveSpeed;
+        }
+
+        OnHpChanged?.Invoke(currentHp, enemyData.MaxHp);
     }
 
     public void Initialize(Transform player, PlayerStatController statController)
@@ -137,9 +152,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
 
         // 사망 애니 트리거
-        if (enemyAnim != null)
+        if (anim != null)
         {
-            enemyAnim.SetTrigger("Die");
+            anim.SetTrigger("Die");
         }
 
         // 사망 이벤트 호출용

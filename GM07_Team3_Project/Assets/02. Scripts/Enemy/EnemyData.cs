@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class EnemyData : ScriptableObject
 {
+    [Header("Prefab")]
+    [SerializeField] private GameObject enemyPrefab;
+
     [Header("HP")]
     [SerializeField] private float maxHp = 100f; //최대 체력
 
@@ -19,13 +22,6 @@ public class EnemyData : ScriptableObject
     [Header("Exp Reward")]
     [SerializeField] private int experience = 10;
 
-    public int Experience => experience;
-
-    public EnemyBullet BulletPrefab => bulletPrefab;
-
-    public float AttackRange => attackRange;
-
-
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 3f; //이동속도
 
@@ -33,5 +29,9 @@ public class EnemyData : ScriptableObject
     public float AttackPower => attackPower;
     public float DefensePower => defensePower;
     public float AttackSpeed => attackSpeed;
+    public float AttackRange => attackRange;
     public float MoveSpeed => moveSpeed;
+    public int Experience => experience;
+    public EnemyBullet BulletPrefab => bulletPrefab;
+    public GameObject EnemyPrefab => enemyPrefab;
 }
