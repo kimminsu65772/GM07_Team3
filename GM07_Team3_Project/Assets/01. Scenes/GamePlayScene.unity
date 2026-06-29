@@ -800,6 +800,8 @@ GameObject:
   - component: {fileID: 26265546}
   - component: {fileID: 26265548}
   - component: {fileID: 26265547}
+  - component: {fileID: 26265550}
+  - component: {fileID: 26265549}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -867,6 +869,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26265545}
   m_CullTransparentMesh: 1
+--- !u!114 &26265549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26265545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655746211b7e5d744900bdb4053b1497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverPopup
+  canvasGroup: {fileID: 26265550}
+--- !u!225 &26265550
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26265545}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &29027144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4922,7 +4949,6 @@ MonoBehaviour:
   endDistance: 8
   zoomOutDuration: 3
   player: {fileID: 9044328522409972918}
-  gameplayCamera: {fileID: 840486633}
 --- !u!114 &130185494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4951,7 +4977,7 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
-  m_ClearDepth: 1
+  m_ClearDepth: 0
   m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
@@ -5006,7 +5032,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 40
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -13419,13 +13445,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 373103838}
+  - component: {fileID: 373103839}
   m_Layer: 5
   m_Name: GameOverController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &373103838
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13445,6 +13472,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &373103839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373103837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f336edfa05131745b7bfbc045e6a7b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverController
+  gameOverCamera: {fileID: 130185493}
+  gamePlayCamera: {fileID: 840486633}
+  gameOverPopup: {fileID: 26265549}
+  popupDelay: 1
 --- !u!4 &373298769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7489690691139239901, guid: 181a24ecd9c65e243963ae1d7bccab7e, type: 3}
@@ -33838,7 +33881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIRoot
   pauseUIController: {fileID: 1225927159}
   upgradeUIController: {fileID: 1232159961}
-  gameOverController: {fileID: 0}
+  gameOverController: {fileID: 373103839}
 --- !u!114 &977009732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55330,6 +55373,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9f567e151c012c4291df8a616767c47, type: 3}
+--- !u!95 &1666496460 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1329501139448554460, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
+  m_PrefabInstance: {fileID: 6526954624467231189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1666800541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70713,7 +70761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 623205170325008949, guid: 7a8d04939825ad748b8759728f93ea87, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6397797411573721775, guid: 7a8d04939825ad748b8759728f93ea87, type: 3}
       propertyPath: m_Sprite
@@ -71011,7 +71059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 606320092983124385, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 3159
+      value: 3167
       objectReference: {fileID: 0}
     - target: {fileID: 608501247803600143, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_Layer
@@ -71784,7 +71832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aba763aeed640942b60a948c767c8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
-  animator: {fileID: 5866666021909216657, guid: ca0f88ad9f7584346bb7899425893ade, type: 3}
+  animator: {fileID: 1666496460}
   movementController: {fileID: 9044328522409972921}
   statController: {fileID: 524850024861067890}
 --- !u!114 &9044328522409972929
@@ -71794,7 +71842,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325711591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0702a88ddf39db748825b57837195c27, type: 3}
   m_Name: 
