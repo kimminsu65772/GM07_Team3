@@ -4610,6 +4610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8265325905417200874}
+  - component: {fileID: 2324432737585000388}
   m_Layer: 6
   m_Name: Skeleton_Archer
   m_TagString: Untagged
@@ -4635,6 +4636,28 @@ Transform:
   - {fileID: 5786303942231729888}
   m_Father: {fileID: 4585322242520995037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2324432737585000388
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790893096906374736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4e7a9f70403acc248a252a6dc86f8f20, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0d38033a6a2e6374f90e539b7a6ad86f, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8813083554367842792
 GameObject:
   m_ObjectHideFlags: 0

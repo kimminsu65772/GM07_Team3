@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
-  m_Name: Skeleton_Melee_Data
+  m_Name: Skeleton_Warrior_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyPrefab: {fileID: 0}
-  maxHp: 100
-  attackPower: 10
+  enemyPrefab: {fileID: 7735601128325346297, guid: 7ada279453ab0874795d115f714c07cd, type: 3}
+  maxHp: 80
+  attackPower: 15
   defensePower: 3
-  attackSpeed: 1
+  attackSpeed: 2
   attackRange: 10
   bulletPrefab: {fileID: 0}
-  experience: 10
+  experience: 15
   moveSpeed: 3

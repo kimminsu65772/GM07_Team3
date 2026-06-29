@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
   m_Name: Skeleton(Archer)_Ranged_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyPrefab: {fileID: 0}
-  maxHp: 100
+  enemyPrefab: {fileID: 7565405171667724470, guid: 0e7e868f1754b204f8518f4b6fe87cd5, type: 3}
+  maxHp: 80
   attackPower: 10
   defensePower: 3
-  attackSpeed: 1
+  attackSpeed: 3
   attackRange: 10
   bulletPrefab: {fileID: 0}
   experience: 10
-  moveSpeed: 3
+  moveSpeed: 4

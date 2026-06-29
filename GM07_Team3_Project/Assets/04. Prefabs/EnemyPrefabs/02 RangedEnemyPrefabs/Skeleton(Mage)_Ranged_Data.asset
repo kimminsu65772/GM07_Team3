@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
   m_Name: Skeleton(Mage)_Ranged_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyPrefab: {fileID: 0}
-  maxHp: 100
-  attackPower: 10
+  enemyPrefab: {fileID: 7565405171667724470, guid: 47047a43e14d0eb45bafb18396e65de7, type: 3}
+  maxHp: 80
+  attackPower: 15
   defensePower: 3
-  attackSpeed: 1
+  attackSpeed: 2
   attackRange: 10
   bulletPrefab: {fileID: 0}
-  experience: 10
-  moveSpeed: 3
+  experience: 20
+  moveSpeed: 5

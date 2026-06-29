@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
   m_Name: Zombie(Male)_Melee_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyPrefab: {fileID: 0}
-  maxHp: 100
+  enemyPrefab: {fileID: 7735601128325346297, guid: 02e47ec1b38367c498ffda9450171982, type: 3}
+  maxHp: 90
   attackPower: 10
   defensePower: 3
   attackSpeed: 1

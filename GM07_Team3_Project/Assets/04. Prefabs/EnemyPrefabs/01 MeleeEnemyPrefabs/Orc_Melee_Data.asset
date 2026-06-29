@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
   m_Name: Orc_Melee_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  enemyPrefab: {fileID: 0}
-  maxHp: 100
-  attackPower: 10
-  defensePower: 3
-  attackSpeed: 1
+  enemyPrefab: {fileID: 7735601128325346297, guid: dd09c0ca57c4f5d498b5b7f248e19239, type: 3}
+  maxHp: 150
+  attackPower: 20
+  defensePower: 5
+  attackSpeed: 2
   attackRange: 10
   bulletPrefab: {fileID: 0}
-  experience: 10
+  experience: 20
   moveSpeed: 3
