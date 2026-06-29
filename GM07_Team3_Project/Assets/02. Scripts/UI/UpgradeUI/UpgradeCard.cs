@@ -101,6 +101,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         sequence.Join(rectTransform.DORotateQuaternion(originalRotation, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DOScale(originalScale, 0.35f).SetEase(Ease.OutBack));
         sequence.SetUpdate(true);
+
         return sequence;
     }
 

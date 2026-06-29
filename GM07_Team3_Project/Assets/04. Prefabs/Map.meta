@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/Map.meta
 guid: 9cb3241713092ac4f86b3d0103db734c
+========
+guid: 3de4ae0cebdd3704f8924715f330a20e
+>>>>>>>> enemy:GM07_Team3_Project/Assets/04. Prefabs/EnemyPrefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
