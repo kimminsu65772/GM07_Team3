@@ -4,6 +4,6 @@ public enum UIPanelType
     None = -1,
     Pause,
     LevelUp,
+    GameOver
     // Inventory,
-    // GameOver,
 }

@@ -162,4 +162,20 @@ public class UIManager : Singleton<UIManager>
     {
         return currentPanel == panelType;
     }
+
+    ////////////////////////////
+    /// Game Over UI 관련 메서드
+    ////////////////////////////
+    
+    public void HandleGameOver()
+    {
+        Debug.Log("게임 오버 이벤트 발생");
+        if (currentUIRoot == null) return;
+        // 게임오버 카메라 활성화
+
+        currentPanel = UIPanelType.GameOver;
+        currentUIRoot.GameOverController.ShowGameOver();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }
