@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4233141241482187826}
   - component: {fileID: 4104598102435512947}
   - component: {fileID: 7064457603376241973}
+  - component: {fileID: 6249532905447144313}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterController
   cameraTransform: {fileID: 4257694448793113137}
   groundChecker: {fileID: 1297818467065286677}
-  moveSpeed: 7
+  playerStatController: {fileID: 4233141241482187826}
   rotationSpeed: 720
   jumpHeight: 1.5
   gravity: -25
@@ -180,8 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatController
   playerStatData: {fileID: 11400000, guid: e2482d4d53e6457408f40d023ec42fcd, type: 2}
   playerLevelData: {fileID: 11400000, guid: 7636d3ad22706274482c5925dc9ed6e9, type: 2}
-  weaponBase: {fileID: 7064457603376241973}
-  startWeapon: {fileID: 11400000, guid: 145df92147c2a4641b703ac78c063305, type: 2}
   runtimeStats: []
   runtimeLevel: 0
   runtimeExperience: 0
@@ -216,7 +215,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2747349560867670302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51603808b910b0b45ad4bd65701c61b6, type: 3}
   m_Name: 
@@ -226,6 +225,21 @@ MonoBehaviour:
     m_Bits: 64
   targetSerchRadius: 250
   attackInterval: 1
+--- !u!114 &6249532905447144313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747349560867670302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aba763aeed640942b60a948c767c8b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 1329501139448554460}
+  movementController: {fileID: 7176122750575949170}
+  statController: {fileID: 4233141241482187826}
 --- !u!1 &4731915690811943969
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,11 +607,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseMale
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d49c65de9fce66146b5d0e164b1f9d2d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f63d6478385a6134f9084da2a6c5aafc, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d49c65de9fce66146b5d0e164b1f9d2d, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49c65de9fce66146b5d0e164b1f9d2d, type: 3}
+--- !u!95 &1329501139448554460 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d49c65de9fce66146b5d0e164b1f9d2d, type: 3}
+  m_PrefabInstance: {fileID: 4835110732335832653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4941428363948669350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d49c65de9fce66146b5d0e164b1f9d2d, type: 3}

@@ -18,7 +18,9 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private int runtimeExperience;
     [SerializeField] private float currentHealth;
 
-    
+    [SerializeField]
+    private Dictionary<UpgradeData, int> itemList = new();
+    public IReadOnlyDictionary<UpgradeData, int> ItemList => itemList;
 
     public float CurrentHealth => currentHealth;
     public float MaxHealth => GetStat(StatType.MaxHp);
@@ -26,6 +28,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
+
+
 
     public event Action<StatType, float, float> OnStateChanged;
     public event Action<float, float> OnHealthChanged;
@@ -104,6 +108,17 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
         StatType statType = upgradeOption.Data.StatType;
 
+        UpgradeData itemData = upgradeOption.Data;
+
+        if (itemList.ContainsKey(itemData))
+        {
+            itemList[itemData]++;
+        }
+        else
+        {
+            itemList.Add(itemData, 1);
+        }
+
         if (statType == StatType.None)
         {
             Debug.LogWarning($"{name}: UpgradeOption의 StatType이 None입니다. 스탯 변경이 적용되지 않습니다.", this);
@@ -115,6 +130,11 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public void AddItemStat(StatType statType, float amount)
     {
         if (!CheckPlayerStats())
+        {
+            return;
+        }
+
+        if (statType != StatType.MaxHp && statType != StatType.Defense && statType != StatType.MoveSpeed)
         {
             return;
         }
@@ -271,9 +291,14 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
             return;
         }
 
+        float defense = GetStat(StatType.Defense);
+
+        float finalDamage = Mathf.Max(1f, damage - defense);
+
+
         float maxHp = GetStat(StatType.MaxHp);
 
-        float newHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHp);
+        float newHealth = Mathf.Clamp(currentHealth - finalDamage, 0f, maxHp);
 
         if (Mathf.Approximately(currentHealth, newHealth))
         {

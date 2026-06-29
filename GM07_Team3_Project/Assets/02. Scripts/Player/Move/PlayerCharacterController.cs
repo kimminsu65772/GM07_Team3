@@ -17,9 +17,10 @@ public sealed class PlayerCharacterController : MonoBehaviour
     [Header("참조")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private GroundChecker groundChecker;
+    [SerializeField] private PlayerStatController  playerStatController;
 
     [Header("일반 이동")]
-    [SerializeField] private float moveSpeed = 7f;
+    public float moveSpeed => playerStatController.GetStat(StatType.MoveSpeed);
     [SerializeField] private float rotationSpeed = 720f;
 
     [Header("점프와 중력")]
