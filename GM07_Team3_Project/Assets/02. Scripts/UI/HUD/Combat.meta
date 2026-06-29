@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/02. Scripts/UI/HUD/Combat.meta
 guid: 506576e4141f1344ca3a026b18d000c5
+========
+guid: 2451106cdf5458b4c93470f5d3c31c02
+>>>>>>>> origin/Player---State:GM07_Team3_Project/Assets/04. Prefabs/Player/Materials_Shaders_Textures.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

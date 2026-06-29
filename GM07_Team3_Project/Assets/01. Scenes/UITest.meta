@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/01. Scenes/UITest.meta
 guid: c56e9a9f5ab5af044805be14804fbbab
+========
+guid: 7c6544272b5a914429516963746be8e4
+>>>>>>>> origin/Player---State:GM07_Team3_Project/Assets/02. Scripts/Enums/SoundEnums.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
