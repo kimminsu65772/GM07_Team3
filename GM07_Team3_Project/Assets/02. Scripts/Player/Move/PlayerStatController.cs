@@ -320,6 +320,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         IsDead = true;
 
         OnDied?.Invoke();
+        UIManager.Instance.HandleGameOver();
     }
 }
 
