@@ -882,14 +882,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverPopup
   canvasGroup: {fileID: 26265550}
-  gameOverText: {fileID: 1643198017}
-  gameOverButtons:
-  - {fileID: 1537707065}
-  - {fileID: 1717619753}
-  fadeDuration: 0.5
-  textFadeDuration: 0.25
-  buttonStartDelay: 0.1
-  buttonInterval: 0.1
 --- !u!225 &26265550
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -50809,7 +50801,6 @@ GameObject:
   - component: {fileID: 1537707064}
   - component: {fileID: 1537707063}
   - component: {fileID: 1537707062}
-  - component: {fileID: 1537707065}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -50880,19 +50871,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1537707063}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 373103839}
-        m_TargetAssemblyTypeName: GameOverController, Assembly-CSharp
-        m_MethodName: OnClickRetryBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1537707063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50931,22 +50910,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537707060}
   m_CullTransparentMesh: 1
---- !u!114 &1537707065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537707060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da1a529a15df9fa42b716d272e4a4469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
-  buttonText: {fileID: 247562448}
-  hoverScale: 1.2
-  pressScale: 0.9
-  startYOffset: -80
 --- !u!4 &1538227429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7705444205865898321, guid: ec6a25321e24417449711363d1dc2909, type: 3}
@@ -57327,7 +57290,6 @@ GameObject:
   - component: {fileID: 1717619752}
   - component: {fileID: 1717619751}
   - component: {fileID: 1717619750}
-  - component: {fileID: 1717619753}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -57398,19 +57360,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1717619751}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 373103839}
-        m_TargetAssemblyTypeName: GameOverController, Assembly-CSharp
-        m_MethodName: OnClickMainMenuBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1717619751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57449,22 +57399,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717619748}
   m_CullTransparentMesh: 1
---- !u!114 &1717619753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717619748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da1a529a15df9fa42b716d272e4a4469, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuUI
-  buttonText: {fileID: 277171492}
-  hoverScale: 1.2
-  pressScale: 0.9
-  startYOffset: -80
 --- !u!1001 &1717630262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71104,10 +71038,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 389822363275102733, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 389822363275102733, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -71479,10 +71409,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 4731915690811943969, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4772938127211586090, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -71592,10 +71518,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6184473900833094871, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6190228852393519630, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
@@ -71866,10 +71788,6 @@ PrefabInstance:
     - target: {fileID: 9032174629809837729, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_Name
       value: PlayerObejct
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032174629809837729, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9032174629809837729, guid: fafc3c3e0bac6b54cb9baf23bca3ce60, type: 3}
       propertyPath: m_TagString

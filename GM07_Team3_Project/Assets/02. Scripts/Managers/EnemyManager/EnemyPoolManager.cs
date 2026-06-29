@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPoolManager : Singleton<EnemyPoolManager>
+public class EnemyPoolManager : MonoBehaviour
 {
+    public static EnemyPoolManager Instance { get; private set; }
+
     [Header("Melee Enemy")]
     [SerializeField] private MeleeEnemy meleeEnemyPrefab;
 
@@ -17,11 +19,24 @@ public class EnemyPoolManager : Singleton<EnemyPoolManager>
 
     private ObjectPool<RangedEnemy> rangedPool;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        Instance = this;
         InitializePools();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 
     private void InitializePools()

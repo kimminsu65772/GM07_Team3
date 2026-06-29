@@ -12,3 +12,10 @@ public enum PauseMenuType
     Resume,
     Quit
 }
+
+public enum GameOverMenuType
+{
+    None = -1,
+    Retry,
+    MainMenu
+}

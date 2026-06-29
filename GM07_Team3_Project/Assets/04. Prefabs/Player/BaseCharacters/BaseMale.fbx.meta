@@ -1,14 +1,21 @@
 fileFormatVersion: 2
 guid: d49c65de9fce66146b5d0e164b1f9d2d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 288957
+  packageName: Low-Poly Medieval Fantasy Heroes - Basic Pack
+  packageVersion: 1.2.1
+  assetPath: Assets/PolysplitGames/LowPolyMedievalFantasyHeroes/BaseCharacters/BaseMale.fbx
+  uploadId: 710739
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: genericRGBMat_Body
-    second: {fileID: 2100000, guid: bfb0835dcb5653d40956a4576b667f2d, type: 2}
+    second: {fileID: 2100000, guid: 489bbb7ef811cac4f90617327eff360e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -21,8 +28,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -63,6 +68,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 0
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -1240,10 +1248,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 288957
-  packageName: Low-Poly Medieval Fantasy Heroes - Basic Pack
-  packageVersion: 1.2.1
-  assetPath: Assets/PolysplitGames/LowPolyMedievalFantasyHeroes/BaseCharacters/BaseMale.fbx
-  uploadId: 710739

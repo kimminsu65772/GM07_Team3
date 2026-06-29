@@ -25,6 +25,8 @@ public class GameOverCamera : MonoBehaviour
     private bool isPlaying;
     private float elapsedTime;
     private float currentAngle;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
 
     private void Awake()
     {
@@ -36,6 +38,8 @@ public class GameOverCamera : MonoBehaviour
         // 게임 오버 전까지 카메라를 비활성화 상태로 유지
         if (gameOverCamera != null)
         {
+            originalPosition = gameOverCamera.transform.position;
+            originalRotation = gameOverCamera.transform.rotation;
             gameOverCamera.enabled = false;
         }
     }
@@ -108,8 +112,13 @@ public class GameOverCamera : MonoBehaviour
     {
         isPlaying = false;
         target = null;
+        elapsedTime = 0f;
+        currentAngle = 0f;
+
         if (gameOverCamera != null)
         {
+            gameOverCamera.transform.position = originalPosition;
+            gameOverCamera.transform.rotation = originalRotation;
             gameOverCamera.enabled = false;
         }
     }

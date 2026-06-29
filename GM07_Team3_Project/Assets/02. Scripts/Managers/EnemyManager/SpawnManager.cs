@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI; // NavMesh 사용위해 필요
 
-public class SpawnManager : Singleton<SpawnManager>
+public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private PlayerStatController playerStatController;

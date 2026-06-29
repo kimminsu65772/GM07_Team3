@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
 {
     private UIRoot currentUIRoot;
     private UIPanelType currentPanel = UIPanelType.None;
+    private bool isChangingSceneFromGameOver;
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
     public Action<UpgradeOption> onUpgradeSelected;
@@ -54,6 +55,7 @@ public class UIManager : Singleton<UIManager>
     {
         Debug.Log($"UIRoot 등록: {uiRoot.name}");
         currentUIRoot = uiRoot;
+        isChangingSceneFromGameOver = false;
     }
 
     public void UnregisterUIRoot(UIRoot uiRoot)
@@ -73,7 +75,6 @@ public class UIManager : Singleton<UIManager>
     public void TogglePausePanel()
     {
         if (currentUIRoot == null) return;
-
         if (!CanControlPanel(UIPanelType.Pause)) return;
 
         onPausePressed?.Invoke();
@@ -173,9 +174,31 @@ public class UIManager : Singleton<UIManager>
         if (currentUIRoot == null) return;
         // 게임오버 카메라 활성화
 
+        if (isChangingSceneFromGameOver || currentPanel == UIPanelType.GameOver) return;
+
         currentPanel = UIPanelType.GameOver;
         currentUIRoot.GameOverController.ShowGameOver();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void HandleGameOverMenuRequest(GameOverMenuType gameOverMenuType)
+    {
+        Debug.Log($"Game Over menu request: {gameOverMenuType}");
+
+        isChangingSceneFromGameOver = true;
+        Time.timeScale = 1f;
+        currentUIRoot?.GameOverController?.HideGameOver();
+        currentPanel = UIPanelType.None;
+
+        switch (gameOverMenuType)
+        {
+            case GameOverMenuType.Retry:
+                GameSceneManager.Instance.ReloadScene();
+                break;
+            case GameOverMenuType.MainMenu:
+                GameSceneManager.Instance.LoadScene(SceneType.MainMenu);
+                break;
+        }
     }
 }

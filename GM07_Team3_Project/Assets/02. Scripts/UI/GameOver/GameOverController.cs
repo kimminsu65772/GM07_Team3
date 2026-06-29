@@ -14,9 +14,16 @@ public class GameOverController : MonoBehaviour
     WaitForSeconds wfs;
 
     private Coroutine gameOverRoutine;
+    private int originalGamePlayCameraCullingMask;
+    private bool isShowing;
 
     private void Awake()
     {
+        if (gamePlayCamera != null)
+        {
+            originalGamePlayCameraCullingMask = gamePlayCamera.cullingMask;
+        }
+
         if (gameOverPopup != null)
         {
             gameOverPopup.CloseGameOverPopup();
@@ -27,20 +34,32 @@ public class GameOverController : MonoBehaviour
 
     public void ShowGameOver()
     {
+        if (isShowing) return;
+        isShowing = true;
+
         if (gameOverRoutine != null)
         {
             StopCoroutine(gameOverRoutine);
         }
 
+        if (gamePlayCamera != null)
+        {
+            originalGamePlayCameraCullingMask = gamePlayCamera.cullingMask;
+        }
         gameOverCamera.PlayGameOverCamera(gamePlayCamera);
         // 카메라를 추적하는 카메라가 플레이어 마스크를 무시하도록 하여 플레이어가 2명이 보이는 문제를 해결
-        gamePlayCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
+        if (gamePlayCamera != null)
+        {
+            gamePlayCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
+        }
 
         gameOverRoutine = StartCoroutine(ShowGameOverRoutine());
     }
 
     public void HideGameOver()
     {
+        isShowing = false;
+
         if (gameOverRoutine != null)
         {
             StopCoroutine(gameOverRoutine);
@@ -49,13 +68,40 @@ public class GameOverController : MonoBehaviour
 
         gameOverCamera?.StopCamera();
         gameOverPopup?.CloseGameOverPopup();
+        ResetGamePlayCamera();
+    }
+
+    public void OnClickRetryBtn()
+    {
+        HideGameOver();
+        gameOverPopup?.gameObject.SetActive(false);
+        UIManager.Instance.HandleGameOverMenuRequest(GameOverMenuType.Retry);
+    }
+
+    public void OnClickMainMenuBtn()
+    {
+        HideGameOver();
+        gameOverPopup?.gameObject.SetActive(false);
+        UIManager.Instance.HandleGameOverMenuRequest(GameOverMenuType.MainMenu);
+    }
+
+    private void OnDisable()
+    {
+        ResetGamePlayCamera();
+    }
+
+    private void ResetGamePlayCamera()
+    {
+        if (gamePlayCamera == null) return;
+
+        gamePlayCamera.cullingMask = originalGamePlayCameraCullingMask;
     }
 
     private IEnumerator ShowGameOverRoutine()
     {
         yield return wfs;
-
-        gameOverPopup.OpenGameOverPopup();
+        gameOverPopup?.gameObject.SetActive(true);
+        gameOverPopup?.OpenGameOverPopup();
         gameOverRoutine = null;
     }
 }
