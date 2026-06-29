@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   statType: 0
-  upgradeName: 
+  upgradeName: Aura
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ef8e2b39b97e34a489fafda6e486d923, type: 3}
   weaponPrefab: {fileID: 0}
-  weaponAttackPrefab: {fileID: 0}
-  value: 0
-  useRandomValue: 0
-  minValue: 0
-  maxValue: 0
+  weaponAttackPrefab: {fileID: 1998818610468082933, guid: 73dd52271d4ce1141814f65f37505d10, type: 3}
+  value: 10
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 10
