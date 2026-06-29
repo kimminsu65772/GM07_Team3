@@ -94,9 +94,17 @@ public class PlayerWeaponManager : MonoBehaviour
             return;
         }
 
-        // 이미 같은 무기를 가지고 있으면 중복 장착 방지
+        // 구버전 -> 이미 같은 무기를 가지고 있으면 중복 장착 방지
+        // 신버전 -> 같은 무기를 골랐을 때 보너스 데미지를 추가 해줌 
         if (equippedWeaponDatas.Contains(option.Data))
         {
+            ItemStatManager itemStatManager = GetComponent<ItemStatManager>();
+
+            if (itemStatManager != null)
+            {
+                itemStatManager.AddDamagePercentBonus(0.1f);
+            }
+
             return;
         }
 

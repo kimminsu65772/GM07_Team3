@@ -108,8 +108,12 @@ public class WeaponBase : MonoBehaviour
         if (itemStatManager != null)
         {
             finalDamage += itemStatManager.DamageBonus;
-
+            //크리티컬 확률 증가
             float criticalChance = itemStatManager.CriticalChanceBonus;
+            //같은 무기 선택시 주어지는 데미지 퍼센트 보너스
+            finalDamage *= 1.0f + itemStatManager.DamagePercentBonus;
+
+            
 
             if (Random.Range(0.0f, 100.0f) < criticalChance)
             {
