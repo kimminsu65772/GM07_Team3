@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   statType: 0
-  upgradeName: 
-  description: 
-  icon: {fileID: 0}
+  upgradeName: Critical_Increase
+  description: 'Increase Critical '
+  icon: {fileID: 21300000, guid: e9afae8f9f44fa448b3a7f90256e76c4, type: 3}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}
-  value: 0
-  useRandomValue: 0
-  minValue: 0
-  maxValue: 0
+  value: 4
+  useRandomValue: 1
+  minValue: 1
+  maxValue: 5

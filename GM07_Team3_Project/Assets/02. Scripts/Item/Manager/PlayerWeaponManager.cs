@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
@@ -11,6 +10,9 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private Transform weaponContainer;
 
     private readonly List<WeaponBase> equippedWeapons = new List<WeaponBase>();
+
+    // 이미 장착한 무기 데이터 목록 저장
+    private readonly List<UpgradeData> equippedWeaponDatas = new List<UpgradeData>();
 
     private void Awake()
     {
@@ -54,15 +56,14 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void EquipStartWeapon()
     {
+        //시작 무기 없으면 종료
         if (startWeaponData == null)
         {
-            Debug.LogWarning("시작 무기가 설정되지 않았습니다.");
             return;
         }
-
+        //시작 무기가 WeaponType 이 아니면 종료
         if (startWeaponData.UpgradeType != UpgradeType.Weapon)
         {
-            Debug.LogError("시작 무기 데이터가 Weapon 타입이 아닙니다.");
             return;
         }
 
@@ -88,17 +89,56 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void AddWeapon(UpgradeOption option)
     {
-        GameObject weaponObj = new GameObject($"Weapon_{option.Data.UpgradeName}");
+        if (option == null || option.Data == null)
+        {
+            return;
+        }
 
-        weaponObj.transform.SetParent(weaponContainer);
+        // 구버전 -> 이미 같은 무기를 가지고 있으면 중복 장착 방지
+        // 신버전 -> 같은 무기를 골랐을 때 보너스 데미지를 추가 해줌 
+        if (equippedWeaponDatas.Contains(option.Data))
+        {
+            ItemStatManager itemStatManager = GetComponent<ItemStatManager>();
+
+            if (itemStatManager != null)
+            {
+                itemStatManager.AddDamagePercentBonus(0.1f);
+            }
+
+            return;
+        }
+
+
+        GameObject weaponObj;
+
+        if (option.Data.WeaponPrefab != null)
+        {
+            weaponObj = Instantiate(option.Data.WeaponPrefab, weaponContainer);
+            weaponObj.name = $"Weapon-{option.Data.UpgradeName}";
+        }
+        else
+        {
+            weaponObj = new GameObject($"Weapon-{option.Data.UpgradeName}");
+            weaponObj.transform.SetParent(weaponContainer);
+        }
+
         weaponObj.transform.localPosition = Vector3.zero;
         weaponObj.transform.localRotation = Quaternion.identity;
 
-        WeaponBase weaponBase = weaponObj.AddComponent<WeaponBase>();
+        WeaponBase weaponBase = weaponObj.GetComponent<WeaponBase>();
+
+        if (weaponBase == null)
+        {
+            weaponBase = weaponObj.AddComponent<WeaponBase>();
+        }
 
         weaponBase.Init(option, transform);
 
         equippedWeapons.Add(weaponBase);
+
+        equippedWeaponDatas.Add(option.Data);
     }
+
+
 
 }

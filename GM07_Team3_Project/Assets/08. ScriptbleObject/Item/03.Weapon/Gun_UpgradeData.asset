@@ -17,10 +17,10 @@ MonoBehaviour:
   upgradeName: "\uCD1D"
   description: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uC6D0\uAC70\uB9AC
     \uACF5\uACA9\uC744 \uAC00\uD55C\uB2E4."
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 991eea5549b553245bc82b5398a82c08, type: 3}
   weaponPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
-  weaponAttackPrefab: {fileID: 2427930029432529123, guid: fd72e93e822f75d4ba59b1a99d4ff046, type: 3}
-  value: 66
+  weaponAttackPrefab: {fileID: 7861960451472472443, guid: 5b1ca60f7f4700a488a8c7d6f6b93e5f, type: 3}
+  value: 100
   useRandomValue: 0
   minValue: 1
   maxValue: 5
