@@ -55,7 +55,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    // 
     public void SetEnemyData(EnemyData data)
     {
         enemyData = data;

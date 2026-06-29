@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8115bd276dc93904fb7480cfa7a7f76a
+guid: 52fe32ed2d22d4148aee2d8bb3aaf7ab
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -17,10 +17,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'mixamo.com' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'chest_joint' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -34,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Skeleton(Mage)_Run
+      name: Skeleton(Mage)_Ranged Aim
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 92
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

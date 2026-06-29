@@ -36,6 +36,13 @@ public class RangedEnemy : Enemy
         if (agent.isOnNavMesh)
         {
             agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
+
+        // 원거리 조준 애니메이션
+        if (anim != null)
+        {
+            anim.SetTrigger("Ranged Aim");
         }
 
         Vector3 dir = toTarget;
