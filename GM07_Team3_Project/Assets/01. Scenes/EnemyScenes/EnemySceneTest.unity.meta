@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/01. Scenes/EnemyScenes/EnemySceneTest.unity.meta
 guid: acc54fb364854684f8793e50ecd58da0
+========
+guid: b2902ba4f7b999b4f9ae1b1f7faea4d7
+>>>>>>>> 45405b70966b06250eca12cd559b1f838ceef661:GM07_Team3_Project/Assets/01. Scenes/EnemyTestScenes.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
