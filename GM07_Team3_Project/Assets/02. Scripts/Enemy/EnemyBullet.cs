@@ -6,6 +6,8 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifeTime = 5f;
 
+    private EnemyBullet bulletPrefab;
+
     private Vector3 moveDirection;
     private float lifeTimer;
 
@@ -24,13 +26,14 @@ public class EnemyBullet : MonoBehaviour
 
         if (lifeTimer <= 0f)
         {
-            EnemyBulletPool.Instance.Return(this);
+            EnemyBulletPool.Instance.Return(this, bulletPrefab);
         }
     }
 
-    public void Initialize(Vector3 direction)
+    public void Initialize(Vector3 direction, EnemyBullet prefab)
     {
         moveDirection = direction.normalized;
+        bulletPrefab = prefab;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,6 +52,6 @@ public class EnemyBullet : MonoBehaviour
             damageable.TakeDamage(10f);
         }
 
-        EnemyBulletPool.Instance.Return(this);
+        EnemyBulletPool.Instance.Return(this, bulletPrefab);
     }
 }
