@@ -22,7 +22,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     // 체력 변화, 사망 이벤트 옵저버 패턴
     public event Action<float, float> OnHpChanged; // 체력 변경 알림
+    public static event Action<float, Vector3> OnDamaged; // 피격 알림
     public event Action<Enemy> OnDead; // 사망 알림
+
 
     // 애니메이터 참조 변수
     protected Animator anim;
@@ -127,6 +129,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         currentHp = Mathf.Clamp(currentHp, 0f, enemyData.MaxHp);
 
         OnHpChanged?.Invoke(currentHp, enemyData.MaxHp);
+        OnDamaged?.Invoke(finalDamage, transform.position);
 
         if (currentHp <= 0f)
         {

@@ -1,13 +1,13 @@
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
+using UnityEngine.UI;
 
 public class GameOverPopup : MonoBehaviour
 {
 
     [Header("Canvas Group")]
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private Image gameOverText;
     [SerializeField] private MenuUI[] gameOverButtons;
 
     [Header("Fade Setting")]
@@ -119,7 +119,7 @@ public class GameOverPopup : MonoBehaviour
         if (gameOverText != null)
         {
             gameOverText.DOKill();
-            gameOverText.alpha = 0f;
+            gameOverText.color = new Color(gameOverText.color.r, gameOverText.color.g, gameOverText.color.b, 0f);
         }
 
         if (gameOverButtons == null) return;

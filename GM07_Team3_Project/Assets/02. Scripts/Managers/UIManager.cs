@@ -105,6 +105,8 @@ public class UIManager : Singleton<UIManager>
                 // UI -> 게임 매니저 -> TimeManager 순으로 요청을 전달할지
                 // UI -> TimeManager 순으로 요청을 전달할지 고민 필요.
                 Debug.Log("게임 재개 요청 처리");
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 TimeManager.Instance.ToggleTimeScale();
                 break;
             case PauseMenuType.Quit:
@@ -188,7 +190,7 @@ public class UIManager : Singleton<UIManager>
 
         isChangingSceneFromGameOver = true;
         TimeManager.Instance.ToggleTimeScale();
-        currentUIRoot?.GameOverController?.HideGameOver();
+        currentUIRoot.GameOverController.HideGameOver();
         currentPanel = UIPanelType.None;
 
         switch (gameOverMenuType)

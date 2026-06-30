@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CharacterListSO
   m_EditorClassIdentifier: Assembly-CSharp::CharacterListSO
   characters:
-  - {fileID: 11400000, guid: 3256abc954fc1d64cab66b1d07420f71, type: 2}
   - {fileID: 11400000, guid: 7f5acd393b3f42445b5e5e1955d660fc, type: 2}
+  - {fileID: 11400000, guid: 3256abc954fc1d64cab66b1d07420f71, type: 2}

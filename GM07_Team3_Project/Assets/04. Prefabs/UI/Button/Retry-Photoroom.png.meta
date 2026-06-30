@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/UI/Button/Retry.png.meta
-guid: 68022a465985e90449c11bc208e611e9
-========
-guid: 0e942360cb629b54d87c4d704ed09e75
->>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Textures/Tex_fx_HCFX_Glow_Long_01.tga.meta
+guid: d55cc1b7786ba6a47a8912cdbdf65696
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scenes/MainManuScene.unity
     guid: 83ff956a167d3734388d65b0d6954f44
-  - enabled: 1
-  path: Assets/01. Scenes/GamePlayScene1.unity
-  guid: 58a7e1b4ba9cc7244ad19986513a521c
-- enabled: 1
-  path: Assets/01. Scenes/EnemyScenes/EnemyGamePlayScene.unity
-  guid: 51ca11e4b472e824096b8145f6966636
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

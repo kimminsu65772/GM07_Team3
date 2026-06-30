@@ -138,7 +138,4 @@ public class PlayerWeaponManager : MonoBehaviour
 
         equippedWeaponDatas.Add(option.Data);
     }
-
-
-
 }
