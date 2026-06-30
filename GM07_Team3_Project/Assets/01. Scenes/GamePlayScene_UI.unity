@@ -60206,8 +60206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bc361fca716554587bb77aa908c20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBulletPool
-  bulletPrefab: {fileID: 4072745940257072628, guid: 7f1aa8f3e46400c4bb7ebc17b4a75e32, type: 3}
   poolSize: 30
+  bulletPrefab: {fileID: 4072745940257072628, guid: 7f1aa8f3e46400c4bb7ebc17b4a75e32, type: 3}
 --- !u!4 &1852906949
 Transform:
   m_ObjectHideFlags: 0
