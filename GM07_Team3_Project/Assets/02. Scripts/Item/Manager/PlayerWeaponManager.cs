@@ -141,4 +141,23 @@ public class PlayerWeaponManager : MonoBehaviour
 
 
 
+    private float GetDuplicateWeaponDamageBonus(UpgradeRarity rarity)
+    {
+        switch (rarity)
+        {
+            case UpgradeRarity.Common:
+                return 0.05f;   // 5%
+
+            case UpgradeRarity.Uncommon:
+                return 0.10f;   // 10%
+
+            case UpgradeRarity.Rare:
+                return 0.15f;   // 15%
+
+            default:
+                return 0.05f;
+        }
+    }
+
+
 }
