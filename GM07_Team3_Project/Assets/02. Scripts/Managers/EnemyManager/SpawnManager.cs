@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI; // NavMesh 사용위해 필요
 using Random = UnityEngine.Random;
 
-public class SpawnManager : Singleton<SpawnManager>
+public class SpawnManager : SceneSingleton<SpawnManager>
 {
     [Header("Player")]
     [SerializeField] private Transform player;

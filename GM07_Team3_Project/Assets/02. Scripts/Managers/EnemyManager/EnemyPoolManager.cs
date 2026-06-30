@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPoolManager : Singleton<EnemyPoolManager>
+public class EnemyPoolManager : SceneSingleton<EnemyPoolManager>
 {
     [Header("Pool Setting")]
     [SerializeField] private int defaultCapacity = 20;
