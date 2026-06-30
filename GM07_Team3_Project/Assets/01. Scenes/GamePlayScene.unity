@@ -53290,7 +53290,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1531125086
+--- !u!114 &1531125084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53299,14 +53299,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1531125077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51603808b910b0b45ad4bd65701c61b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0702a88ddf39db748825b57837195c27, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponBase
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  targetSerchRadius: 250
-  attackInterval: 1
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
+  startWeaponData: {fileID: 11400000, guid: 145df92147c2a4641b703ac78c063305, type: 2}
+  weaponContainer: {fileID: 0}
 --- !u!1001 &1531409533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72058,7 +72055,7 @@ PrefabInstance:
     - target: {fileID: 2715035956433887518, guid: c1e78879806764543adfb0abd9ede258, type: 3}
       propertyPath: weaponBase
       value: 
-      objectReference: {fileID: 1531125086}
+      objectReference: {fileID: 0}
     - target: {fileID: 2715035956433887518, guid: c1e78879806764543adfb0abd9ede258, type: 3}
       propertyPath: startWeapon
       value: 
@@ -72121,10 +72118,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8597572940227246245, guid: c1e78879806764543adfb0abd9ede258, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1531125083}
+      addedObject: {fileID: 1531125084}
     - targetCorrespondingSourceObject: {fileID: 8597572940227246245, guid: c1e78879806764543adfb0abd9ede258, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1531125086}
+      addedObject: {fileID: 1531125083}
   m_SourcePrefab: {fileID: 100100000, guid: c1e78879806764543adfb0abd9ede258, type: 3}
 --- !u!1001 &2080268608
 PrefabInstance:

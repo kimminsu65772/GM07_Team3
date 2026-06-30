@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class WeaponBase : MonoBehaviour
 {
@@ -7,10 +9,12 @@ public class WeaponBase : MonoBehaviour
     private Transform owner;
     private float value;
     private Transform target;
+    private ItemStatManager itemStatManager;
 
-
+    [SerializeField] private float spawnDistance = 1.0f;
+    [SerializeField] private float spawnHeight = 1.0f;
     [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private float targetSerchRadius = 10.0f;
+    [SerializeField] private float targetSerchRadius = 500.0f;
     [SerializeField] private float attackInterval = 1.0f;
 
     private float timer = 0.0f;
@@ -23,7 +27,16 @@ public class WeaponBase : MonoBehaviour
         this.option = option;
         this.owner = owner;
         this.value = option.Value;
+
         timer = 0.0f;
+
+        itemStatManager = owner.GetComponent<ItemStatManager>();
+
+
+        if (targetLayer.value == 0)
+        {
+            targetLayer = LayerMask.GetMask("Target");
+        }
     }
 
     private void Update()
@@ -36,7 +49,9 @@ public class WeaponBase : MonoBehaviour
         timer += Time.deltaTime;
 
         //공격속도
-        if (timer >= attackInterval)
+        float finalAttackInterval = GetFinalAttackInterval();
+
+        if (timer >= finalAttackInterval)
         {
             timer = 0.0f;
             Attack();
@@ -46,27 +61,102 @@ public class WeaponBase : MonoBehaviour
     //공격
     protected virtual void Attack()
     {
-        //만들어둔 방향 위치 사용
-        Vector3 direction = GetAttackDirection();
-        Vector3 attackPosition = GetSpawnPosition(direction);
-
-        //오브젝트풀이 널인지 검사
         if (ObjectPoolManager.Instance == null) return;
-        //오브젝트 꺼내오기
+        
+        Vector3 fireStartPosition = GetFireStartPosition();
+
+        Transform nearestTarget = FindNearestTarget();
+
+        Vector3 aimPosition;
+
+        if (nearestTarget != null)
+        {
+            aimPosition = GetTargetAimPosition(nearestTarget);
+        }
+        else
+        {
+            aimPosition = fireStartPosition + owner.forward;
+        }
+
+        Vector3 firstDirection = aimPosition - fireStartPosition;
+
+        if (firstDirection == Vector3.zero)
+        {
+            firstDirection = owner.forward;
+        }
+
+        firstDirection = firstDirection.normalized;
+
+        Vector3 attackPosition = fireStartPosition + firstDirection * spawnDistance;
+        
+        //총알이 발사되어지는 순간 방향 고정
+        Vector3 finalDirection = aimPosition - attackPosition;
+
+        if (finalDirection == Vector3.zero)
+        {
+            finalDirection = firstDirection;
+        }
+
+        finalDirection = finalDirection.normalized;
+
         GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
-        if (attackObj == null) return;
 
+        if (attackObj == null)return;
 
-        //위치와 회전 세팅
+        //총알이 Player나 WeaponContainer 자식으로 남지 않게 월드로 빼기
+        attackObj.transform.SetParent(null);
+
         attackObj.transform.position = attackPosition;
-        attackObj.transform.rotation = Quaternion.LookRotation(direction);
+        attackObj.transform.rotation = Quaternion.LookRotation(finalDirection);
 
         AttackObject attackObject = attackObj.GetComponent<AttackObject>();
 
         if (attackObject != null)
         {
-            attackObject.Init(value, direction);
+            float finalDamage = GetFinalDamage();
+            attackObject.Init(finalDamage, finalDirection);
         }
+
+        attackObj.SetActive(true);
+    }
+    //공격 속도 증가 적용
+    private float GetFinalAttackInterval()
+    {
+        if (itemStatManager == null)
+        {
+            return attackInterval;
+        }
+
+        float attackSpeedMultiplier = 1.0f + itemStatManager.AttackSpeedBonus;
+
+        attackSpeedMultiplier = Mathf.Max(0.1f, attackSpeedMultiplier);
+
+        return attackInterval / attackSpeedMultiplier;
+    }
+
+
+    //증가된 데미지/ 크리데미지 계산 및 적용 시키기
+    private float GetFinalDamage()
+    {
+        float finalDamage = value;
+
+        if (itemStatManager != null)
+        {
+            finalDamage += itemStatManager.DamageBonus;
+            //크리티컬 확률 증가
+            float criticalChance = itemStatManager.CriticalChanceBonus;
+            //같은 무기 선택시 주어지는 데미지 퍼센트 보너스
+            finalDamage *= 1.0f + itemStatManager.DamagePercentBonus;
+
+            
+
+            if (Random.Range(0.0f, 100.0f) < criticalChance)
+            {
+                finalDamage *= 2.0f;
+            }
+        }
+
+        return finalDamage;
     }
 
     //투사체 방향
@@ -76,17 +166,53 @@ public class WeaponBase : MonoBehaviour
 
         if (target == null)
         {
+            Vector3 forward = owner.forward;
+
+            if (forward == Vector3.zero)
+            {
+                return Vector3.forward;
+            }
+
+            return forward.normalized;
+        }
+
+        Vector3 targetPosition = GetTargetAimPosition(target);
+        Vector3 startPosition = GetFireStartPosition();
+
+
+
+        Vector3 direction = targetPosition - startPosition;
+
+        if (direction == Vector3.zero)
+        {
             return owner.forward.normalized;
         }
 
-        Vector3 direction = target.position - owner.position;
         return direction.normalized;
+    }
+
+    //적 몸통 중앙으로 투사체 보내기
+    protected Vector3 GetTargetAimPosition(Transform target)
+    {
+        Collider targetCollider = target.GetComponentInChildren<Collider>();
+
+        if (targetCollider != null)
+        {
+            return targetCollider.bounds.center;
+        }
+
+        return target.position + Vector3.up * 1.0f;
+    }
+
+    protected Vector3 GetFireStartPosition()
+    {
+        return owner.position + Vector3.up * spawnHeight;
     }
 
     //투사체 생성 위치
     protected virtual Vector3 GetSpawnPosition(Vector3 direction)
     {
-        return owner.position + direction;
+        return owner.position + Vector3.up * spawnHeight + direction * spawnDistance;
     }
 
     private Transform FindNearestTarget()

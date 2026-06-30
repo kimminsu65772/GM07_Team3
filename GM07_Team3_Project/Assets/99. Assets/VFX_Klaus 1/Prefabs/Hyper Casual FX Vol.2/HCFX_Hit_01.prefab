@@ -4917,7 +4917,6 @@ GameObject:
   - component: {fileID: 1350445096495842305}
   - component: {fileID: 1350445096495842304}
   - component: {fileID: 1350445096495842307}
-  - component: {fileID: 4121429445764325758}
   m_Layer: 0
   m_Name: HCFX_Hit_01
   m_TagString: Untagged
@@ -9884,21 +9883,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &4121429445764325758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350445096495842306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed2c6d5d634fd54995b0352593629d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeEffectAttack
-  lifeTime: 3
-  radius: 2
-  attackAngle: 180
 --- !u!1 &1350445097011631173
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class RangedAttackObject : AttackObject
     [SerializeField] private LayerMask targetLayer;
 
 
-    void Update()
+    private void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
     }
