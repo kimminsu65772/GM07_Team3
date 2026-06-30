@@ -11,7 +11,7 @@ public class GameOverController : MonoBehaviour
     [SerializeField] private GameOverPopup gameOverPopup;
     [SerializeField] private float popupDelay = 1.0f;
 
-    WaitForSeconds wfs;
+    private WaitForSecondsRealtime wfs;
 
     private Coroutine gameOverRoutine;
     private int originalGamePlayCameraCullingMask;
@@ -24,12 +24,7 @@ public class GameOverController : MonoBehaviour
             originalGamePlayCameraCullingMask = gamePlayCamera.cullingMask;
         }
 
-        if (gameOverPopup != null)
-        {
-            gameOverPopup.CloseGameOverPopup();
-        }
-
-        wfs = new WaitForSeconds(popupDelay);
+        wfs = new WaitForSecondsRealtime(popupDelay);
     }
 
     public void ShowGameOver()
@@ -52,7 +47,8 @@ public class GameOverController : MonoBehaviour
         {
             gamePlayCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
         }
-
+        gameOverPopup.gameObject.SetActive(true);
+        gameOverPopup.CloseGameOverPopup();
         gameOverRoutine = StartCoroutine(ShowGameOverRoutine());
     }
 
@@ -65,7 +61,6 @@ public class GameOverController : MonoBehaviour
             StopCoroutine(gameOverRoutine);
             gameOverRoutine = null;
         }
-
         gameOverCamera?.StopCamera();
         gameOverPopup?.CloseGameOverPopup();
         ResetGamePlayCamera();
@@ -100,8 +95,7 @@ public class GameOverController : MonoBehaviour
     private IEnumerator ShowGameOverRoutine()
     {
         yield return wfs;
-        gameOverPopup?.gameObject.SetActive(true);
-        gameOverPopup?.OpenGameOverPopup();
+        gameOverPopup.OpenGameOverPopup();
         gameOverRoutine = null;
     }
 }

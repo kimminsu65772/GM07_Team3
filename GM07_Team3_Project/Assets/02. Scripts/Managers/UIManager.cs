@@ -190,7 +190,6 @@ public class UIManager : Singleton<UIManager>
 
         isChangingSceneFromGameOver = true;
         TimeManager.Instance.ToggleTimeScale();
-        currentUIRoot.GameOverController.HideGameOver();
         currentPanel = UIPanelType.None;
 
         switch (gameOverMenuType)

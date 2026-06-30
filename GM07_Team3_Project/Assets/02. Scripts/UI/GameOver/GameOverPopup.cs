@@ -27,7 +27,6 @@ public class GameOverPopup : MonoBehaviour
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
-        CloseGameOverPopup();
     }
 
     public void OpenGameOverPopup()
