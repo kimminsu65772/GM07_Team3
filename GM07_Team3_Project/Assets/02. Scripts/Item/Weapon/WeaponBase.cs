@@ -61,28 +61,63 @@ public class WeaponBase : MonoBehaviour
     //공격
     protected virtual void Attack()
     {
-        //만들어둔 방향 위치 사용
-        Vector3 direction = GetAttackDirection();
-        Vector3 attackPosition = GetSpawnPosition(direction);
-
-        //오브젝트풀이 널인지 검사
         if (ObjectPoolManager.Instance == null) return;
-        //오브젝트 꺼내오기
+        
+        Vector3 fireStartPosition = GetFireStartPosition();
+
+        Transform nearestTarget = FindNearestTarget();
+
+        Vector3 aimPosition;
+
+        if (nearestTarget != null)
+        {
+            aimPosition = GetTargetAimPosition(nearestTarget);
+        }
+        else
+        {
+            aimPosition = fireStartPosition + owner.forward;
+        }
+
+        Vector3 firstDirection = aimPosition - fireStartPosition;
+
+        if (firstDirection == Vector3.zero)
+        {
+            firstDirection = owner.forward;
+        }
+
+        firstDirection = firstDirection.normalized;
+
+        Vector3 attackPosition = fireStartPosition + firstDirection * spawnDistance;
+        
+        //총알이 발사되어지는 순간 방향 고정
+        Vector3 finalDirection = aimPosition - attackPosition;
+
+        if (finalDirection == Vector3.zero)
+        {
+            finalDirection = firstDirection;
+        }
+
+        finalDirection = finalDirection.normalized;
+
         GameObject attackObj = ObjectPoolManager.Instance.GetAttackObject(upgradeData.BulletPrefab);
-        if (attackObj == null) return;
 
+        if (attackObj == null)return;
 
-        //위치와 회전 세팅
+        //총알이 Player나 WeaponContainer 자식으로 남지 않게 월드로 빼기
+        attackObj.transform.SetParent(null);
+
         attackObj.transform.position = attackPosition;
-        attackObj.transform.rotation = Quaternion.LookRotation(direction);
+        attackObj.transform.rotation = Quaternion.LookRotation(finalDirection);
 
         AttackObject attackObject = attackObj.GetComponent<AttackObject>();
 
         if (attackObject != null)
         {
             float finalDamage = GetFinalDamage();
-            attackObject.Init(finalDamage, direction);
+            attackObject.Init(finalDamage, finalDirection);
         }
+
+        attackObj.SetActive(true);
     }
     //공격 속도 증가 적용
     private float GetFinalAttackInterval()
@@ -154,11 +189,10 @@ public class WeaponBase : MonoBehaviour
         }
 
         return direction.normalized;
-
     }
 
     //적 몸통 중앙으로 투사체 보내기
-    private Vector3 GetTargetAimPosition(Transform target)
+    protected Vector3 GetTargetAimPosition(Transform target)
     {
         Collider targetCollider = target.GetComponentInChildren<Collider>();
 
@@ -170,7 +204,7 @@ public class WeaponBase : MonoBehaviour
         return target.position + Vector3.up * 1.0f;
     }
 
-    private Vector3 GetFireStartPosition()
+    protected Vector3 GetFireStartPosition()
     {
         return owner.position + Vector3.up * spawnHeight;
     }
