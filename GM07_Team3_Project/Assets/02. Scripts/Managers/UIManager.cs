@@ -175,7 +175,7 @@ public class UIManager : Singleton<UIManager>
         // 게임오버 카메라 활성화
 
         if (isChangingSceneFromGameOver || currentPanel == UIPanelType.GameOver) return;
-
+        TimeManager.Instance.ToggleTimeScale();
         currentPanel = UIPanelType.GameOver;
         currentUIRoot.GameOverController.ShowGameOver();
         Cursor.lockState = CursorLockMode.None;
@@ -187,7 +187,7 @@ public class UIManager : Singleton<UIManager>
         Debug.Log($"Game Over menu request: {gameOverMenuType}");
 
         isChangingSceneFromGameOver = true;
-        Time.timeScale = 1f;
+        TimeManager.Instance.ToggleTimeScale();
         currentUIRoot?.GameOverController?.HideGameOver();
         currentPanel = UIPanelType.None;
 

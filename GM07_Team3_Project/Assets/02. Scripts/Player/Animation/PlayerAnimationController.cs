@@ -22,6 +22,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     private bool isDead;
 
+    private AnimatorUpdateMode originalUpdateMode;
+
     private void Awake()
     {
         if (animator == null)
@@ -59,6 +61,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
             enabled = false;
             return;
         }
+
+        originalUpdateMode = animator.updateMode;
     }
 
     private void OnEnable()
@@ -75,6 +79,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
         {
             statController.OnDied -= HandleDied;
         }
+
+        originalUpdateMode = animator.updateMode;
     }
 
     private void Update()
@@ -120,6 +126,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
         animator.SetBool(FallingHash, false);
 
         animator.ResetTrigger(JumpHash);
+
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
         animator.SetTrigger(DieHash);
 

@@ -55,7 +55,7 @@ public sealed class PlayerCharacterController : MonoBehaviour
 
     public Vector3 Velocity { get; private set; }
 
-    public bool JumpedThisFrame { get; private set; }
+    public bool JumpedThisFrame;
 
     public PlayerSurfaceState CurrentSurfaceState => currentSurfaceState;
     private float MaxWalkSlopeAngle => characterController.slopeLimit;

@@ -28,14 +28,14 @@ public class PlayerHUDController : MonoBehaviour
 
         playerStatController.OnExperienceChanged += HandleExpBar;
         playerStatController.OnHealthChanged += HandleHpBar;
-        playerStatController.OnLevelChanged += HandleLevelText;
+        playerStatController.OnLevelChanged += HandleLevelChanged;
     }
 
     private void OnDisable()
     {
         playerStatController.OnExperienceChanged -= HandleExpBar;
         playerStatController.OnHealthChanged -= HandleHpBar;
-        playerStatController.OnLevelChanged -= HandleLevelText;
+        playerStatController.OnLevelChanged -= HandleLevelChanged;
     }
 
     private void HandleExpBar(int currentExp, int requiredExp)
@@ -46,6 +46,12 @@ public class PlayerHUDController : MonoBehaviour
     private void HandleLevelText(int currentLevel)
     {
         expBar.ChangeLevelText(currentLevel);
+    }
+
+    private void HandleLevelChanged(int currentLevel)
+    {
+        expBar.ChangeLevelText(currentLevel);
+        expBar.PlayLevelUpEffect();
     }
 
     private void HandleHpBar(float currentHp, float MaxHp)
