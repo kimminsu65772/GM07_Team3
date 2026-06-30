@@ -66,14 +66,15 @@ public class RangedEnemy : Enemy
         Vector3 spawnPosition =
             transform.position + Vector3.up * 1.5f;
 
-        EnemyBullet bullet = EnemyBulletPool.Instance.Get();
+        EnemyBullet bullet = 
+            EnemyBulletPool.Instance.Get(enemyData.BulletPrefab);
 
         bullet.transform.position = spawnPosition;
 
         Vector3 direction =
             (target.position + Vector3.up * 1f) - spawnPosition;
 
-        bullet.Initialize(direction);
+        bullet.Initialize(direction, enemyData.BulletPrefab);
     }
 
     private void OnTriggerEnter(Collider other)
