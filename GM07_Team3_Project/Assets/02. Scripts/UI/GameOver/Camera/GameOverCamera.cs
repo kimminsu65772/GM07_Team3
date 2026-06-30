@@ -12,11 +12,10 @@ public class GameOverCamera : MonoBehaviour
 
     [Header("Camera Movement Settings")]
     [SerializeField] private float orbitSpeed = 25f;
-    [SerializeField] private float cameraHeight = 1.5f;
 
     [Header("Camera Zoom Settings")]
-    [SerializeField] private float startDistance = 4f;
     [SerializeField] private float endDistance = 8f;
+    [SerializeField] private float endHeight = 2.5f;
     [SerializeField] private float zoomOutDuration = 3f;
 
     [SerializeField] Transform player;
@@ -27,6 +26,8 @@ public class GameOverCamera : MonoBehaviour
     private float currentAngle;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private float startDistance;
+    private float startHeight;
 
     private void Awake()
     {
@@ -67,8 +68,12 @@ public class GameOverCamera : MonoBehaviour
         Vector3 center = GetTargetCenter();
 
         // 회전 시작 방향 계산
-        Vector3 flatDir = gameOverCamera.transform.position - center;
-        flatDir.y = 0f;
+        Vector3 distToCam = gameOverCamera.transform.position - center;
+        Vector3 flatDir = new Vector3(distToCam.x, 0f, distToCam.z);
+
+        // 최소 시작 거리를 1로 제한하여 너무 가까이서 시작하지 않도록 함
+        startDistance = Mathf.Max(flatDir.magnitude, 1f);
+        startHeight = distToCam.y;
 
         if (flatDir.sqrMagnitude <= 0.001f)
         {
@@ -97,12 +102,13 @@ public class GameOverCamera : MonoBehaviour
         // 시간의 진행도를 0과 1 사이로 제한하여 위치를 보간
         float t = Mathf.Clamp01(elapsedTime / zoomOutDuration);
         float distance = Mathf.Lerp(startDistance, endDistance, t);
+        float height = Mathf.Lerp(startHeight, endHeight, t);
 
         Vector3 center = GetTargetCenter();
 
         Quaternion orbitRotation = Quaternion.Euler(0f, currentAngle, 0f);
 
-        Vector3 offset = orbitRotation * Vector3.back * distance + Vector3.up * cameraHeight;
+        Vector3 offset = orbitRotation * Vector3.back * distance + Vector3.up * height;
 
         gameOverCamera.transform.position = center + offset;
         gameOverCamera.transform.LookAt(center);
