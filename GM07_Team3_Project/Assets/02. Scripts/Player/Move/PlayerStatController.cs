@@ -38,32 +38,34 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public event Action OnDied;
 
 
-    private void Awake()
+    public void Initialize(PlayerStatSO statData)
     {
-        if (playerStatData == null)
+        if (statData == null)
         {
-            Debug.LogError($"{name}: PlayerStatSO가 등록되지 않았습니다.", this);
-            enabled = false;
+            Debug.LogError($"{name}: 초기화할 PlayerStatSO가 없습니다.", this);
+
             return;
         }
+
         if (playerLevelData == null)
         {
-            Debug.LogError($"{name}: playerLevelData가 등록되지 않았습니다.", this);
-            enabled = false;
+            Debug.LogError($"{name}: PlayerLevelSO가 등록되지 않았습니다.", this);
+
             return;
         }
+
+        playerStatData = statData;
 
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
-        currentHealth = MaxHealth;
 
-        //UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
-        //weaponBase.Init(option, transform);
+        currentHealth = MaxHealth;
+        IsDead = false;
+
+        itemList.Clear();
 
         RuntimeStat();
         UpdateRuntimeLevel();
-
-        
     }
 
     private void OnEnable()

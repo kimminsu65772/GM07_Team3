@@ -26,11 +26,6 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     private void Awake()
     {
-        if (animator == null)
-        {
-            animator = GetComponentInChildren<Animator>();
-        }
-
         if (movementController == null)
         {
             movementController = GetComponent<PlayerCharacterController>();
@@ -39,13 +34,6 @@ public sealed class PlayerAnimationController : MonoBehaviour
         if (statController == null)
         {
             statController = GetComponent<PlayerStatController>();
-        }
-
-        if (animator == null)
-        {
-            Debug.LogError($"{name}: Animator가 없습니다.", this);
-            enabled = false;
-            return;
         }
 
         if (movementController == null)
@@ -63,6 +51,18 @@ public sealed class PlayerAnimationController : MonoBehaviour
         }
 
         originalUpdateMode = animator.updateMode;
+    }
+
+    public void SetAnimator(Animator newAnimator)
+    {
+        animator = newAnimator;
+
+        if (animator == null)
+        {
+            Debug.LogError($"{name}: Animator가 전달되지 않았습니다.", this);
+
+            return;
+        }
     }
 
     private void OnEnable()
@@ -85,7 +85,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (isDead)
+        if (isDead || animator == null)
         {
             return;
         }
