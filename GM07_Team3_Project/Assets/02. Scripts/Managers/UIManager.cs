@@ -105,7 +105,7 @@ public class UIManager : Singleton<UIManager>
                 // UI -> 게임 매니저 -> TimeManager 순으로 요청을 전달할지
                 // UI -> TimeManager 순으로 요청을 전달할지 고민 필요.
                 Debug.Log("게임 재개 요청 처리");
-                TimeManagerTest.Instance.ToggleTimeScale();
+                TimeManager.Instance.ToggleTimeScale();
                 break;
             case PauseMenuType.Quit:
                 // 메인 메뉴로 나가기 요청 처리
@@ -128,7 +128,7 @@ public class UIManager : Singleton<UIManager>
         Debug.Log("업그레이드 뽑기 이벤트 발생");
         if (currentUIRoot == null) return;
         currentPanel = UIPanelType.LevelUp;
-        TimeManagerTest.Instance.ToggleTimeScale();
+        TimeManager.Instance.ToggleTimeScale();
         currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -139,7 +139,7 @@ public class UIManager : Singleton<UIManager>
         Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.Data.UpgradeName}");
         currentPanel = UIPanelType.None;
         onUpgradeSelected?.Invoke(UpgradeData);
-        TimeManagerTest.Instance.ToggleTimeScale();
+        TimeManager.Instance.ToggleTimeScale();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
