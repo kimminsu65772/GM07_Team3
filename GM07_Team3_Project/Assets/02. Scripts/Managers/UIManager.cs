@@ -82,6 +82,7 @@ public class UIManager : Singleton<UIManager>
         if (AlreadyOpenPanel(UIPanelType.Pause))
         {
             currentUIRoot.PauseUIController.ClosePausePanel();
+            currentUIRoot.InventoryUIController.CloseInventoryPanel();
             currentPanel = UIPanelType.None;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -89,6 +90,7 @@ public class UIManager : Singleton<UIManager>
         else
         {
             currentUIRoot.PauseUIController.OpenPausePanel();
+            currentUIRoot.InventoryUIController.OpenInventoryPanel();
             currentPanel = UIPanelType.Pause;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

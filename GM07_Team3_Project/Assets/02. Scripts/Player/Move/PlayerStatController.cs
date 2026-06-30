@@ -21,6 +21,7 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField]
     private Dictionary<UpgradeData, int> itemList = new();
     public IReadOnlyDictionary<UpgradeData, int> ItemList => itemList;
+    public event Action<IReadOnlyDictionary<UpgradeData, int>> OnItemListChanged;
 
     public float CurrentHealth => currentHealth;
     public float MaxHealth => GetStat(StatType.MaxHp);
@@ -120,6 +121,8 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         {
             itemList.Add(itemData, 1);
         }
+
+        OnItemListChanged?.Invoke(itemList);
 
         if (statType == StatType.None)
         {

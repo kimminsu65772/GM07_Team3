@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class PlayerHUDController : MonoBehaviour
     [Header("Player HUD 세팅")]
     [SerializeField] private ExpBar expBar;
     [SerializeField] private HPBar hpBar;
+    [SerializeField] private InventoryIconSlot[] itemSlots;
 
     [SerializeField] PlayerStatController playerStatController;
 
@@ -29,6 +31,9 @@ public class PlayerHUDController : MonoBehaviour
         playerStatController.OnExperienceChanged += HandleExpBar;
         playerStatController.OnHealthChanged += HandleHpBar;
         playerStatController.OnLevelChanged += HandleLevelChanged;
+        playerStatController.OnItemListChanged += RefreshItemSlots;
+
+        ClearSlots();
     }
 
     private void OnDisable()
@@ -36,6 +41,7 @@ public class PlayerHUDController : MonoBehaviour
         playerStatController.OnExperienceChanged -= HandleExpBar;
         playerStatController.OnHealthChanged -= HandleHpBar;
         playerStatController.OnLevelChanged -= HandleLevelChanged;
+        playerStatController.OnItemListChanged -= RefreshItemSlots;
     }
 
     private void HandleExpBar(int currentExp, int requiredExp)
@@ -57,5 +63,42 @@ public class PlayerHUDController : MonoBehaviour
     private void HandleHpBar(float currentHp, float MaxHp)
     {
         hpBar.SetHPBar(currentHp, MaxHp);
+    }
+
+    private void RefreshItemSlots(IReadOnlyDictionary<UpgradeData, int> itemList)
+    {
+        ClearSlots();
+
+        int slotIndex = 0;
+
+        foreach (var item in playerStatController.ItemList)
+        {
+            if (slotIndex >= itemSlots.Length)
+            {
+                break;
+            }
+
+            UpgradeData data = item.Key;
+
+            if (data.UpgradeType != UpgradeType.Weapon)
+            {
+                continue;
+            }
+            int count = item.Value;
+            itemSlots[slotIndex].SetSlot(data, count);
+            slotIndex++;
+        }
+    }
+
+    private void ClearSlots()
+    {
+        foreach (var slot in itemSlots)
+        {
+            if (slot == null)
+            {
+                continue;
+            }
+            slot.ClearSlot();
+        }
     }
 }
