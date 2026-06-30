@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/Player/Materials_Shaders_Textures/RGBRecolor.shadergraph.meta
 guid: 46d2d3ecd0d21544a9cee5639be90d1d
+========
+guid: 4e93f15692fcd6a4daf27cce6d084de0
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Shaders/HCFX_Particle2ndColor.shadergraph.meta
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}

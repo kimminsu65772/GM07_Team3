@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Models/Cylinder.fbx.meta
 guid: 4a8c064de5d1b4045a9e9d4ebd5d6575
+========
+guid: 92980e1a1f9608b4ebea4ed259f7c84f
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Meshes/fbx_fx_circle_02.FBX.meta
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []

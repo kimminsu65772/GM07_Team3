@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Models/Torus1.fbx.meta
 guid: 3f7bddc7b6a3f39438110f37b7ed9cd5
+========
+guid: fb8e5dfb71962874d93792bfe86bb0de
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Meshes/fbx_fx_circle_01.FBX.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Models/Crystal1.fbx.meta
 guid: dd7028f27d1d4524f8624c129112b51f
+========
+guid: 6184225bb9292fa4abf0cf3c8512097d
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Meshes/fbx_fx_half_sphere.FBX.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

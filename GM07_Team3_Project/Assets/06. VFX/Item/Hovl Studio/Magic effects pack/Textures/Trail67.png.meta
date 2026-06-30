@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Textures/Trail67.png.meta
 guid: c4f655f5d01f55547a23a546b58afd04
+========
+guid: 50e3ef86a5e7bbc45bbfb03f33f72887
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Textures/Tex_fx_HCFX_Water_01.tga.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

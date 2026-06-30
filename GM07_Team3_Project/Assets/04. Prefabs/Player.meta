@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/Player.meta
 guid: b6e97d22989d4f6408ce32c4a69145b8
+========
+guid: 352de7c4142e8ff40ba405b1c92a907d
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/03. Animators/EnemyAnimation/Orc_Anim.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

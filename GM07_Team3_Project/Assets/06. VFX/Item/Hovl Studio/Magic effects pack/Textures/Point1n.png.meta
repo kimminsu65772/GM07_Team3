@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Textures/Point1n.png.meta
 guid: 5050511111526384094dd94bcde2676a
+========
+guid: e33e548484dbb5d4bb6708ec42a3348e
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Textures/Tex_fx_HCFX_set_01.tga.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Textures/FlashFree3.png.meta
 guid: b80e2bf2e14ae37469c6a566da0c8c18
+========
+guid: 0c2dd09201a37f74695729ab6c82f6c7
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Textures/Tex_fx_HCFX_Dust_02.tga.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

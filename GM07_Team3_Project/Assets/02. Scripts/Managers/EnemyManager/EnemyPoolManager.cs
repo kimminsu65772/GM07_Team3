@@ -1,136 +1,83 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPoolManager : MonoBehaviour
+public class EnemyPoolManager : SceneSingleton<EnemyPoolManager>
 {
-    public static EnemyPoolManager Instance { get; private set; }
-
-    [Header("Melee Enemy")]
-    [SerializeField] private MeleeEnemy meleeEnemyPrefab;
-
-    [Header("Ranged Enemy")]
-    [SerializeField] private RangedEnemy rangedEnemyPrefab;
-
     [Header("Pool Setting")]
     [SerializeField] private int defaultCapacity = 20;
     [SerializeField] private int maxSize = 100;
 
-    private ObjectPool<MeleeEnemy> meleePool;
+    // EnemyData별 ObjectPool을 저장
+    private readonly Dictionary<EnemyData, ObjectPool<Enemy>> pools
+        = new Dictionary<EnemyData, ObjectPool<Enemy>>();
 
-    private ObjectPool<RangedEnemy> rangedPool;
-
-    private void Awake()
+    public Enemy GetEnemy(EnemyData data)
     {
-        if (Instance != null && Instance != this)
+        if (!pools.TryGetValue(data, out ObjectPool<Enemy> pool))
         {
-            Destroy(gameObject);
+            pool = CreatePool(data);
+            pools.Add(data, pool);
+        }
+
+        return pool.Get();
+    }
+
+    public void ReturnEnemy(Enemy enemy)
+    {
+        if (enemy == null)
+        {
             return;
         }
 
-        Instance = this;
-        InitializePools();
-    }
+        EnemyData data = enemy.EnemyData;
 
-    private void OnDestroy()
-    {
-        if (Instance == this)
+        if (pools.TryGetValue(data, out ObjectPool<Enemy> pool))
         {
-            Instance = null;
+            pool.Release(enemy);
+        }
+        else
+        {
+            Destroy(enemy.gameObject);
         }
     }
 
-    private void InitializePools()
+    private ObjectPool<Enemy> CreatePool(EnemyData data)
     {
-        meleePool = new ObjectPool<MeleeEnemy>
-            (CreateMeleeEnemy, OnGetMeleeEnemy, OnReleaseMeleeEnemy,
-            OnDestroyMeleeEnemy, true, defaultCapacity, maxSize);
+        EnemyData currentData = data;
 
-        rangedPool = new ObjectPool<RangedEnemy>
-            (CreateRangedEnemy, OnGetRangedEnemy, OnReleaseRangedEnemy,
-            OnDestroyRangedEnemy, true, defaultCapacity, maxSize);
-    }
+        return new ObjectPool<Enemy>(
+            OnCreateEnemy,
+            OnGetEnemy,
+            OnReleaseEnemy,
+            OnDestroyEnemy,
+            true,
+            defaultCapacity,
+            maxSize
+        );
 
-    private MeleeEnemy CreateMeleeEnemy()
-    {
-        MeleeEnemy enemy = Instantiate(meleeEnemyPrefab);
-
-        enemy.OnDead += ReturnMeleeEnemy;
-
-        enemy.gameObject.SetActive(false);
-
-        return enemy;
-    }
-
-    private void OnGetMeleeEnemy(MeleeEnemy enemy)
-    {
-        enemy.gameObject.SetActive(true);
-    }
-
-    private void OnReleaseMeleeEnemy(MeleeEnemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
-    }
-
-    private void OnDestroyMeleeEnemy(MeleeEnemy enemy)
-    {
-        enemy.OnDead -= ReturnMeleeEnemy;
-
-        Destroy(enemy.gameObject);
-    }
-    
-    public MeleeEnemy GetMeleeEnemy()
-    {
-        return meleePool.Get();
-    }
-
-    public void ReturnMeleeEnemy(Enemy enemy)
-    {
-        if (enemy is MeleeEnemy meleeEnemy)
+        Enemy OnCreateEnemy()
         {
-            meleePool.Release(meleeEnemy);
+            Enemy enemy = Instantiate(currentData.EnemyPrefab).GetComponent<Enemy>();
+            enemy.OnDead += ReturnEnemy;
+            enemy.gameObject.SetActive(false);
+            return enemy;
+        }
+
+        void OnGetEnemy(Enemy enemy)
+        {
+            enemy.gameObject.SetActive(true);
+        }
+
+        void OnReleaseEnemy(Enemy enemy)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+
+        void OnDestroyEnemy(Enemy enemy)
+        {
+            enemy.OnDead -= ReturnEnemy;
+            Destroy(enemy.gameObject);
         }
     }
-
-    private RangedEnemy CreateRangedEnemy()
-    {
-        RangedEnemy enemy =
-            Instantiate(rangedEnemyPrefab);
-
-        enemy.OnDead += ReturnRangedEnemy;
-
-        enemy.gameObject.SetActive(false);
-
-        return enemy;
-    }
-
-    private void OnGetRangedEnemy(RangedEnemy enemy)
-    {
-        enemy.gameObject.SetActive(true);
-    }
-
-    private void OnReleaseRangedEnemy(RangedEnemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
-    }
-
-    private void OnDestroyRangedEnemy(RangedEnemy enemy)
-    {
-        enemy.OnDead -= ReturnRangedEnemy;
-
-        Destroy(enemy.gameObject);
-    }
-
-    public RangedEnemy GetRangedEnemy()
-    {
-        return rangedPool.Get();
-    }
-
-    public void ReturnRangedEnemy(Enemy enemy)
-    {
-        if (enemy is RangedEnemy rangedEnemy)
-        {
-            rangedPool.Release(rangedEnemy);
-        }
-    }
-    
 }
