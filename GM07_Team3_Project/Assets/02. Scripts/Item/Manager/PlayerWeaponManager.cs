@@ -54,7 +54,7 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponContainer = containerObj.transform;
     }
 
-    private void EquipStartWeapon()
+    public void EquipStartWeapon()
     {
         //시작 무기 없으면 종료
         if (startWeaponData == null)
@@ -146,13 +146,13 @@ public class PlayerWeaponManager : MonoBehaviour
         switch (rarity)
         {
             case UpgradeRarity.Common:
-                return 0.05f;   // 5%
+                return 0.05f;   // 일반은 5% 
 
             case UpgradeRarity.Uncommon:
-                return 0.10f;   // 10%
+                return 0.10f;   // 휘긔는 10%
 
             case UpgradeRarity.Rare:
-                return 0.15f;   // 15%
+                return 0.15f;   // 레어는 15%
 
             default:
                 return 0.05f;
