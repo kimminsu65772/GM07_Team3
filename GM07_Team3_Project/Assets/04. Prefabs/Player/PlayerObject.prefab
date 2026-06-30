@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4104598102435512947}
   - component: {fileID: 7064457603376241973}
   - component: {fileID: 6249532905447144313}
+  - component: {fileID: 1457043449805084046}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -240,6 +241,20 @@ MonoBehaviour:
   animator: {fileID: 1329501139448554460}
   movementController: {fileID: 7176122750575949170}
   statController: {fileID: 4233141241482187826}
+--- !u!114 &1457043449805084046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747349560867670302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debbd061812828c4591fbb9f3dc1d3b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterLoader
+  modelRoot: {fileID: 1225854102388869423}
+  defaultCharacter: {fileID: 11400000, guid: 3256abc954fc1d64cab66b1d07420f71, type: 2}
 --- !u!1 &4731915690811943969
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225854102388869423}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 6287208873209175401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -532,7 +547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6828782712138964854}
   m_Layer: 0
-  m_Name: PlayerObejct
+  m_Name: PlayerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

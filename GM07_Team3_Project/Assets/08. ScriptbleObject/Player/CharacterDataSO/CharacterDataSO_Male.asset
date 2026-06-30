@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00dfba16d641f1747af01089f8880b8c, type: 3}
+  m_Name: CharacterDataSO_Male
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
+  characterName: Male
+  icon: {fileID: 0}
+  description: "\uB0A8\uC131 \uAE30\uBCF8 \uCE90\uB9AD"
+  modelPrefab: {fileID: 6840196566743135184, guid: d88c487124c4dcb428c1b4fe0b3e3052, type: 3}
+  playerStatData: {fileID: 11400000, guid: e2482d4d53e6457408f40d023ec42fcd, type: 2}
