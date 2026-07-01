@@ -51,7 +51,7 @@ public class ItemStatManager : MonoBehaviour
                 break;
 
             case StatType.AttackSpeed:
-                attackSpeedBonus += option.Value;
+                attackSpeedBonus += option.Value / 100.0f;
                 break;
 
             case StatType.Critical:
