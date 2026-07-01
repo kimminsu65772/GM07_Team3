@@ -56,6 +56,8 @@ public class ItemStatManager : MonoBehaviour
 
             case StatType.Critical:
                 criticalChanceBonus += option.Value;
+                //크리티컬 확률은 100% 이상 X 
+                criticalChanceBonus = Mathf.Min(criticalChanceBonus, 100.0f);
                 break;
 
             default:

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    
+    [Header("시작 무기 ")]
+    [SerializeField] private UpgradeData startWeaponData;
 
     [Header("무기 관리 부모")]
     [SerializeField] private Transform weaponContainer;
@@ -12,7 +13,6 @@ public class PlayerWeaponManager : MonoBehaviour
 
     // 이미 장착한 무기 데이터 목록 저장
     private readonly List<UpgradeData> equippedWeaponDatas = new List<UpgradeData>();
-    private UpgradeData startWeaponData;
 
     private void Awake()
     {
@@ -54,21 +54,18 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponContainer = containerObj.transform;
     }
 
-    private void EquipStartWeapon()
+    public void EquipStartWeapon()
     {
-        CharacterDataSO selectedCharacter = CharacterSelection.SelectedCharacter;
-
-        if (selectedCharacter == null || selectedCharacter.StartItemData == null)
+        //시작 무기 없으면 종료
+        if (startWeaponData == null)
         {
             return;
         }
-
-        if (selectedCharacter.StartItemData.UpgradeType != UpgradeType.Weapon)
+        //시작 무기가 WeaponType 이 아니면 종료
+        if (startWeaponData.UpgradeType != UpgradeType.Weapon)
         {
             return;
         }
-
-        startWeaponData = selectedCharacter.StartItemData;
 
         UpgradeOption option = new UpgradeOption(startWeaponData, startWeaponData.Value);
 
@@ -141,4 +138,26 @@ public class PlayerWeaponManager : MonoBehaviour
 
         equippedWeaponDatas.Add(option.Data);
     }
+
+
+
+    private float GetDuplicateWeaponDamageBonus(UpgradeRarity rarity)
+    {
+        switch (rarity)
+        {
+            case UpgradeRarity.Common:
+                return 0.05f;   // 일반은 5% 
+
+            case UpgradeRarity.Uncommon:
+                return 0.10f;   // 휘긔는 10%
+
+            case UpgradeRarity.Rare:
+                return 0.15f;   // 레어는 15%
+
+            default:
+                return 0.05f;
+        }
+    }
+
+
 }

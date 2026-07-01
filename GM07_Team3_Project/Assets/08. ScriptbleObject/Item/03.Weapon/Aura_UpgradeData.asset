@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeType: 0
   statType: 0
   upgradeName: Aura
-  description: 
+  description: Equip Aura
   icon: {fileID: 21300000, guid: ef8e2b39b97e34a489fafda6e486d923, type: 3}
   weaponPrefab: {fileID: 8556686372785190943, guid: d26d0339afd1d724b900aac82f904388, type: 3}
   weaponAttackPrefab: {fileID: 2461115445987388139, guid: 73dd52271d4ce1141814f65f37505d10, type: 3}

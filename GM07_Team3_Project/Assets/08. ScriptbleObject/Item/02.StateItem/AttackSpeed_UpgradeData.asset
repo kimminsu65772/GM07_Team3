@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeType: 1
   statType: 2
   upgradeName: AttackSpeed_Increase
-  description: Increase  AttackSpeed +
+  description: ' Increase  AttackSpeed +'
   icon: {fileID: 21300000, guid: 3ccea4069df79f54a98f866502044578, type: 3}
   weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 0}

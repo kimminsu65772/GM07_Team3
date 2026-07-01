@@ -35,7 +35,8 @@ public class UpgradeData : ScriptableObject
     [Header("랜덤한 수치 범위")]
     [SerializeField] private float minValue;
     [SerializeField] private float maxValue;
-     
+
+
 
 
 
