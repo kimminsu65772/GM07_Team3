@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/Item.meta
+guid: 392c3a446495f674da1cf81b112cfb79
+========
 guid: a12d8c3c54a155248bffee389e47c65a
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/03. Animators/EnemyAnimation/Golem_Anim.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,0 +1,72 @@
+using System;
+using UnityEngine;
+
+public class TimeManager : SceneSingleton<TimeManager>
+{
+    [Header("Max Time")]
+    [SerializeField] private float maxTime = 1200f;
+
+    public event Action<int> OnTimeChanged;
+
+    private float elapsedTime = 0f;
+    private int lastSecond = -1;
+
+
+    private void OnEnable()
+    {
+        UIManager.Instance.onPausePressed -= ToggleTimeScale;
+        UIManager.Instance.onPausePressed += ToggleTimeScale;
+    }
+
+    private void OnDisable()
+    {
+        if (!UIManager.HasInstance) return;
+        UIManager.Instance.onPausePressed -= ToggleTimeScale;
+
+        // 일시정지 상태에서 메인 화면으로 넘어가버리면
+        // Time.timeScale이 0인 상태로 남아있어서
+        // 메인 화면에서 아무것도 작동하지 않는 문제가 발생할 수 있으므로,
+        // TimeManager가 파괴될 때 Time.timeScale을 1로 초기화하여 일시정지 상태가 유지되지 않도록 한다.
+        Time.timeScale = 1f;
+    }
+
+
+    void Update()
+    {
+        UpdateTimeChanged();
+    }
+
+    // 게임을 일시정지하거나 재개하는 기능을 수행하는 메서드
+    public void ToggleTimeScale()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+    }
+
+    // 초 단위로 시간 변경 이벤트를 발생시키는 메서드
+    private void UpdateTimeChanged()
+    {
+        elapsedTime += Time.deltaTime;
+
+        // 경과 시간이 최대 시간을 초과하면 더이상 이벤트를 발생시키지 않음.
+        if (elapsedTime > maxTime) return;
+
+        int remainingTime = Mathf.FloorToInt(maxTime - elapsedTime);
+
+        // 남은 시간을 초 단위로 계산하여 이전 초와 비교하여 변경이 있는지 확인한다.
+        if (remainingTime == lastSecond) return;
+
+        lastSecond = remainingTime;
+        OnTimeChanged?.Invoke(remainingTime);
+    }
+
+    // 다른 클래스에서 이벤트를 구독하는 메서드
+    public void SubscribeToTimeChanged(Action<int> callback)
+    {
+        OnTimeChanged += callback;
+    }
+
+    public void UnsubscribeFromTimeChanged(Action<int> callback)
+    {
+        OnTimeChanged -= callback;
+    }
+}

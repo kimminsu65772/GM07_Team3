@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
 {
     private UIRoot currentUIRoot;
     private UIPanelType currentPanel = UIPanelType.None;
+    private bool isChangingSceneFromGameOver;
 
     // 카드가 선택되면 UpgradeEventManager에 전달할 이벤트
     public Action<UpgradeOption> onUpgradeSelected;
@@ -54,6 +55,7 @@ public class UIManager : Singleton<UIManager>
     {
         Debug.Log($"UIRoot 등록: {uiRoot.name}");
         currentUIRoot = uiRoot;
+        isChangingSceneFromGameOver = false;
     }
 
     public void UnregisterUIRoot(UIRoot uiRoot)
@@ -73,7 +75,6 @@ public class UIManager : Singleton<UIManager>
     public void TogglePausePanel()
     {
         if (currentUIRoot == null) return;
-
         if (!CanControlPanel(UIPanelType.Pause)) return;
 
         onPausePressed?.Invoke();
@@ -81,6 +82,7 @@ public class UIManager : Singleton<UIManager>
         if (AlreadyOpenPanel(UIPanelType.Pause))
         {
             currentUIRoot.PauseUIController.ClosePausePanel();
+            currentUIRoot.InventoryUIController.CloseInventoryPanel();
             currentPanel = UIPanelType.None;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -88,6 +90,7 @@ public class UIManager : Singleton<UIManager>
         else
         {
             currentUIRoot.PauseUIController.OpenPausePanel();
+            currentUIRoot.InventoryUIController.OpenInventoryPanel();
             currentPanel = UIPanelType.Pause;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -104,7 +107,9 @@ public class UIManager : Singleton<UIManager>
                 // UI -> 게임 매니저 -> TimeManager 순으로 요청을 전달할지
                 // UI -> TimeManager 순으로 요청을 전달할지 고민 필요.
                 Debug.Log("게임 재개 요청 처리");
-                TimeManagerTest.Instance.ToggleTimeScale();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                TimeManager.Instance.ToggleTimeScale();
                 break;
             case PauseMenuType.Quit:
                 // 메인 메뉴로 나가기 요청 처리
@@ -127,7 +132,7 @@ public class UIManager : Singleton<UIManager>
         Debug.Log("업그레이드 뽑기 이벤트 발생");
         if (currentUIRoot == null) return;
         currentPanel = UIPanelType.LevelUp;
-        TimeManagerTest.Instance.ToggleTimeScale();
+        TimeManager.Instance.ToggleTimeScale();
         currentUIRoot.UpgradeUIController.ShowLevelUpPanel(upgradeCards);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -138,7 +143,7 @@ public class UIManager : Singleton<UIManager>
         Debug.Log($"업그레이드 선택 이벤트 발생: {UpgradeData.Data.UpgradeName}");
         currentPanel = UIPanelType.None;
         onUpgradeSelected?.Invoke(UpgradeData);
-        TimeManagerTest.Instance.ToggleTimeScale();
+        TimeManager.Instance.ToggleTimeScale();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -161,5 +166,42 @@ public class UIManager : Singleton<UIManager>
     private bool AlreadyOpenPanel(UIPanelType panelType)
     {
         return currentPanel == panelType;
+    }
+
+    ////////////////////////////
+    /// Game Over UI 관련 메서드
+    ////////////////////////////
+    
+    public void HandleGameOver()
+    {
+        Debug.Log("게임 오버 이벤트 발생");
+        if (currentUIRoot == null) return;
+        // 게임오버 카메라 활성화
+
+        if (isChangingSceneFromGameOver || currentPanel == UIPanelType.GameOver) return;
+        TimeManager.Instance.ToggleTimeScale();
+        currentPanel = UIPanelType.GameOver;
+        currentUIRoot.GameOverController.ShowGameOver();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void HandleGameOverMenuRequest(GameOverMenuType gameOverMenuType)
+    {
+        Debug.Log($"Game Over menu request: {gameOverMenuType}");
+
+        isChangingSceneFromGameOver = true;
+        TimeManager.Instance.ToggleTimeScale();
+        currentPanel = UIPanelType.None;
+
+        switch (gameOverMenuType)
+        {
+            case GameOverMenuType.Retry:
+                GameSceneManager.Instance.ReloadScene();
+                break;
+            case GameOverMenuType.MainMenu:
+                GameSceneManager.Instance.LoadScene(SceneType.MainMenu);
+                break;
+        }
     }
 }

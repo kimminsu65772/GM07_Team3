@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -84,10 +84,15 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void ActiveMenuButton()
     {
+        transform.DOKill();
+        rectTransform.DOKill();
+        buttonText.DOKill();
+
         Sequence sequence = DOTween.Sequence();
         sequence.Join(buttonText.DOFade(1f, 0.25f));
         sequence.Join(rectTransform.DOAnchorPosY(originalPosition.y, 0.25f).SetEase(Ease.OutCubic));
         sequence.Join(transform.DOScale(originalScale, 0.25f).SetEase(Ease.OutBack));
+        sequence.SetUpdate(true);
     }
 
     public void DeactiveMenuButton()
@@ -95,8 +100,10 @@ public class MenuUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         IsClickable = false;
         transform.DOKill();
         rectTransform.DOKill();
+        buttonText.DOKill();
         rectTransform.anchoredPosition = new Vector2(originalPosition.x, originalPosition.y + startYOffset);
         transform.localScale = Vector3.zero;
+        buttonText.color = originalTextColor;
     }
 
     // 시작 애니메이션 재생 후 버튼이 클릭 가능한 상태로 전환하기 위해 따로 Setter 구현

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0fb5afc2dca6141a00241419b14ec2, type: 3}
+  m_Name: Troll_Melee_Data
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyPrefab: {fileID: 7735601128325346297, guid: e136fb899dcc6e24ab8869c3d7abcd9b, type: 3}
+  maxHp: 250
+  attackPower: 30
+  defensePower: 10
+  attackSpeed: 1
+  attackRange: 10
+  bulletPrefab: {fileID: 0}
+  experience: 30
+  moveSpeed: 3

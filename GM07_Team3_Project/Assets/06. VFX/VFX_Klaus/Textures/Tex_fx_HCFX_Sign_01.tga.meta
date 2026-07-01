@@ -1,13 +1,17 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/06. VFX/Item/Hovl Studio/Magic effects pack/Textures/Circle2.png.meta
+guid: 88e13fa51a561f246974a4b04988fa46
+========
 guid: 391706237618ab4499272ac06bdba58c
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Textures/Tex_fx_HCFX_Sign_01.tga.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 13
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
-    sRGBTexture: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -37,9 +41,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -51,7 +55,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
-  alphaUsage: 1
+  alphaUsage: 2
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 0
@@ -69,7 +73,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -94,7 +98,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -107,7 +111,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -140,8 +144,8 @@ TextureImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 245262
-  packageName: Hyper Casual FX Pack Vol.2
-  packageVersion: 1.2
-  assetPath: Assets/VFX_Klaus/Textures/Tex_fx_HCFX_Sign_01.tga
-  uploadId: 753641
+  productId: 247933
+  packageName: Magic Effects FREE
+  packageVersion: 1.6
+  assetPath: Assets/Hovl Studio/Magic effects pack/Textures/Circle2.png
+  uploadId: 762116

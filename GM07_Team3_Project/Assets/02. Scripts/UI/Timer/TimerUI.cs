@@ -12,7 +12,7 @@ public class TimerUI : MonoBehaviour
 
     private void Start()
     {
-        TimeManagerTest.Instance.SubscribeToTimeChanged(UpdateTimerUI);
+        TimeManager.Instance.SubscribeToTimeChanged(UpdateTimerUI);
     }
 
     private void UpdateTimerUI(int remainingTime)
@@ -27,7 +27,7 @@ public class TimerUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!TimeManagerTest.HasInstance) return;
-        TimeManagerTest.Instance.UnsubscribeFromTimeChanged(UpdateTimerUI);
+        if (!TimeManager.HasInstance) return;
+        TimeManager.Instance.UnsubscribeFromTimeChanged(UpdateTimerUI);
     }
 }

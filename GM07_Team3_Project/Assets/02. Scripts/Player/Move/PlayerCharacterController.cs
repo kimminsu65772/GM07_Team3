@@ -17,9 +17,10 @@ public sealed class PlayerCharacterController : MonoBehaviour
     [Header("참조")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private GroundChecker groundChecker;
+    [SerializeField] private PlayerStatController  playerStatController;
 
     [Header("일반 이동")]
-    [SerializeField] private float moveSpeed = 7f;
+    public float moveSpeed => playerStatController.GetStat(StatType.MoveSpeed);
     [SerializeField] private float rotationSpeed = 720f;
 
     [Header("점프와 중력")]
@@ -53,6 +54,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
     public bool IsGrounded { get; private set; }
 
     public Vector3 Velocity { get; private set; }
+
+    public bool JumpedThisFrame;
 
     public PlayerSurfaceState CurrentSurfaceState => currentSurfaceState;
     private float MaxWalkSlopeAngle => characterController.slopeLimit;
@@ -157,6 +160,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
 
     private void TryJump()
     {
+        JumpedThisFrame = false;
+
         if (!IsGrounded || !inputManager.GetJumpInputDown())
         {
             return;
@@ -171,6 +176,8 @@ public sealed class PlayerCharacterController : MonoBehaviour
         IsGrounded = false;
 
         steepSlideVelocity = Vector3.zero;
+
+        JumpedThisFrame = true;
     }
 
     private Vector3 CalculateVelocity(Vector3 moveDirection)

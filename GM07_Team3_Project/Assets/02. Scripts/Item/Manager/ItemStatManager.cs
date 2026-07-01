@@ -6,7 +6,9 @@ public class ItemStatManager : MonoBehaviour
     [SerializeField] private float damageBonus = 0.0f;
     [SerializeField] private float attackSpeedBonus = 0.0f;
     [SerializeField] private float criticalChanceBonus = 0.0f;
+    [SerializeField] private float damagePercentBonus = 0.0f;
 
+    public float DamagePercentBonus => damagePercentBonus;
     public float DamageBonus => damageBonus;
     public float AttackSpeedBonus => attackSpeedBonus;
     public float CriticalChanceBonus => criticalChanceBonus;
@@ -60,5 +62,11 @@ public class ItemStatManager : MonoBehaviour
                 // MoveSpeed, MaxHp, Defense는 Player 담당 여기서 무시
                 return;
         }
+    }
+
+    //동일한 무기를 선택했을 때 주어지는 공격력 보너스
+    public void AddDamagePercentBonus(float amount)
+    {
+        damagePercentBonus += amount;
     }
 }

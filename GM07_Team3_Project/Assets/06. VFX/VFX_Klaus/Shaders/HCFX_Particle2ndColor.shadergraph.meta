@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GM07_Team3_Project/Assets/04. Prefabs/Player/Materials_Shaders_Textures/RGBRecolor.shadergraph.meta
+guid: f8ed4ed83e4ad164eb963175ef0cb10e
+========
 guid: 4e93f15692fcd6a4daf27cce6d084de0
+>>>>>>>> enemmy:GM07_Team3_Project/Assets/06. VFX/VFX_Klaus/Shaders/HCFX_Particle2ndColor.shadergraph.meta
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,8 +14,8 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
 AssetOrigin:
   serializedVersion: 1
-  productId: 245262
-  packageName: Hyper Casual FX Pack Vol.2
-  packageVersion: 1.2
-  assetPath: Assets/VFX_Klaus/Shaders/HCFX_Particle2ndColor.shadergraph
-  uploadId: 753641
+  productId: 288957
+  packageName: Low-Poly Medieval Fantasy Heroes - Basic Pack
+  packageVersion: 1.2.1
+  assetPath: Assets/PolysplitGames/LowPolyMedievalFantasyHeroes/Materials_Shaders_Textures/RGBRecolor.shadergraph
+  uploadId: 710739

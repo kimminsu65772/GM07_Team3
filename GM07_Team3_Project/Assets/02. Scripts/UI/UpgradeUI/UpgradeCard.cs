@@ -14,6 +14,12 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private Image[] cardFrameImages;
+
+    [Header("Rarity Frame Colors")]
+    [SerializeField] private Color commonFrameColor = new Color(0.18f, 0.58f, 1f);
+    [SerializeField] private Color uncommonFrameColor = new Color(0.25f, 0.95f, 0.55f);
+    [SerializeField] private Color rareFrameColor = new Color(1f, 0.75f, 0.18f);
 
     // 버튼에 마우스가 올라갔을 때의 스케일을 정의하는 변수
     [Header("Animation Scale Setting")]
@@ -85,6 +91,34 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         titleText.text = UpgradeData.Data.UpgradeName;
         iconImage.sprite = UpgradeData.Data.Icon;
         descriptionText.text = UpgradeData.Data.Description + $" {UpgradeData.Value:F1}";
+        SetCardFrameColor(UpgradeData.Rarity);
+    }
+
+    private void SetCardFrameColor(UpgradeRarity rarity)
+    {
+        if (cardFrameImages == null) return;
+
+        Color frameColor = GetFrameColor(rarity);
+
+        for (int i = 0; i < cardFrameImages.Length; i++)
+        {
+            if (cardFrameImages[i] == null) continue;
+
+            cardFrameImages[i].color = frameColor;
+        }
+    }
+
+    private Color GetFrameColor(UpgradeRarity rarity)
+    {
+        switch (rarity)
+        {
+            case UpgradeRarity.Uncommon:
+                return uncommonFrameColor;
+            case UpgradeRarity.Rare:
+                return rareFrameColor;
+            default:
+                return commonFrameColor;
+        }
     }
 
     public Tween CardOpen()
@@ -101,6 +135,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         sequence.Join(rectTransform.DORotateQuaternion(originalRotation, 0.35f).SetEase(Ease.OutCubic));
         sequence.Join(rectTransform.DOScale(originalScale, 0.35f).SetEase(Ease.OutBack));
         sequence.SetUpdate(true);
+
         return sequence;
     }
 

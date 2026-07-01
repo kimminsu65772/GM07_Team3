@@ -8,9 +8,9 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private PlayerStatSO playerStatData;
     [SerializeField] private PlayerLevelSO playerLevelData;
 
-    [Header("시작 무기 설정")]
-    [SerializeField] private WeaponBase weaponBase;
-    [SerializeField] private UpgradeData startWeapon;
+    //[Header("시작 무기 설정")]
+    //[SerializeField] private WeaponBase weaponBase;
+    //[SerializeField] private UpgradeData startWeapon;
 
     [Header("런타임 스탯 확인용")]
     [SerializeField] private List<RuntimeStatEntry> runtimeStats = new();
@@ -18,48 +18,55 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     [SerializeField] private int runtimeExperience;
     [SerializeField] private float currentHealth;
 
-    
+    [SerializeField]
+    private Dictionary<UpgradeData, int> itemList = new();
+    public IReadOnlyDictionary<UpgradeData, int> ItemList => itemList;
+    public event Action<IReadOnlyDictionary<UpgradeData, int>> OnItemListChanged;
 
     public float CurrentHealth => currentHealth;
-
     public float MaxHealth => GetStat(StatType.MaxHp);
+    public bool IsDead { get; private set; }
 
     private PlayerStats playerStats;
     private PlayerLevel playerLevel;
+
+
 
     public event Action<StatType, float, float> OnStateChanged;
     public event Action<float, float> OnHealthChanged;
     public event Action<int> OnLevelChanged;
     public event Action<int, int> OnExperienceChanged;
+    public event Action OnDied;
 
-    
 
-    private void Awake()
+    public void Initialize(PlayerStatSO statData)
     {
-        if (playerStatData == null)
+        if (statData == null)
         {
-            Debug.LogError($"{name}: PlayerStatSO가 등록되지 않았습니다.", this);
-            enabled = false;
+            Debug.LogError($"{name}: 초기화할 PlayerStatSO가 없습니다.", this);
+
             return;
         }
+
         if (playerLevelData == null)
         {
-            Debug.LogError($"{name}: playerLevelData가 등록되지 않았습니다.", this);
-            enabled = false;
+            Debug.LogError($"{name}: PlayerLevelSO가 등록되지 않았습니다.", this);
+
             return;
         }
+
+        playerStatData = statData;
 
         playerStats = new PlayerStats(playerStatData);
         playerLevel = new PlayerLevel(playerLevelData);
-        currentHealth = MaxHealth;
 
-        UpgradeOption option = new UpgradeOption(startWeapon, startWeapon.Value);
-        weaponBase.Init(option, transform);
+        currentHealth = MaxHealth;
+        IsDead = false;
+
+        itemList.Clear();
 
         RuntimeStat();
         UpdateRuntimeLevel();
-
-        
     }
 
     private void OnEnable()
@@ -104,6 +111,19 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
 
         StatType statType = upgradeOption.Data.StatType;
 
+        UpgradeData itemData = upgradeOption.Data;
+
+        if (itemList.ContainsKey(itemData))
+        {
+            itemList[itemData]++;
+        }
+        else
+        {
+            itemList.Add(itemData, 1);
+        }
+
+        OnItemListChanged?.Invoke(itemList);
+
         if (statType == StatType.None)
         {
             Debug.LogWarning($"{name}: UpgradeOption의 StatType이 None입니다. 스탯 변경이 적용되지 않습니다.", this);
@@ -115,6 +135,11 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
     public void AddItemStat(StatType statType, float amount)
     {
         if (!CheckPlayerStats())
+        {
+            return;
+        }
+
+        if (statType != StatType.MaxHp && statType != StatType.Defense && statType != StatType.MoveSpeed)
         {
             return;
         }
@@ -271,9 +296,14 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
             return;
         }
 
+        float defense = GetStat(StatType.Defense);
+
+        float finalDamage = Mathf.Max(1f, damage - defense);
+
+
         float maxHp = GetStat(StatType.MaxHp);
 
-        float newHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHp);
+        float newHealth = Mathf.Clamp(currentHealth - finalDamage, 0f, maxHp);
 
         if (Mathf.Approximately(currentHealth, newHealth))
         {
@@ -283,10 +313,16 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
     }
+
     public void Heal(float amount)
     {
-        if (amount <= 0f)
+        if (IsDead || amount <= 0f)
         {
             return;
         }
@@ -303,6 +339,18 @@ public sealed class PlayerStatController : MonoBehaviour, IDamageable
         currentHealth = newHealth;
 
         OnHealthChanged?.Invoke(currentHealth, maxHp);
+    }
+    private void Die()
+    {
+        if (IsDead)
+        {
+            return;
+        }
+
+        IsDead = true;
+
+        OnDied?.Invoke();
+        UIManager.Instance.HandleGameOver();
     }
 }
 

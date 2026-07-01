@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b341341df42a7ab46931026240ca167f, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDatabaseSO
+  sounds:
+  - soundId: 0
+    clip: {fileID: 8300000, guid: 087a7500a50dcd04899959cd62466a2d, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 1
+    clip: {fileID: 8300000, guid: 11e7c0b39b333fc4a8ac466269a5f355, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 2
+    clip: {fileID: 8300000, guid: 6e3c49c03a0b3c64aaca95ea66dafff6, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 3
+    clip: {fileID: 8300000, guid: 00d2716db4d030f44ad5c6b105c87bc6, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 4
+    clip: {fileID: 8300000, guid: a56be9725cec26949a1e90662f38f653, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 5
+    clip: {fileID: 8300000, guid: 8544bf4b625a42449a0f9610b4576b40, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 6
+    clip: {fileID: 8300000, guid: a4c198e28e9c19643a41087e4497a217, type: 3}
+    volume: 0.5
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 3
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 26
+    clip: {fileID: 8300000, guid: 0d62ecf580ccace48ae6ce505783285f, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    loop: 0
+    minDistance: 1
+    maxDistance: 20
+    maxSimultaneous: 10
+    cooldown: 0.3
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 27
+    clip: {fileID: 8300000, guid: 966d8fe250c61c543a69b0ed04f9b5ec, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    loop: 0
+    minDistance: 1
+    maxDistance: 20
+    maxSimultaneous: 10
+    cooldown: 0.3
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 25
+    clip: {fileID: 8300000, guid: f9cbf56f857aee8408fa37cd110a721b, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    loop: 0
+    minDistance: 1
+    maxDistance: 20
+    maxSimultaneous: 10
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 50
+    clip: {fileID: 8300000, guid: e183fd47bcf18be4a9c192e708f82644, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    loop: 0
+    minDistance: 1
+    maxDistance: 20
+    maxSimultaneous: 10
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 51
+    clip: {fileID: 8300000, guid: 217a2236cb85ce947882694ad6c0a655, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    loop: 0
+    minDistance: 1
+    maxDistance: 20
+    maxSimultaneous: 10
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 75
+    clip: {fileID: 8300000, guid: d0b8f5acf5070f348955d080d8daaa77, type: 3}
+    volume: 1
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 100
+    clip: {fileID: 8300000, guid: 957e359672482cf4c912f30c70127f00, type: 3}
+    volume: 0.2
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: -5572774162660384723, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 101
+    clip: {fileID: 8300000, guid: 6737ace86b285b243b78b59aa7594a20, type: 3}
+    volume: 0.2
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: 4662057809825391336, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 102
+    clip: {fileID: 8300000, guid: 6737ace86b285b243b78b59aa7594a20, type: 3}
+    volume: 0.2
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: 4662057809825391336, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}
+  - soundId: 103
+    clip: {fileID: 8300000, guid: 6737ace86b285b243b78b59aa7594a20, type: 3}
+    volume: 0.2
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    loop: 0
+    minDistance: 0
+    maxDistance: 0
+    maxSimultaneous: 1
+    cooldown: 0
+    mixerGroup: {fileID: 4662057809825391336, guid: d4b5e10b5a3b91242ac572558d6be26e, type: 2}

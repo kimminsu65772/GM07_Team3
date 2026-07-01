@@ -2,8 +2,9 @@ using UnityEngine;
 
 /*
  * SceneSingleton
- * Use this for managers that should behave like a singleton only inside the
- * current scene. Unlike Singleton<T>, this class does not use DontDestroyOnLoad.
+ * SceneSingleton 클래스는 특정 씬에서만 존재해야 하는 싱글톤 객체를 구현하기 위한 제네릭 클래스입니다.
+ * 일반 싱글톤 구조를 적용하면 씬을 이동하는 과정에서 설정이 초기화되는 문제가 발생할 수 있으므로,
+ * DontDestroyOnLoad를 사용하지 않고 씬 전환 시 자동으로 파괴되는 구조로 구현했습니다.
  */
 public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
