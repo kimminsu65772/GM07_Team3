@@ -15,6 +15,13 @@ MonoBehaviour:
   upgrades:
   - {fileID: 11400000, guid: 3ca5fc011388c0041879fc7ef9d2054c, type: 2}
   - {fileID: 11400000, guid: 145df92147c2a4641b703ac78c063305, type: 2}
+  - {fileID: 11400000, guid: 8ade3d4995c2ba842a31ce2f1edc4923, type: 2}
   - {fileID: 11400000, guid: 054ea8dab1958f740aeac517bf077abe, type: 2}
-  - {fileID: 11400000, guid: 1a0850a8047e8cf4aa9408a371ba689e, type: 2}
+  - {fileID: 11400000, guid: 8bcd53b43fcb12649ad8e8de7be748e6, type: 2}
+  - {fileID: 11400000, guid: c1fbb92da0c865441ba908ec4182f4c7, type: 2}
   - {fileID: 11400000, guid: 6e7df509cf68da044a173353d0924dcb, type: 2}
+  - {fileID: 11400000, guid: 95825e01fb5d83a4fbc56d98ebebb1b8, type: 2}
+  - {fileID: 11400000, guid: 1a0850a8047e8cf4aa9408a371ba689e, type: 2}
+  commonChance: 70
+  uncommonChance: 25
+  rareChance: 5

@@ -37,7 +37,7 @@ public class UpgradeCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private RectTransform rectTransform;
     private Vector2 originalPosition;
     private Quaternion originalRotation;
-    private Vector2 originalScale;
+    private Vector3 originalScale;
 
     private bool isClickable;
 

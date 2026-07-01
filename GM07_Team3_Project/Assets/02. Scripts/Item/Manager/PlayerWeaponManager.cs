@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    [Header("시작 무기 ")]
-    [SerializeField] private UpgradeData startWeaponData;
-
+    
     [Header("무기 관리 부모")]
     [SerializeField] private Transform weaponContainer;
 
+
+    private UpgradeData startWeaponData;
     private readonly List<WeaponBase> equippedWeapons = new List<WeaponBase>();
 
     // 이미 장착한 무기 데이터 목록 저장
@@ -54,10 +54,12 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponContainer = containerObj.transform;
     }
 
-    public void EquipStartWeapon()
+    private void EquipStartWeapon()
     {
+        CharacterDataSO characterData = CharacterSelection.SelectedCharacter;
+        startWeaponData = characterData?.StartItemData;
         //시작 무기 없으면 종료
-        if (startWeaponData == null)
+        if (characterData == null || startWeaponData == null)
         {
             return;
         }

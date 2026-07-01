@@ -76,7 +76,7 @@ public class UIManager : Singleton<UIManager>
         if (currentUIRoot == null) return;
         if (!CanControlPanel(UIPanelType.Pause)) return;
 
-        onPausePressed?.Invoke();
+        TimeManager.Instance.ToggleTimeScale();
 
         if (AlreadyOpenPanel(UIPanelType.Pause))
         {
@@ -107,6 +107,7 @@ public class UIManager : Singleton<UIManager>
                 // UI -> TimeManager 순으로 요청을 전달할지 고민 필요.
                 Debug.Log("게임 재개 요청 처리");
                 currentUIRoot.InventoryUIController.CloseInventoryPanel();
+                currentPanel = UIPanelType.None;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 TimeManager.Instance.ToggleTimeScale();

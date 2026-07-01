@@ -4,29 +4,15 @@ using UnityEngine;
 public class TimeManager : SceneSingleton<TimeManager>
 {
     [Header("Max Time")]
-    [SerializeField] private float maxTime = 1200f;
+    [SerializeField] private float maxTime = 600f;
 
     public event Action<int> OnTimeChanged;
 
     private float elapsedTime = 0f;
     private int lastSecond = -1;
 
-
-    private void OnEnable()
-    {
-        UIManager.Instance.onPausePressed -= ToggleTimeScale;
-        UIManager.Instance.onPausePressed += ToggleTimeScale;
-    }
-
     private void OnDisable()
     {
-        if (!UIManager.HasInstance) return;
-        UIManager.Instance.onPausePressed -= ToggleTimeScale;
-
-        // 일시정지 상태에서 메인 화면으로 넘어가버리면
-        // Time.timeScale이 0인 상태로 남아있어서
-        // 메인 화면에서 아무것도 작동하지 않는 문제가 발생할 수 있으므로,
-        // TimeManager가 파괴될 때 Time.timeScale을 1로 초기화하여 일시정지 상태가 유지되지 않도록 한다.
         Time.timeScale = 1f;
     }
 

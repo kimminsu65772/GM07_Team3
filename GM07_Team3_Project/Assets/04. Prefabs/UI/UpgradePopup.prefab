@@ -601,8 +601,8 @@ RectTransform:
   m_Children:
   - {fileID: 6536672963146205498}
   - {fileID: 2690328068724400669}
-  - {fileID: 182199247392727228}
   - {fileID: 1512215479037309299}
+  - {fileID: 182199247392727228}
   - {fileID: 2049433744245557726}
   m_Father: {fileID: 410185359114375073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -733,6 +733,10 @@ MonoBehaviour:
   titleText: {fileID: 2913078030521035449}
   iconImage: {fileID: 5506843467105716771}
   descriptionText: {fileID: 8743851898606074485}
+  cardFrameImages: []
+  commonFrameColor: {r: 0.18, g: 0.58, b: 1, a: 1}
+  uncommonFrameColor: {r: 0.25, g: 0.95, b: 0.55, a: 1}
+  rareFrameColor: {r: 1, g: 0.75, b: 0.18, a: 1}
   hoverScale: 1.2
   pressScale: 0.9
   startYOffset: -80
@@ -1059,8 +1063,8 @@ RectTransform:
   m_Children:
   - {fileID: 8878966889709588401}
   - {fileID: 5326297911705014607}
-  - {fileID: 4048368938328984261}
   - {fileID: 4472906715871881946}
+  - {fileID: 4048368938328984261}
   - {fileID: 2181414976753210801}
   m_Father: {fileID: 410185359114375073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1191,6 +1195,10 @@ MonoBehaviour:
   titleText: {fileID: 401351863487976497}
   iconImage: {fileID: 189039522420733570}
   descriptionText: {fileID: 2936069242474504656}
+  cardFrameImages: []
+  commonFrameColor: {r: 0.18, g: 0.58, b: 1, a: 1}
+  uncommonFrameColor: {r: 0.25, g: 0.95, b: 0.55, a: 1}
+  rareFrameColor: {r: 1, g: 0.75, b: 0.18, a: 1}
   hoverScale: 1.2
   pressScale: 0.9
   startYOffset: -80
@@ -1654,8 +1662,8 @@ RectTransform:
   m_Children:
   - {fileID: 8922510293755303577}
   - {fileID: 8090783820494583499}
-  - {fileID: 3647375364684626023}
   - {fileID: 9010988989856498501}
+  - {fileID: 3647375364684626023}
   - {fileID: 7637086639409727091}
   m_Father: {fileID: 410185359114375073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1786,6 +1794,10 @@ MonoBehaviour:
   titleText: {fileID: 1002425814284804013}
   iconImage: {fileID: 7970785342816570868}
   descriptionText: {fileID: 2906151517974554511}
+  cardFrameImages: []
+  commonFrameColor: {r: 0.18, g: 0.58, b: 1, a: 1}
+  uncommonFrameColor: {r: 0.25, g: 0.95, b: 0.55, a: 1}
+  rareFrameColor: {r: 1, g: 0.75, b: 0.18, a: 1}
   hoverScale: 1.2
   pressScale: 0.9
   startYOffset: -80
@@ -2455,9 +2467,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8703411532121940839}
     m_Modifications:
+    - target: {fileID: 561233665114582930, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1916478826572264163, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3141405640444771635, guid: c59410911a4fcab47a1b533045a02537, type: 3}
       propertyPath: m_Name
       value: FX_UI_SquareLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573721465605246815, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227724585146304696, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233249138946939028, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5518395356093091798, guid: c59410911a4fcab47a1b533045a02537, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2497,6 +2529,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5518395356093091798, guid: c59410911a4fcab47a1b533045a02537, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996809274567126131, guid: c59410911a4fcab47a1b533045a02537, type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
