@@ -53302,7 +53302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0702a88ddf39db748825b57837195c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
-  startWeaponData: {fileID: 11400000, guid: 145df92147c2a4641b703ac78c063305, type: 2}
+  startWeaponData: {fileID: 11400000, guid: 3ca5fc011388c0041879fc7ef9d2054c, type: 2}
   weaponContainer: {fileID: 0}
 --- !u!1001 &1531409533
 PrefabInstance:
