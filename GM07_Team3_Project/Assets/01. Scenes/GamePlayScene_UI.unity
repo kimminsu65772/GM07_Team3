@@ -40361,6 +40361,33 @@ MonoBehaviour:
   - enemyDatas:
     - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
     spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
+  - enemyDatas:
+    - {fileID: 11400000, guid: 8dc8848a4f9c15e4c92717c090676df6, type: 2}
+    spawnInterval: 1
   spawnRadius: 15
   spawnInterval: 1
   waveDuration: 30
@@ -76381,7 +76408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0702a88ddf39db748825b57837195c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
-  startWeaponData: {fileID: 11400000, guid: 3ca5fc011388c0041879fc7ef9d2054c, type: 2}
   weaponContainer: {fileID: 9044328522409972918}
 --- !u!114 &9044328522409972936
 MonoBehaviour:
