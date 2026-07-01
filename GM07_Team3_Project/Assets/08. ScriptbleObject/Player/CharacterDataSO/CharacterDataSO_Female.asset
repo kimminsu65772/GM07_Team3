@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CharacterDataSO_Female
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
   characterName: Female
-  icon: {fileID: 0}
-  description: "\uC5EC\uC131 \uAE30\uBCF8 \uCE90\uB9AD"
+  icon: {fileID: 21300000, guid: d4f9c9047cdd3e54d852dfc5e259f880, type: 3}
+  description: Excels at evading enemy attacks with exceptional movement speed.
   modelPrefab: {fileID: 2350631553604802623, guid: 09a2ece1794b2754c83fb43ff03dfe90, type: 3}
   playerStatData: {fileID: 11400000, guid: f33d03dcd0ce120429efc2fdbfc6f269, type: 2}
+  startItemData: {fileID: 11400000, guid: d4ccc62f509918246af1d540325b152f, type: 2}

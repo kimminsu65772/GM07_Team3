@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -35,7 +34,7 @@ public class UIManager : Singleton<UIManager>
         switch(mainMenuType)
         {
             case MainMenuType.GameStart:
-                GameSceneManager.Instance.LoadScene(SceneType.GameScene);
+                GameSceneManager.Instance.LoadScene(SceneType.SelectCharacter);
                 break;
             case MainMenuType.Option:
                 // 옵션 메뉴 요청 처리
@@ -200,6 +199,27 @@ public class UIManager : Singleton<UIManager>
                 GameSceneManager.Instance.ReloadScene();
                 break;
             case GameOverMenuType.MainMenu:
+                GameSceneManager.Instance.LoadScene(SceneType.MainMenu);
+                break;
+        }
+    }
+
+    ////////////////////////////
+    /// 캐릭터 선택 UI 관련 메서드
+    ////////////////////////////
+    
+    public void HandleCharacterSelectMenuRequest(CharacterSelectMenuType characterSelectMenuType)
+    {
+        Debug.Log($"캐릭터 선택 메뉴 요청: {characterSelectMenuType}");
+        switch(characterSelectMenuType)
+        {
+            case CharacterSelectMenuType.Select:
+                // 캐릭터 선택 완료 요청 처리
+                GameSceneManager.Instance.LoadScene(SceneType.GameScene);
+                break;
+            case CharacterSelectMenuType.Back:
+                // 메인 메뉴로 돌아가기 요청 처리
+                CharacterSelection.Clear();
                 GameSceneManager.Instance.LoadScene(SceneType.MainMenu);
                 break;
         }

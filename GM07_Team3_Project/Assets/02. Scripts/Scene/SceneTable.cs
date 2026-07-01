@@ -12,8 +12,8 @@ public static class SceneTable
     private static readonly Dictionary<SceneType, string> sceneTable = new Dictionary<SceneType, string>()
     {
         {SceneType.MainMenu, "MainManuScene" },
+        {SceneType.SelectCharacter, "PlayerSelectScene" },
         {SceneType.GameScene, "GamePlayScene" },
-        {SceneType.GameOver, "GameOverSceneTest"}
     };
 
     // 씬 타입에 매핑되는 씬 이름을 반환하는 메서드

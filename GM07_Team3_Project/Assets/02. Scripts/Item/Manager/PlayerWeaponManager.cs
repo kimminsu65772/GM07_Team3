@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-    [Header("시작 무기 ")]
-    [SerializeField] private UpgradeData startWeaponData;
+    
 
     [Header("무기 관리 부모")]
     [SerializeField] private Transform weaponContainer;
@@ -13,6 +12,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     // 이미 장착한 무기 데이터 목록 저장
     private readonly List<UpgradeData> equippedWeaponDatas = new List<UpgradeData>();
+    private UpgradeData startWeaponData;
 
     private void Awake()
     {
@@ -56,16 +56,19 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void EquipStartWeapon()
     {
-        //시작 무기 없으면 종료
-        if (startWeaponData == null)
+        CharacterDataSO selectedCharacter = CharacterSelection.SelectedCharacter;
+
+        if (selectedCharacter == null || selectedCharacter.StartItemData == null)
         {
             return;
         }
-        //시작 무기가 WeaponType 이 아니면 종료
-        if (startWeaponData.UpgradeType != UpgradeType.Weapon)
+
+        if (selectedCharacter.StartItemData.UpgradeType != UpgradeType.Weapon)
         {
             return;
         }
+
+        startWeaponData = selectedCharacter.StartItemData;
 
         UpgradeOption option = new UpgradeOption(startWeaponData, startWeaponData.Value);
 

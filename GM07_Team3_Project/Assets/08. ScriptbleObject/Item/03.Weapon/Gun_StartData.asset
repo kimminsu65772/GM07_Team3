@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8885dd0b15a1e3488efab35da8980dc, type: 3}
-  m_Name: Gun_UpgradeData
+  m_Name: Gun_StartData
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeType: 0
   statType: 4
-  upgradeName: "\uCD1D"
-  description: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC5D0\uAC8C \uC6D0\uAC70\uB9AC
-    \uACF5\uACA9\uC744 \uAC00\uD55C\uB2E4."
+  upgradeName: Gun
+  description: Performs a ranged attack against the nearest enemy within range.
   icon: {fileID: 21300000, guid: 991eea5549b553245bc82b5398a82c08, type: 3}
-  weaponPrefab: {fileID: 5830059767741072443, guid: 4552e93c77b002049a51d4277f2a1ed7, type: 3}
+  weaponPrefab: {fileID: 0}
   weaponAttackPrefab: {fileID: 7861960451472472443, guid: 5b1ca60f7f4700a488a8c7d6f6b93e5f, type: 3}
-  value: 100
-  useRandomValue: 1
-  minValue: 1
-  maxValue: 5
+  value: 50
+  useRandomValue: 0
+  minValue: 0
+  maxValue: 0

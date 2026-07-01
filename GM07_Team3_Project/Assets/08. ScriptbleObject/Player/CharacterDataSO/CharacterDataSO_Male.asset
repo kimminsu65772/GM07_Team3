@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CharacterDataSO_Male
   m_EditorClassIdentifier: Assembly-CSharp::CharacterDataSO
   characterName: Male
-  icon: {fileID: 0}
-  description: "\uB0A8\uC131 \uAE30\uBCF8 \uCE90\uB9AD"
+  icon: {fileID: 21300000, guid: e829b4b04ea70ad45869d4e6142c3b3f, type: 3}
+  description: Boasts high health, allowing for a safe and durable playstyle.
   modelPrefab: {fileID: 6840196566743135184, guid: d88c487124c4dcb428c1b4fe0b3e3052, type: 3}
   playerStatData: {fileID: 11400000, guid: e2482d4d53e6457408f40d023ec42fcd, type: 2}
+  startItemData: {fileID: 11400000, guid: 25c45903216a3b641812641daf895480, type: 2}

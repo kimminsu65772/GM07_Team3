@@ -19,3 +19,10 @@ public enum GameOverMenuType
     Retry,
     MainMenu
 }
+
+public enum CharacterSelectMenuType
+{
+    None = -1,
+    Select,
+    Back
+}

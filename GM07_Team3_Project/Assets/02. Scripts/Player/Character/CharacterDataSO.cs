@@ -16,9 +16,13 @@ public sealed class CharacterDataSO : ScriptableObject
     [Header("기본 스탯")]
     [SerializeField] private PlayerStatSO playerStatData;
 
+    [Header("시작 아이템")]
+    [SerializeField] private UpgradeData startItemData;
+
     public string CharacterName => characterName;
     public Sprite Icon => icon;
     public string Description => description;
     public GameObject ModelPrefab => modelPrefab;
     public PlayerStatSO PlayerStatData => playerStatData;
+    public UpgradeData StartItemData => startItemData;
 }
